@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title%}{% endblock %} | MathSend</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='icons/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='icons/site.webmanifest') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icons/favicon.ico') }}">
+    <meta name="msapplication-TileColor" content="#ff2b00">
+    <meta name="msapplication-config" content="{{ url_for('static', filename='icons/browserconfig.xml') }}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <meta name="theme-color" content="#020202">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Midataur/mathsender/master/github-header.png" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" media="screen" charset="utf-8" />
+ <link href="{{ url_for('static', filename='main.css') }}?q=123" type="text/css" rel="stylesheet">
+		<!-- MathJax config -->
+		<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+		<!-- Socket config -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+{% block head %}
+{% endblock %}
+    
+</head>
+<body >
+    <header class="header header_sticky">
+        <div class="header-logo">
+            <img src="{{ url_for('static', filename='MathSenderLogoColoured.svg') }}" alt="MathSender" class="header-logo__img">
+        </div>
+        <div class="button-group ">
+            
+    <a class="button button_small button_inverse button-group__button">
+        ◈ Create new board
+        </a>
+    <a class="button button_small button_inverse button-group__button">
+        ▣ Join a board
+        </a>
+        </div>
+    </header>
+    {% block content %}
+    {%endblock%}
+    <!-- footer -->
+
+    {%block foot%}
+    {%endblock%}
+</body>
+
+
+  
+</html>

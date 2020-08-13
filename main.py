@@ -58,7 +58,7 @@ def teacher_room(code):
 def student_room(code):
     global classrooms
     if valid_code(code):
-        return render_template('studentview.html')
+        return render_template('studentview.html', code=code)
     else:
         return 'Invalid code'
 
