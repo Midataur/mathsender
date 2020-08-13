@@ -1,6 +1,6 @@
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6{margin:0;padding:0}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}ul{list-style:none}button,input,select,textarea{margin:0}html{box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}img,video{height:auto;max-width:100%}iframe{border:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}td:not([align]),th:not([align]){text-align:left}
-
+/* a demo https://codepen.io/coolbezos_420/pen/jOqWBqL?editors=1100 */
 /* variables */
 :root {
 	--mini-unit: 8px;
@@ -81,6 +81,9 @@ body {
 .button:hover {
 	background-color: hsl(0, 0%, 98%);
 }
+.button_fill {
+	width:100%
+}
 .button_small {
 	font-size: calc(var(--mini-unit) * 2);
 	min-height: 2rem;
@@ -117,6 +120,37 @@ body {
 }
 .button-group__button:first-child {
 	margin-left: 0px;
+}
+
+/* main container block */
+.container {
+  width: 100%;
+	margin: 0px auto;
+	padding:var(--mini-unit);
+	padding-top:calc(var(--mini-unit) * 2)
+}
+.container > * {
+	margin-bottom: var(--mini-unit)
+}
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
 }
 
 
