@@ -12,9 +12,17 @@ html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,ifr
   --c-blue: hsl(190, 100%, 50%);
   --c-blue--light: hsl(190, 100%, 65%);
 
-  --c-white:hsl(0,1,100%);
-  --c-gray: hsl(0,0,50%);
-  --c-black: hsl(0,0,1%);
+  --c-l-10: hsl(0, 0%, 100%);
+  --c-l-9: hsl(0, 0%, 90%);
+  --c-l-8: hsl(0, 0%, 80%);
+  --c-l-7: hsl(0, 0%, 70%);
+  --c-l-6: hsl(0, 0%, 60%);
+  --c-l-5: hsl(0, 0%, 50%);
+  --c-l-4: hsl(0, 0%, 40%);
+  --c-l-3: hsl(0, 0%, 30%);
+  --c-l-2: hsl(0, 0%, 20%);
+  --c-l-1: hsl(0, 0%, 10%);
+  --c-l-0: hsl(0, 0%, 00%);
 }
 
 /* import the nice fonts */
