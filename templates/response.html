@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Socket test</title>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+		<script type="text/javascript" charset="utf-8">
+			var socket = io.connect('http://' + document.domain + ':' + location.port);
+			socket.on('broadcast_color', function( color ) {
+					document.body.style.backgroundColor = color;
+					console.log('Received message');
+					console.log(color)
+			});
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<h1>This should turn green when the button is pressed on the main page</h1>
+	</body>
+</html>

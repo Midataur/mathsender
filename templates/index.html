@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Socket test</title>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+		<script type="text/javascript" charset="utf-8">
+			function change_color() {
+				var socket = io();
+				var color = document.getElementById('color_input').value
+				socket.on('connect', function() {
+					socket.emit('change_color', color);
+				});
+			}
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<h1>Socket test</h1>
+		<p>Is everything rendering correctly?</p>
+		<form>
+			Input color here:
+			<input name="color" id="color_input" type="text">
+			<br/>
+			<button type="button" onclick="change_color()">Change the color!</button>
+		</form>
+	</body>
+</html>

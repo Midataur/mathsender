@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Socket test</title>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+		<script type="text/javascript" charset="utf-8">
+			var socket = io.connect('http://' + document.domain + ':' + location.port);
+			socket.on('message_receive', function( data ) {
+				username = data[0];
+				message = data[1];
+				message_el = document.createElement("p");
+				message_el.innerHTML = "<b>"+username+":</b> "+message;
+				console.log(message);
+				message_div = document.getElementById('messages');
+				message_div.appendChild(message_el);
+			});
+		</script>
+		<script>
+			function send_message() {
+				var username = document.getElementById('username');
+				var message = document.getElementById('message');
+				socket.emit('send_message',username.value,message.value);
+				message.value = '';
+				return false;
+			}
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<h1>Chat</h1>
+		<form autocomplete="off" onsubmit="return send_message()">
+			Username:
+			<input type="text" id="username">
+			<br/>
+			Message:
+			<input type="text" id="message">
+			<br/>
+			<input type="submit">
+		</form>
+		<div id="messages">
+		</div>
+	</body>
+</html>
