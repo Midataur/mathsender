@@ -9,8 +9,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
-		<a href="/teacher">Teacher mode</a>
+        <h3>Join existing room</h3>
+        <form action="/teacher/join" method="POST">
+            Code:<input type="text" name="code">
+            <br/>
+            Password:<input type="password" name="password">
+            <input type="submit" value="Join">
+        </form>
 		<br/>
-		<a href="/student/join">Student mode</a>
+		<h3>Create new room</h3>
+        <form action="/teacher/create" method="POST">
+            Password:<input type="password" name="password">
+            <input type="submit" value="Create">
+        </form>
 	</body>
 </html>
