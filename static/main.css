@@ -46,9 +46,13 @@ body {
 
 
 body {
-	font-size: calc(var(--mini-unit) * 2);
+	font-size: 1.3em;
+	font-weight: 300;
 }
 
+a {
+	color: var(--c-l-10)
+}
 /* header block */
 .header {
 	display: flex;
@@ -94,7 +98,6 @@ body {
 }
 .button:hover {
 	background-color: var(--c-l-1);
-
 }
 .button_fill {
 	width:100%
@@ -128,7 +131,10 @@ body {
 .button_secondary:hover {
 	background-color: var(--c-yellow--darkest);
 }
-
+/* fix wysiwyg problem */
+.wysiwyg a:hover {
+	border-bottom: 0px solid !important;
+  }
 /* button group block */
 .button-group {
 	display: flex;
@@ -146,31 +152,22 @@ body {
   width: 100%;
 	margin: 0px auto;
 	padding:var(--mini-unit);
-	padding-top:calc(var(--mini-unit) * 2)
+	padding-top:calc(var(--mini-unit) * 4)
 }
 .container > * {
 	margin-bottom: var(--mini-unit)
 }
-@media (min-width: 640px) {
+@media (min-width: 600px) {
   .container {
-    max-width: 640px;
+    max-width: 600px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .container {
-    max-width: 768px;
+    max-width: 900px;
   }
 }
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-}
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
-}
+
 
 /* the room code block */
 .room-code{
