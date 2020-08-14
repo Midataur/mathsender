@@ -9,18 +9,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
-		The code for this room is: {{code}}
-		<h3>Submit new question</h3>
-		<form onsubmit="alert(1); return False">
-			<br/>
-			Question: <input type="text" placeholder="1+1=?" name="question">
-		</form>
-		Existing questions:
-		{% for question in questions %}
-			<div class="question">
-				<br/>
-				<a href="{{code}}/questions/{{question['id']}}?password={{password}}">{{question['text']}}</a>
-			</div>
+        <p>
+		Question: {{question['text']}}
+        Answers:
+        </p>
+        {% for answer in question['answers'] %}
+            <div class="answer">
+                <br/>
+                Submitted by: {{ answer['submitted_by'] }}
+                <br/>
+                Answer given: {{ answer['answer'] }}
+            </div>
 		{% endfor %}
 	</body>
 </html>

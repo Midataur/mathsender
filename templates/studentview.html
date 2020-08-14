@@ -9,6 +9,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
-		$$a^{2}+b^{2}=\text{your mum}$$
+		Questions:
+		{% for question in questions %}
+			<div class="question">
+				<br/>
+				<a href="/student/room/{{code}}/questions/{{question['id']}}?name={{name}}">{{question['text']}}</a>
+			</div>
+		{% endfor %}
 	</body>
 </html>
