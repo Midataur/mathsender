@@ -53,6 +53,9 @@ body {
 a {
 	color: var(--c-l-10)
 }
+main {
+	min-height: 85vh;
+}
 /* header block */
 .header {
 	display: flex;
@@ -185,4 +188,18 @@ a {
 	hyphens: auto;
 	box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.05);
 	font-weight: 700;
+}
+
+
+/* footer block */
+.footer{
+	text-align:center;
+	font-size:0.7em;
+	
+}
+.footer-a{
+	opacity: 0.7
+}
+.footer-a:hover{
+	opacity: 0.5;
 }
