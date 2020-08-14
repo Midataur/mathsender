@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block title%}{{code}} Teacher{%endblock%}
+{% block roomCode %}{{code}}{%endblock%}
 {% block head %}
 
 	    
 		
 {% endblock %}
 {% block content %}
-		The code for this room is: {{code}}
 		<h3>Submit new question</h3>
 		<form onsubmit="alert(1); return False">
 			<br/>

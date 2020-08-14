@@ -6,10 +6,14 @@ html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,ifr
 	--mini-unit: 8px;
 	/* colours */
 	--c-clear: hsla(0, 0%, 0%, 0%);
-	--c-yellow--dark: hsl(49, 100%, 45%);
+
+	--c-yellow--darkest: hsl(49, 100%, 5%);
+	--c-yellow--dark: hsl(49, 100%, 10%);
 	--c-yellow: hsl(49, 100%, 50%);
 	--c-yellow--light: hsl(49, 100%, 65%);
-	--c-blue--dark: hsl(190, 100%, 45%);
+
+	--c-blue--darkest: hsl(190, 100%, 5%);
+	--c-blue--dark: hsl(190, 100%, 10%);
 	--c-blue: hsl(190, 100%, 50%);
 	--c-blue--light: hsl(190, 100%, 65%);
 
@@ -58,16 +62,25 @@ body {
 	position: sticky;
 	top: 0;
 }
+.header-logo{
+	transition: all 0.1s ease-in-out;
+}
+.header-logo:hover{
+	opacity: 0.7;
+}
 .header-logo__img {
 	height: calc(var(--mini-unit) * 4);
 }
 
+
 /* button block */
 .button {
+	background-color: var(--c-l-2);
+	color: var(--c-l-10);
+	border-color: transparent;
+
 	align-items: center;
-	background-color: var(--c-l-10);
 	border-radius: var(--mini-unit);
-	color: var(--c-l-0);
 	cursor: pointer;
 	display: inline-flex;
 	min-height: 2.5rem;
@@ -77,10 +90,11 @@ body {
 	hyphens: auto;
 	box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.05);
 	transition: box-shadow 0.1s ease-in-out 0s, border 0.1s, background-color 0.1s;
-	font-weight: 500;
+	font-weight: 700;
 }
 .button:hover {
-	background-color: hsl(0, 0%, 98%);
+	background-color: var(--c-l-1);
+
 }
 .button_fill {
 	width:100%
@@ -90,31 +104,35 @@ body {
 	min-height: 2rem;
 }
 .button_inverse {
-	background-color: var(--c-l-2);
-	color: var(--c-l-10);
-	border-color: var(--clear);
+	background-color: var(--c-l-10);
+
+	color: var(--c-l-0);
 }
 .button_inverse:hover {
-	background-color: var(--c-l-1);
+	background-color: hsl(0, 0%, 98%);
+
 }
 .button_primary {
-	background-color: var(--c-blue--light);
-	border-color: var(--c-clear);
+	background-color: var(--c-blue--dark);
+	border-color: transparent;
+	color: var(--c-blue)
 }
 .button_primary:hover {
-	background-color: var(--c-blue);
+	background-color: var(--c-blue--darkest);
 }
 .button_secondary {
-	background-color: var(--c-yellow);
-	border-color: var(--c-clear);
+	background-color: var(--c-yellow--dark);
+	border-color: transparent;
+	color: var(--c-yellow)
 }
 .button_secondary:hover {
-	background-color: var(--c-yellow--dark);
+	background-color: var(--c-yellow--darkest);
 }
 
 /* button group block */
 .button-group {
 	display: flex;
+	align-items: center;
 }
 .button-group__button {
 	margin-left: var(--mini-unit);
@@ -154,4 +172,20 @@ body {
   }
 }
 
-
+/* the room code block */
+.room-code{
+	align-items: center;
+	background-color: transparent;
+	border: 1px solid hsl(190, 100%, 10%);
+	border-radius: var(--mini-unit);
+	color: var(--c-blue);
+	display: inline-flex;
+	font-size: calc(var(--mini-unit) * 2);
+	min-height: 2rem;
+	justify-content: center;
+	padding: 0 calc(var(--mini-unit) * 2);
+	text-decoration: none;
+	hyphens: auto;
+	box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.05);
+	font-weight: 700;
+}
