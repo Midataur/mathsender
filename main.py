@@ -61,6 +61,27 @@ def new_answer(name,answer_text,answer_format,code,qid):
         room=code
     )
 
+@socketio.on('new_question')
+def new_question(question_text,code,password):
+    global classrooms
+    print(question_text,code,password)
+    room = classrooms[int(code)]
+    if room['password'] == password:
+        question = {
+            'text': question_text,
+            'id': room['curqid']+1,
+            'answers': []
+        }
+        room['curqid'] += 1
+        room['questions'][room['curqid']] = question
+        #send out to the student page
+        socketio.emit(
+            'new_question_client',
+            [question_text,room['curqid']],
+            broadcast=True,
+            room=code
+        )
+
 ### ROUTES ###
 
 @app.route('/')
@@ -91,7 +112,8 @@ def teacher_create():
     password = request.form['password']
     classrooms[code] = {
         'password': password,
-        'questions': {}
+        'questions': {},
+        'curqid':1
     }
     classrooms[code]['questions'][1] = {
         'text': 'What is 1+1?',
@@ -107,6 +129,7 @@ def teacher_create():
             }
         ]
     }
+    classrooms[code]
     return f'<script>window.location = "/teacher/room/{code}?password={password}"</script>'
 
 @app.route('/teacher/room/<code>')
@@ -114,7 +137,7 @@ def teacher_room(code):
     global classrooms
     if valid_code(code):
         password = request.args.get('password')
-        questions = list(classrooms[int(code)]['questions'].values())
+        questions = list(classrooms[int(code)]['questions'].values())[::-1]
         return render_template(
             'teacherview.html',
             code=code,
@@ -148,7 +171,7 @@ def student_room(code):
     global classrooms
     name = request.args.get('name')
     if valid_code(code):
-        questions = list(classrooms[int(code)]['questions'].values())
+        questions = list(classrooms[int(code)]['questions'].values())[::-1]
         return render_template(
             'studentview.html',
             name=name,
