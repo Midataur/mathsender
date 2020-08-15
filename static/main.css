@@ -80,34 +80,37 @@ Blocks -> Blocks (.button)
 Elements -> Elements (.button__icon)
 Modifiers -> Popsicles (.button.-blue)
 */
-/* this is a system that i like to work in, it makes modifying blocks simpler and nicer */
+/* this is a system that i like to work in, it makes modifying blocks simpler and nicer 
+	keep in mind that this does mean that different blocks can have the same popsicle. 
+	So maybe prefixing them might be a good idea
+*/
 /* variables */
 :root {
   --mini-unit: 8px;
   /* colours */
   --c-clear: hsla(0, 0%, 0%, 0%);
 
-  --c-yellow--darkest: hsl(49, 100%, 5%);
-  --c-yellow--dark: hsl(49, 100%, 10%);
+  --c-yellow--darkest: hsl(49, 100%, 9%);
+  --c-yellow--dark: hsl(49, 100%, 11%);
   --c-yellow: hsl(49, 100%, 50%);
   --c-yellow--light: hsl(49, 100%, 65%);
 
-  --c-blue--darkest: hsl(190, 100%, 5%);
-  --c-blue--dark: hsl(190, 100%, 10%);
+  --c-blue--darkest: hsl(190, 100%, 9%);
+  --c-blue--dark: hsl(190, 100%, 11%);
   --c-blue: hsl(190, 100%, 50%);
   --c-blue--light: hsl(190, 100%, 65%);
 
-  --c-l-10: hsl(0, 0%, 100%);
-  --c-l-9: hsl(0, 0%, 90%);
-  --c-l-8: hsl(0, 0%, 80%);
-  --c-l-7: hsl(0, 0%, 70%);
-  --c-l-6: hsl(0, 0%, 60%);
-  --c-l-5: hsl(0, 0%, 50%);
-  --c-l-4: hsl(0, 0%, 40%);
-  --c-l-3: hsl(0, 0%, 30%);
-  --c-l-2: hsl(0, 0%, 20%);
-  --c-l-1: hsl(0, 0%, 10%);
-  --c-l-0: hsl(0, 0%, 00%);
+  --c-l-10: hsl(220, 5%, 100%);
+  --c-l-9: hsl(220, 5%, 91%);
+  --c-l-8: hsl(220, 5%, 81%);
+  --c-l-7: hsl(220, 5%, 71%);
+  --c-l-6: hsl(220, 5%, 61%);
+  --c-l-5: hsl(220, 5%, 51%);
+  --c-l-4: hsl(220, 5%, 41%);
+  --c-l-3: hsl(220, 5%, 31%);
+  --c-l-2: hsl(220, 5%, 21%);
+  --c-l-1: hsl(220, 5%, 16%);
+  --c-l-0: hsl(220, 5%, 8%);
 }
 
 /* generic element styles */
@@ -332,7 +335,7 @@ main {
 	margin-right: var(--mini-unit);
 }
 .field__input{
-	background-color: var(--c-l-1);
+	background-color: var(--c-l-0);
     border: 1px solid var(--c-l-3);
     border-radius: var(--mini-unit);
     box-sizing: border-box;
@@ -347,7 +350,6 @@ main {
 .field__input.-primary{
 	border-color: var(--c-blue--dark);
 	color: var(--c-blue);
-	background-color:var(--c-blue--darkest);	
 }
 
 /* the twopart field*/
