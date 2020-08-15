@@ -1,6 +1,7 @@
 from flask import Flask, request, url_for, render_template
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, join_room, leave_room
 from collections import defaultdict
+import json
 import random
 
 app = Flask(__name__)
@@ -23,11 +24,50 @@ def fetch_answer(answer_list,author):
              return x
     return None
 
+#possible formats: latex, ascii
+def format_answer(answer,answer_format):
+    if answer_format == 'ascii':
+        return '`'+answer+'`'
+    else:
+        return '$$'+answer+'$$'
+
+### SOCKETS ###
+
+@socketio.on('room_connect')
+def connect(room):
+    join_room(room)
+    print('New connection from',room)
+
+@socketio.on('new_answer')
+def new_answer(name,answer_text,answer_format,code,qid):
+    global classrooms
+    room = classrooms[int(code)]
+    question = room['questions'][int(qid)]
+    answers = question['answers']
+    #walrus time?
+    if answer := fetch_answer(answers,name):
+        answer['answer'] = format_answer(answer_text,answer_format)
+    else:
+        answer = {
+            'submitted_by': name,
+            'answer': format_answer(answer_text,answer_format)
+        }
+        answers.append(answer)
+    #send out to the teacher page
+    socketio.emit(
+        'new_answer_teacher',
+        answer,
+        broadcast=True,
+        room=code
+    )
+
+### ROUTES ###
+
 @app.route('/')
 def main():
     return render_template('index.html')
 
-@app.route('/teacher')
+@app.route('/teacher/home')
 def teacher_main():
     return render_template('teachermain.html')
 
@@ -92,7 +132,6 @@ def teacher_question(code,qid):
     if valid_code(code):
         room = classrooms[int(code)]
         if qid.isdigit() and int(qid) in room['questions']:
-            print(password,room['password'])
             if password == room['password']:
                 #checks passed, render
                 question = room['questions'][int(qid)]
@@ -141,7 +180,9 @@ def student_question(code,qid):
             return render_template(
                 'studentquestion.html',
                 question=question,
-                answer=answer, code=code
+                answer=answer, 
+                code=code,
+                name=name
             )
         else:
             return ''
@@ -152,6 +193,8 @@ def student_question(code,qid):
 def debug():
     global classrooms
     return str(classrooms)
+
+print(app.url_map)
 
 if __name__ == '__main__':
     socketio.run(app,host='0.0.0.0')

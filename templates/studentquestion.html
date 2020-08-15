@@ -3,8 +3,38 @@
 {% block roomCode %}{{code}}{%endblock%}
 {% block head %}
 
-	    
-		
+<script type="text/javascript" charset="utf-8">
+	//puts you in a room
+    var socket = io();
+    socket.on('connect', function() {
+        socket.emit('room_connect','{{code}}');
+    });
+</script>
+
+<script>
+	function get_format() {
+		var buttons = document.getElementsByName('format');
+		//this doesn't scale well but that can be fixed if we scale
+		if (buttons[0].checked) {
+			return 'ascii';
+		}
+		return 'latex';
+	}
+</script>
+
+<script>
+	function send_answer() {
+		var answer = document.getElementById('answer').value;
+		var format = get_format();
+		var code = '{{code}}';
+		var qid = '{{question["id"]}}'
+		var name = '{{name}}'
+		socket.emit('new_answer',name,answer,format,code,qid);
+		alert('Answer sent!')
+		return false;
+	}
+</script>
+
 {% endblock %}
 {% block content %}
 		<i>{{question['text']}}</i>
@@ -14,4 +44,13 @@
 		{% else %}
 		<h3>Submit answer</h3>
 		{% endif %}
+		<form onsubmit="send_answer(); return false">
+			Answer: <input type="text" name="answer" id="answer"><br/>
+			Input format:<br/>
+			<input type="radio" id="ascii" name="format" value="ascii" checked>
+			<label for="ascii">Ascii (text)</label><br>
+			<input type="radio" id="latex" name="format" value="latex">
+			<label for="latex">LaTeX (Mathematica)</label><br>
+			<input type="submit" value="Submit answer">
+		</form>
 {%endblock%}
