@@ -36,7 +36,7 @@
             answers = document.getElementById('answers');
             answer_div = document.createElement('div');
             answer_div.id = 'answer-'+answer['submitted_by'];
-            answer_div.appendChild(answer_el);
+            answer_div.appendChild(answer_div);
         }
         MathJax.Hub.Typeset(answer_div);
     });
