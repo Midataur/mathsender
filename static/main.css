@@ -1,164 +1,249 @@
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
-html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6{margin:0;padding:0}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}ul{list-style:none}button,input,select,textarea{margin:0}html{box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}img,video{height:auto;max-width:100%}iframe{border:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}td:not([align]),th:not([align]){text-align:left}
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+ul {
+  list-style: none;
+}
+button,
+input,
+select,
+textarea {
+  margin: 0;
+}
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+img,
+video {
+  height: auto;
+  max-width: 100%;
+}
+iframe {
+  border: 0;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 0;
+}
+td:not([align]),
+th:not([align]) {
+  text-align: left;
+}
 /* a demo https://codepen.io/coolbezos_420/pen/jOqWBqL?editors=1100 */
+/* reference for the css style, although, we use a slightly different version */
+/* https://www.cutestrap.com/features/popsicle */
+/* basically, you have blocks and popsicles, the block is the same thing as [B]EM, and the popsicle is the same thing as BE[M]
+/* BEM to MSpopsicle: 
+Blocks -> Blocks (.button)
+Elements -> Elements (.button__icon)
+Modifiers -> Popsicles (.button.-blue)
+*/
+/* this is a system that i like to work in, it makes modifying blocks simpler and nicer */
 /* variables */
 :root {
-	--mini-unit: 8px;
-	/* colours */
-	--c-clear: hsla(0, 0%, 0%, 0%);
+  --mini-unit: 8px;
+  /* colours */
+  --c-clear: hsla(0, 0%, 0%, 0%);
 
-	--c-yellow--darkest: hsl(49, 100%, 5%);
-	--c-yellow--dark: hsl(49, 100%, 10%);
-	--c-yellow: hsl(49, 100%, 50%);
-	--c-yellow--light: hsl(49, 100%, 65%);
+  --c-yellow--darkest: hsl(49, 100%, 5%);
+  --c-yellow--dark: hsl(49, 100%, 10%);
+  --c-yellow: hsl(49, 100%, 50%);
+  --c-yellow--light: hsl(49, 100%, 65%);
 
-	--c-blue--darkest: hsl(190, 100%, 5%);
-	--c-blue--dark: hsl(190, 100%, 10%);
-	--c-blue: hsl(190, 100%, 50%);
-	--c-blue--light: hsl(190, 100%, 65%);
+  --c-blue--darkest: hsl(190, 100%, 5%);
+  --c-blue--dark: hsl(190, 100%, 10%);
+  --c-blue: hsl(190, 100%, 50%);
+  --c-blue--light: hsl(190, 100%, 65%);
 
-	--c-l-10: hsl(0, 0%, 100%);
-	--c-l-9: hsl(0, 0%, 90%);
-	--c-l-8: hsl(0, 0%, 80%);
-	--c-l-7: hsl(0, 0%, 70%);
-	--c-l-6: hsl(0, 0%, 60%);
-	--c-l-5: hsl(0, 0%, 50%);
-	--c-l-4: hsl(0, 0%, 40%);
-	--c-l-3: hsl(0, 0%, 30%);
-	--c-l-2: hsl(0, 0%, 20%);
-	--c-l-1: hsl(0, 0%, 10%);
-	--c-l-0: hsl(0, 0%, 00%);
+  --c-l-10: hsl(0, 0%, 100%);
+  --c-l-9: hsl(0, 0%, 90%);
+  --c-l-8: hsl(0, 0%, 80%);
+  --c-l-7: hsl(0, 0%, 70%);
+  --c-l-6: hsl(0, 0%, 60%);
+  --c-l-5: hsl(0, 0%, 50%);
+  --c-l-4: hsl(0, 0%, 40%);
+  --c-l-3: hsl(0, 0%, 30%);
+  --c-l-2: hsl(0, 0%, 20%);
+  --c-l-1: hsl(0, 0%, 10%);
+  --c-l-0: hsl(0, 0%, 00%);
 }
 
-/* import the nice fonts */
+/* generic element styles */
 
-@import url('https://rsms.me/inter/inter.css');
-html { font-family: 'Inter', sans-serif; }
+/* import the nice fonts */
+@import url("https://rsms.me/inter/inter.css");
+html {
+  font-family: "Inter", sans-serif;
+}
 @supports (font-variation-settings: normal) {
-  html { font-family: 'Inter var', sans-serif; }
+  html {
+    font-family: "Inter var", sans-serif;
+  }
 }
 html,
 body {
-	height: 100%;
-	background-color: var(--c-l-0);
-	color: var(--c-l-10)
+  height: 100%;
+  background-color: var(--c-l-0);
+  color: var(--c-l-10);
 }
 
-
 body {
-	font-size: 1.3em;
-	font-weight: 300;
+  font-size: 1.3em;
+  font-weight: 300;
 }
 
 a {
-	color: var(--c-l-10)
+  color: var(--c-l-10);
 }
 main {
-	min-height: 85vh;
-}
-/* header block */
-.header {
-	display: flex;
-	justify-content: space-between;
-	padding: calc(var(--mini-unit) * 2) calc(var(--mini-unit) * 3);
-	background-color: var(--c-l-0);
-	color: var(--c-l-10);
-	align-items: center;
-}
-.header_sticky {
-	position: sticky;
-	top: 0;
-}
-.header-logo{
-	transition: all 0.1s ease-in-out;
-}
-.header-logo:hover{
-	opacity: 0.7;
-}
-.header-logo__img {
-	height: calc(var(--mini-unit) * 4);
+  min-height: 85vh;
 }
 
+
+/* header block */
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: calc(var(--mini-unit) * 2) calc(var(--mini-unit) * 3);
+  background-color: var(--c-l-0);
+  color: var(--c-l-10);
+  align-items: center;
+}
+.header.-sticky {
+  position: sticky;
+  top: 0;
+}
+.header-logo {
+  transition: all 0.1s ease-in-out;
+}
+.header-logo:hover {
+  opacity: 0.7;
+}
+.header-logo__img {
+  height: calc(var(--mini-unit) * 4);
+}
 
 /* button block */
 .button {
-	background-color: var(--c-l-2);
-	color: var(--c-l-10);
-	border-color: transparent;
+  background-color: var(--c-l-2);
+  color: var(--c-l-10);
+  border-color: transparent;
 
-	align-items: center;
-	border-radius: var(--mini-unit);
-	cursor: pointer;
-	display: inline-flex;
-	min-height: 2.5rem;
-	justify-content: center;
-	padding: 0 calc(var(--mini-unit) * 2);
-	text-decoration: none;
-	hyphens: auto;
-	box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.05);
-	transition: box-shadow 0.1s ease-in-out 0s, border 0.1s, background-color 0.1s;
-	font-weight: 700;
+  align-items: center;
+  border-radius: var(--mini-unit);
+  cursor: pointer;
+  display: inline-flex;
+  min-height: 2.5rem;
+  justify-content: center;
+  padding: 0 calc(var(--mini-unit) * 2);
+  text-decoration: none;
+  hyphens: auto;
+  box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.1s ease-in-out 0s, border 0.1s, background-color 0.1s;
+  font-weight: 700;
 }
 .button:hover {
-	background-color: var(--c-l-1);
+  background-color: var(--c-l-1);
 }
-.button_fill {
-	width:100%
+.button.-fill {
+  width: 100%;
 }
-.button_small {
-	font-size: calc(var(--mini-unit) * 2);
-	min-height: 2rem;
+.button.-small {
+  font-size: calc(var(--mini-unit) * 2);
+  min-height: 2rem;
 }
-.button_inverse {
-	background-color: var(--c-l-10);
+.button.-inverse {
+  background-color: var(--c-l-10);
 
-	color: var(--c-l-0);
+  color: var(--c-l-0);
 }
-.button_inverse:hover {
-	background-color: hsl(0, 0%, 98%);
-
+.button.-inverse:hover {
+  background-color: hsl(0, 0%, 98%);
 }
-.button_primary {
-	background-color: var(--c-blue--dark);
-	border-color: transparent;
-	color: var(--c-blue)
+.button.-primary {
+  background-color: var(--c-blue--dark);
+  border-color: transparent;
+  color: var(--c-blue);
 }
-.button_primary:hover {
-	background-color: var(--c-blue--darkest);
+.button.-primary:hover {
+  background-color: var(--c-blue--darkest);
 }
-.button_secondary {
-	background-color: var(--c-yellow--dark);
-	border-color: transparent;
-	color: var(--c-yellow)
+.button.-secondary {
+  background-color: var(--c-yellow--dark);
+  border-color: transparent;
+  color: var(--c-yellow);
 }
-.button_secondary:hover {
-	background-color: var(--c-yellow--darkest);
+.button.-secondary:hover {
+  background-color: var(--c-yellow--darkest);
 }
 /* fix wysiwyg problem */
-.wysiwyg a:hover {
-	border-bottom: 0px solid !important;
-  }
+.wysiwyg > a.button:hover {
+  border-bottom: 0px solid !important;
+}
 /* button group block */
 .button-group {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 .button-group__button {
-	margin-left: var(--mini-unit);
+  margin-left: var(--mini-unit);
 }
 .button-group__button:first-child {
-	margin-left: 0px;
+  margin-left: 0px;
 }
+
 
 /* main container block */
 .container {
   width: 100%;
-	margin: 0px auto;
-	padding:var(--mini-unit);
-	padding-top:calc(var(--mini-unit) * 4)
+  margin: 0px auto;
+  padding: var(--mini-unit);
+  padding-top: calc(var(--mini-unit) * 4);
 }
 .container > * {
-	margin-bottom: var(--mini-unit)
+  margin-bottom: var(--mini-unit);
 }
 @media (min-width: 600px) {
   .container {
@@ -171,35 +256,33 @@ main {
   }
 }
 
-
 /* the room code block */
-.room-code{
-	align-items: center;
-	background-color: transparent;
-	border: 1px solid hsl(190, 100%, 10%);
-	border-radius: var(--mini-unit);
-	color: var(--c-blue);
-	display: inline-flex;
-	font-size: calc(var(--mini-unit) * 2);
-	min-height: 2rem;
-	justify-content: center;
-	padding: 0 calc(var(--mini-unit) * 2);
-	text-decoration: none;
-	hyphens: auto;
-	box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.05);
-	font-weight: 700;
+.room-code {
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid hsl(190, 100%, 10%);
+  border-radius: var(--mini-unit);
+  color: var(--c-blue);
+  display: inline-flex;
+  font-size: calc(var(--mini-unit) * 2);
+  min-height: 2rem;
+  justify-content: center;
+  padding: 0 calc(var(--mini-unit) * 2);
+  text-decoration: none;
+  hyphens: auto;
+  box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.05);
+  font-weight: 700;
 }
-
 
 /* footer block */
-.footer{
-	text-align:center;
-	font-size:0.7em;
-	
+.footer {
+  text-align: center;
+  font-size: 0.7em;
+  padding-bottom: 1em;
 }
-.footer-a{
-	opacity: 0.7
+.footer__a {
+  opacity: 0.7;
 }
-.footer-a:hover{
-	opacity: 0.5;
+.footer__a:hover {
+  opacity: 0.5;
 }

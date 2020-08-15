@@ -28,7 +28,7 @@
     
 </head>
 <body >
-    <header class="header header_sticky">
+    <header class="header -sticky">
         <div class="header-logo">
             <a href="/">
                 <img src="{{ url_for('static', filename='MathSenderLogoColoured.svg') }}" alt="MathSender" class="header-logo__img">
@@ -36,9 +36,9 @@
             
         </div>
 
-        <div class="button-group ">
+        <div class="button-group -fill">
         <div class="room-code">{% block roomCode %}Room Code{%endblock%}</div>
-        <a class="button button_small button_secondary button-group__button" href="/student/join">
+        <a class="button -small -secondary button-group__button" href="/student/join">
             ◈ Join a room
         </a>
         </div>
@@ -50,7 +50,7 @@
     
     <!-- footer -->
     <div class="footer">
-        <a href="https://cf.darcylf.me" class="footer-a">Made by Collective Fullstack</a> — <a href="https://cf.darcylf.me" class="footer-a">Github</a></div>
+        <a href="https://cf.darcylf.me" class="footer__a">Made by Collective Fullstack</a> — <a href="https://cf.darcylf.me" class="footer__a">Github</a></div>
     {%block foot%}
     {%endblock%}
 </body>
