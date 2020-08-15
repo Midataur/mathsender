@@ -128,12 +128,10 @@ body {
   background-color: var(--c-l-0);
   color: var(--c-l-10);
 }
-
 body {
   font-size: 1.3em;
   font-weight: 300;
 }
-
 a {
   color: var(--c-l-10);
 }
@@ -234,7 +232,6 @@ main {
   margin-left: 0px;
 }
 
-
 /* main container block */
 .container {
   width: 100%;
@@ -285,4 +282,105 @@ main {
 }
 .footer__a:hover {
   opacity: 0.5;
+}
+
+/* form code (stolen from cutestrap) */
+/*
+<form>
+    <label class="field">
+        <input type="text" />
+        <span class="label">Name</span>
+    </label>
+    <label class="field -inline">
+        <input type="radio" name="example" />
+        <span class="label">Cone</span>
+    </label>
+    <label class="field -inline">
+        <input type="radio" name="example" />
+        <span class="label">Bowl</span>
+    </label>
+    <label for="select" class="field">
+        <select name="select">
+            <option disabled="disabled" selected="selected">Flavors</option>
+            <option>Chocolate</option>
+            <option>Vanilla</option>
+        </select>
+        <span class="label">Favorite Ice Cream</span>
+    </label>
+    <label class="field">
+        <textarea></textarea>
+        <span class="label">Comments</span>
+    </label>
+    <label class="field">
+        <input type="checkbox" />
+        <span class="label">
+            I consent to my ice cream flavors being saved into a database for
+            eternity and understand and acknowledge this will have consequences
+            for all of my decendants for decades to come.
+        </span>
+    </label>
+</form>
+*/
+.field {
+    display: flex;
+    margin-bottom: calc(var(--mini-unit) * 3);
+    position: relative;
+	text-align: left;
+	
+}
+.field__label{
+	margin-right: var(--mini-unit);
+}
+.field__input{
+	background-color: var(--c-l-1);
+    border: 1px solid var(--c-l-3);
+    border-radius: var(--mini-unit);
+    box-sizing: border-box;
+    margin-top: calc(var(--mini-unit) * -1);
+    padding: var(--mini-unit) var(--mini-unit);
+    position: relative;
+	width: 100%;
+	color: var(--c-l-10);
+	font-weight: 300;
+	font-style: italic;
+} 
+.field__input.-primary{
+	border-color: var(--c-blue--dark);
+	color: var(--c-blue);
+	background-color:var(--c-blue--darkest);	
+}
+
+/* the twopart field*/
+.twopart-field{
+	display: flex;
+	width:100%;
+	align-items: center;
+}
+.twopart-field__left{
+	border: 1px solid var(--c-l-3);
+
+	border-radius: var(--mini-unit) 0px 0px var(--mini-unit);
+	background-color: var(--c-l-3);
+	padding: var(--mini-unit);
+	margin-top: calc(var(--mini-unit) * -1);
+	color: var(--c-l-10);
+	font-weight: 600;
+}
+.twopart-field__left.-primary{
+	border-color: var(--c-blue--dark);
+	background-color:var(--c-blue--dark);
+	color: var(--c-blue)
+}
+.twopart-field__right{
+	border-radius: 0px var(--mini-unit) var(--mini-unit) 0px;
+	flex-grow: 1;
+	border-left:0px transparent
+}
+
+/* text heading block */
+.text-heading{
+	font-weight: 700;
+	font-size: 1.6em;
+	margin-bottom: 0.875em;
+	line-height: 1.1;
 }

@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 {% block title%}Student Join{%endblock%}
-{% block head %}
-
-	    
-		
-{% endblock %}
+{% block head %}{% endblock %}
 {% block content %}
-
+        <h2 class="text-heading">Join a Room as a Student</h2>
 		<form action="" method="POST">
-			Name:<input type="text" name="name">
-			<br/>
-            Code:<input type="text" name="code">
-            <br/>
-            <input type="submit" value="Submit" class="button">
+            <label class="field twopart-field">
+                <div class="twopart-field__left">Name:</div>
+                <input type="text" name="name" class="field__input twopart-field__right" required/>
+                
+            </label>
+            <label class="field twopart-field">
+                    <div class="twopart-field__left -primary">Code:</div>
+                    <input type="text" name="code" class="field__input twopart-field__right -primary" required/>                    
+                
+            </label>
+            <input type="submit" value="◈ Join Room" class="button -fill">
         </form>
 {%endblock%}
