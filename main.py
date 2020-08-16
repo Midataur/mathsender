@@ -24,13 +24,6 @@ def fetch_answer(answer_list,author):
              return x
     return None
 
-#possible formats: latex, ascii
-def format_answer(answer,answer_format):
-    if answer_format == 'ascii':
-        return '`'+answer+'`'
-    else:
-        return '$$'+answer+'$$'
-
 ### SOCKETS ###
 
 @socketio.on('room_connect')
@@ -39,18 +32,18 @@ def connect(room):
     print('New connection from',room)
 
 @socketio.on('new_answer')
-def new_answer(name,answer_text,answer_format,code,qid):
+def new_answer(name,answer_text,code,qid):
     global classrooms
     room = classrooms[int(code)]
     question = room['questions'][int(qid)]
     answers = question['answers']
     #walrus time?
     if answer := fetch_answer(answers,name):
-        answer['answer'] = format_answer(answer_text,answer_format)
+        answer['answer'] = '\\('+answer_text+'\\)'
     else:
         answer = {
             'submitted_by': name,
-            'answer': format_answer(answer_text,answer_format)
+            'answer': '\\('+answer_text+'\\)'
         }
         answers.append(answer)
     #send out to the teacher page

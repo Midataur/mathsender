@@ -12,24 +12,12 @@
 </script>
 
 <script>
-	function get_format() {
-		var buttons = document.getElementsByName('format');
-		//this doesn't scale well but that can be fixed if we scale
-		if (buttons[0].checked) {
-			return 'ascii';
-		}
-		return 'latex';
-	}
-</script>
-
-<script>
 	function send_answer() {
-		var answer = document.getElementById('answer').value;
-		var format = get_format();
+		var answer = answerMathField.latex();
 		var code = '{{code}}';
 		var qid = '{{question["id"]}}'
 		var name = '{{name}}'
-		socket.emit('new_answer',name,answer,format,code,qid);
+		socket.emit('new_answer',name,answer,code,qid);
 		alert('Answer sent!')
 		return false;
 	}
@@ -37,20 +25,23 @@
 
 {% endblock %}
 {% block content %}
-		<i>\({{question['text']}}\)</i>
+		<i>\({{question['text']}}\)</i><br/>
 		{% if answer %}
-		Your answer: {{answer['answer']}}
+		Your current answer: {{answer['answer']}}
 		<h3>Change answer</h3>
 		{% else %}
 		<h3>Submit answer</h3>
 		{% endif %}
-		<form onsubmit="send_answer(); return false">
-			Answer: <input type="text" name="answer" id="answer"><br/>
-			Input format:<br/>
-			<input type="radio" id="ascii" name="format" value="ascii" checked>
-			<label for="ascii">Ascii (text)</label><br>
-			<input type="radio" id="latex" name="format" value="latex">
-			<label for="latex">LaTeX (Mathematica)</label><br>
-			<input type="submit" value="Submit answer">
-		</form>
+		<p><span id="answer-input" style="color: white; border-color: white;"></span></p><br/>
+		<!-- MathQuill -->
+		<script>
+			var answerSpan = document.getElementById('answer-input');
+			var answerMathField = MQ.MathField(answerSpan, {
+			  handlers: {
+				enter: function() {
+					send_answer(); //submits the answer
+				}
+			  }
+			});
+		</script>
 {%endblock%}
