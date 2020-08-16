@@ -386,3 +386,19 @@ main {
 	margin-bottom: 0.875em;
 	line-height: 1.1;
 }
+
+/* code to maybe get the input to be white on black */
+#question-input {
+  color: var(--c-l-10);
+  border-color: var(--c-l-10);
+  background: var(--c-l-0);
+}
+#question-input .mq-matrixed {
+  background: var(--c-l-0);
+}
+#question-input .mq-matrixed-container {
+  filter: progid:DXImageTransform.Microsoft.Chroma(color='black');
+}
+.mq-cursor{
+  border-left: 1px solid var(--c-l-10) !important;
+}

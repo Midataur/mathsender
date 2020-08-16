@@ -55,7 +55,7 @@
 {% block content %}
 		<h3>Submit new question</h3>
 		<br/>
-		Question: <p><span id="question-input" style="color: white; border-color: white;"></span></p>
+		Question: <p><span id="question-input"></span></p>
 		
 		<!-- MathQuill -->
 		<script>
@@ -69,10 +69,9 @@
 			});
 		</script>
 
-		<div class="usage-guide">
-			<br/>
-			<span class="hint"><i>Tip: type \text to create a text field!</i></span><br/>
-			<span class="hint">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://www.math.brown.edu/~jhs/ReferenceCards/TeXRefCard.v1.5.pdf" target="_blank">here</a></span>
+		<div class="wysiwyg">
+			<p class="hint"><i>Tip: type \text to create a text field!</i></p>
+			<p class="hint">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://www.math.brown.edu/~jhs/ReferenceCards/TeXRefCard.v1.5.pdf" target="_blank">here</a></p>
 		</div>
 
 		Existing questions:
