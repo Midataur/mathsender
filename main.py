@@ -113,8 +113,9 @@ def teacher_create():
     classrooms[code] = {
         'password': password,
         'questions': {},
-        'curqid':1
+        'curqid':0
     }
+    """
     classrooms[code]['questions'][1] = {
         'text': 'What is 1+1?',
         'id':1,
@@ -129,7 +130,7 @@ def teacher_create():
             }
         ]
     }
-    classrooms[code]
+    """
     return f'<script>window.location = "/teacher/room/{code}?password={password}"</script>'
 
 @app.route('/teacher/room/<code>')

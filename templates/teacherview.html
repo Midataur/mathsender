@@ -13,7 +13,7 @@
 
 <script>
 	function send_question() {
-		var question = document.getElementById('question').value;
+		var question = questionMathField.latex();
 		var code = '{{code}}';
 		var password = '{{password}}'
 		socket.emit('new_question',question,code,password);
@@ -36,7 +36,7 @@
 
 <script type="text/javascript" charset="utf-8">
     socket.on('new_question_client', function( qdata ) {
-		question = qdata[0];
+		question = '\\('+qdata[0]+'\\)';
 		qid = qdata[1];
 
         question_el = gen_question_el(question,qid);
@@ -44,27 +44,45 @@
         
 		questions = document.getElementById('questions');
 		question_div = document.createElement('div');
+		question_div.class = "question";
 		question_div.appendChild(question_el);
 		questions.insertBefore(question_div, questions.firstChild);
-        
-        MathJax.Hub.Typeset(question_div);
+		renderMathInElement(question_div);
     });
 </script>
 
 {% endblock %}
 {% block content %}
 		<h3>Submit new question</h3>
-		<form onsubmit="send_question(); return false">
+		<br/>
+		Question: <p><span id="question-input" style="color: white; border-color: white;"></span></p>
+		
+		<!-- MathQuill -->
+		<script>
+			var questionSpan = document.getElementById('question-input');
+			var questionMathField = MQ.MathField(questionSpan, {
+			  handlers: {
+				enter: function() {
+					send_question(); //submit the question
+				}
+			  }
+			});
+		</script>
+
+		<div class="usage-guide">
 			<br/>
-			Question: <input id="question" type="text" placeholder="1+1=?" name="question">
-		</form>
+			<span class="hint"><i>Tip: type \text to create a text field!</i></span><br/>
+			<span class="hint">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://www.math.brown.edu/~jhs/ReferenceCards/TeXRefCard.v1.5.pdf" target="_blank">here</a></span>
+		</div>
+
 		Existing questions:
 		<div id="questions">
 			{% for question in questions %}
 				<div class="question">
 					<br/>
-					<a href="{{code}}/questions/{{question['id']}}?password={{password}}">{{question['text']}}</a>
+					<a href="{{code}}/questions/{{question['id']}}?password={{password}}">\({{question['text']}}\)</a>
 				</div>
 			{% endfor %}
 		</div>
+
 {%endblock%}

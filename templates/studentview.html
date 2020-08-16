@@ -24,7 +24,7 @@
 
 <script type="text/javascript" charset="utf-8">
     socket.on('new_question_client', function( qdata ) {
-		question = qdata[0];
+		question = '\\('+qdata[0]+'\\)';
 		qid = qdata[1];
 
         question_el = gen_question_el(question,qid);
@@ -32,6 +32,7 @@
         
 		questions = document.getElementById('questions');
 		question_div = document.createElement('div');
+		question_div.class = "question";
 		question_div.appendChild(question_el);
 		questions.insertBefore(question_div, questions.firstChild);
         
@@ -46,7 +47,7 @@
 			{% for question in questions %}
 				<div class="question">
 					<br/>
-					<a href="/student/room/{{code}}/questions/{{question['id']}}?name={{name}}">{{question['text']}}</a>
+					<a href="/student/room/{{code}}/questions/{{question['id']}}?name={{name}}">\({{question['text']}}\)</a>
 				</div>
 			{% endfor %}
 		</div>
