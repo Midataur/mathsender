@@ -354,9 +354,20 @@ main {
 	font-weight: 300;
 	font-style: italic;
 } 
+.field__input:focus{
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: var(--c-l-4);
+  outline: none !important;
+}
 .field__input.-primary{
 	border-color: var(--c-blue--dark);
 	color: var(--c-blue);
+}
+.field__input.-primary:focus{
+  border-color: var(--c-l-4);
+
 }
 .field__input.-password{
   font-style:normal;
@@ -384,9 +395,9 @@ main {
 	color: var(--c-blue)
 }
 .twopart-field__right{
-	border-radius: 0px var(--mini-unit) var(--mini-unit) 0px;
+	border-radius: 0px var(--mini-unit) var(--mini-unit) 0px !important;
 	flex-grow: 1;
-	border-left:0px transparent
+	border-left:0px transparent !important
 }
 .twopart-field__right.-math{
   font-size:100%
@@ -419,6 +430,15 @@ main {
 }
 .mq-cursor{
   border-left: 1px solid var(--c-l-10) !important;
+}
+
+.mq-editable-field.mq-focused,
+.mq-math-mode .mq-editable-field.mq-focused {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: var(--c-l-4);
+  border-radius: var(--mini-unit)
 }
 
 .toast{
