@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['DEBUG'] = True if __name__ == '__main__' else False
 socketio = SocketIO(app)
 
-#this is just for heroku
+#this one is just for heroku
 def create_app():
     global app
     return app
@@ -211,12 +211,11 @@ def student_question(code,qid):
     else:
         return 'Invalid room code'
 
-@app.route('/debug')
-def debug():
-    global classrooms
-    return str(classrooms)
-
 print(app.url_map)
 
 if __name__ == '__main__':
-    socketio.run(create_app(True),host='0.0.0.0')
+    @app.route('/debug')
+    def debug():
+        global classrooms
+        return str(classrooms)
+    socketio.run(create_app(),host='0.0.0.0')
