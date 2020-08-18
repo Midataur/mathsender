@@ -31,13 +31,12 @@
     <script>
         var MQ = MathQuill.getInterface(2);
         MQ.config({
-            spaceBehavesLikeTab: true,
             leftRightIntoCmdGoes: 'up',
             restrictMismatchedBrackets: true,
             sumStartsWithNEquals: true,
             supSubsRequireOperand: true,
-            charsThatBreakOutOfSupSub: '+-=<>',
-            autoCommands: 'pi theta sqrt sum int degree',
+            charsThatBreakOutOfSupSub: '=<>',
+            autoCommands: 'pi theta sqrt sum int degree space',
             autoOperatorNames: 'sin cos ln',
             maxDepth: 10
         });
