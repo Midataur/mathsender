@@ -11,18 +11,6 @@
     });
 </script>
 
-<script>
-    function gen_question_el(question,qid) {
-		question_el = document.createElement("p");
-		link = document.createElement('a')
-		link.href = '/student/room/{{code}}/questions/'+qid+'?name={{name}}';
-		link.innerText = question;
-		question_el.appendChild(document.createElement('br'));
-		question_el.appendChild(link)
-        return question_el;
-    }
-</script>
-
 <script type="text/javascript" charset="utf-8">
     socket.on('new_question_client', function( qdata ) {
 		question = '\\('+qdata[0]+'\\)';
@@ -43,13 +31,15 @@
 
 {%endblock%}
 {% block content %}
-		Questions:
-		<div id="questions">
+		<h2 class="text-heading">Questions:</h2>
+		<div id="questions" class="questions">
 			{% for question in questions %}
-				<div class="question">
-					<br/>
-					<a href="/student/room/{{code}}/questions/{{question['id']}}?name={{name}}">\({{question['text']}}\)</a>
-				</div>
+			<div>
+				<a href="/student/room/{{code}}/questions/{{question['id']}}?name={{name}}">
+					<div class="button -fill -math">\({{question['text']}}\)</div>
+				</a>
+			</div>
+			
 			{% endfor %}
 		</div>
 {%endblock%}

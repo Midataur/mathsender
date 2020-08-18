@@ -22,20 +22,6 @@
 	}
 </script>
 
-<script>
-    function gen_question_el(question,qid) {
-		question_el = document.createElement("a");
-		div = document.createElement('div')
-		question_el.href = '{{code}}/questions/'+qid+'?password={{password}}';
-		div.innerText = question;
-		$(div).addClass("button -fill -math")
-		question_el.appendChild(div)
-		container = document.createElement('div')
-		container.appendChild(question_el)
-        return container;
-    }
-</script>
-
 <script type="text/javascript" charset="utf-8">
     socket.on('new_question_client', function( qdata ) {
 		question = '\\('+qdata[0]+'\\)';
