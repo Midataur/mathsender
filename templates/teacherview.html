@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title%}{{code}} Teacher{%endblock%}
+{% block title%}Teacher{%endblock%}
 {% block roomCode %}Room Code: {{code}}{%endblock%}
 {% block head %}
 
@@ -24,13 +24,15 @@
 
 <script>
     function gen_question_el(question,qid) {
-		question_el = document.createElement("p");
-		link = document.createElement('a')
-		link.href = '{{code}}/questions/'+qid+'?password={{password}}';
-		link.innerText = question;
-		question_el.appendChild(document.createElement('br'));
-		question_el.appendChild(link)
-        return question_el;
+		question_el = document.createElement("a");
+		div = document.createElement('div')
+		question_el.href = '{{code}}/questions/'+qid+'?password={{password}}';
+		div.innerText = question;
+		$(div).addClass("button -fill -math")
+		question_el.appendChild(div)
+		container = document.createElement('div')
+		container.appendChild(question_el)
+        return container;
     }
 </script>
 
@@ -43,19 +45,20 @@
         console.log(question_el);
         
 		questions = document.getElementById('questions');
-		question_div = document.createElement('div');
-		question_div.class = "question";
-		question_div.appendChild(question_el);
-		questions.insertBefore(question_div, questions.firstChild);
-		renderMathInElement(question_div);
+
+		questions.insertBefore(question_el, questions.firstChild);
+		renderMathInElement(question_el);
     });
 </script>
 
 {% endblock %}
 {% block content %}
-		<h2>Submit new question</h2>
-		<br/>
-		Question: <p><span id="question-input"></span></p>
+		<h2 class="text-heading">Submit new question</h2>
+		<label class="field twopart-field">
+			<div class="twopart-field__left">Question:</div>
+			<span id="question-input" class="field__input twopart-field__right -math"></span>
+		</label>
+			
 		
 		<!-- MathQuill -->
 		<script>
@@ -69,17 +72,16 @@
 			});
 		</script>
 
-		<div class="wysiwyg">
-			<p class="hint">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://www.math.brown.edu/~jhs/ReferenceCards/TeXRefCard.v1.5.pdf" target="_blank">here</a></p>
-		</div>
-
-		Existing questions:
-		<div id="questions">
+		
+		<p class="wysiwyg">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://www.math.brown.edu/~jhs/ReferenceCards/TeXRefCard.v1.5.pdf" target="_blank">here</a></p>
+		<br>
+		<h3 class="text-heading -sub">Existing questions:</h3>
+		<div id="questions" class="questions">
 			{% for question in questions %}
-				<div class="question">
-					<br/>
-					<a href="{{code}}/questions/{{question['id']}}?password={{password}}">\({{question['text']}}\)</a>
+				<div>
+					<a href="{{code}}/questions/{{question['id']}}?password={{password}}"><div class="button -fill -math">\({{question['text']}}\)</div></a>
 				</div>
+			
 			{% endfor %}
 		</div>
 
