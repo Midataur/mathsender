@@ -20,12 +20,9 @@
         console.log(question_el);
         
 		questions = document.getElementById('questions');
-		question_div = document.createElement('div');
-		question_div.class = "question";
-		question_div.appendChild(question_el);
-		questions.insertBefore(question_div, questions.firstChild);
-        
-        renderMathInElement(question_div);
+
+		questions.insertBefore(question_el, questions.firstChild);
+		renderMathInElement(question_el);
     });
 </script>
 
