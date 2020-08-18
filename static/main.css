@@ -420,3 +420,24 @@ main {
 .mq-cursor{
   border-left: 1px solid var(--c-l-10) !important;
 }
+
+.toast{
+  
+  border: 1px solid var(--c-l-5);
+  padding: var(--mini-unit);
+  font-size:calc(var(--mini-unit) * 2.5) ;
+  border-radius: var(--mini-unit);
+  padding-left:calc(var(--mini-unit) * 2) ;
+  background-color: var(--c-l-0);
+}
+.toast.-alert{
+  border-left:calc(var(--mini-unit) * 2) solid var(--c-yellow);
+  border-color: var(--c-yellow);
+}
+.toast.-floating{
+  position:fixed;
+  bottom:calc(var(--mini-unit) * 4);
+  right:calc(var(--mini-unit) * 4);
+  width:calc(var(--mini-unit) * 47);
+}
+

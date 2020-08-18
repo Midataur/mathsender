@@ -23,7 +23,7 @@
     <link href="{{ url_for('static', filename='main.css') }}?q=123" type="text/css" rel="stylesheet">
 
     <!-- Socket config -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     
     <!-- MathQuill conf -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -61,6 +61,7 @@
 		container.appendChild(question_el)
         return container;
     }
+    
 </script>
 
 </head>
@@ -90,6 +91,9 @@
         <a href="https://cf.darcylf.me" class="footer__a">Made by Collective Fullstack</a> — <a href="https://cf.darcylf.me" class="footer__a">Github</a></div>
     {%block foot%}
     {%endblock%}
+    <!--<div class="toast -alert" id="safariYucky">
+        MathSender does not work well with safari, we recommend using a different browser
+    </div>-->
 </body>
 
 
