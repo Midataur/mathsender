@@ -219,6 +219,10 @@ main {
 .button.-secondary:hover {
   background-color: var(--c-yellow--darkest);
 }
+.button.-math{
+  padding-top:var(--mini-unit);
+  padding-bottom: var(--mini-unit);
+}
 /* fix wysiwyg problem */
 .wysiwyg > a.button:hover {
   border-bottom: 0px solid !important;
@@ -256,6 +260,9 @@ main {
   }
 }
 
+.questions > * {
+  margin-bottom: var(--mini-unit);
+}
 /* the room code block */
 .room-code {
   align-items: center;
@@ -347,16 +354,29 @@ main {
 	font-weight: 300;
 	font-style: italic;
 } 
+.field__input:focus{
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: var(--c-l-4);
+  outline: none !important;
+}
 .field__input.-primary{
 	border-color: var(--c-blue--dark);
 	color: var(--c-blue);
+}
+.field__input.-primary:focus{
+  border-color: var(--c-l-4);
+
+}
+.field__input.-password{
+  font-style:normal;
 }
 
 /* the twopart field*/
 .twopart-field{
 	display: flex;
-	width:100%;
-	align-items: center;
+  width:100%;
 }
 .twopart-field__left{
 	border: 1px solid var(--c-l-3);
@@ -366,7 +386,8 @@ main {
 	padding: var(--mini-unit);
 	margin-top: calc(var(--mini-unit) * -1);
 	color: var(--c-l-10);
-	font-weight: 600;
+  font-weight: 600;
+  align-items: center;
 }
 .twopart-field__left.-primary{
 	border-color: var(--c-blue--dark);
@@ -374,9 +395,12 @@ main {
 	color: var(--c-blue)
 }
 .twopart-field__right{
-	border-radius: 0px var(--mini-unit) var(--mini-unit) 0px;
+	border-radius: 0px var(--mini-unit) var(--mini-unit) 0px !important;
 	flex-grow: 1;
-	border-left:0px transparent
+	border-left:0px transparent !important
+}
+.twopart-field__right.-math{
+  font-size:100%
 }
 
 /* text heading block */
@@ -386,15 +410,20 @@ main {
 	margin-bottom: 0.875em;
 	line-height: 1.1;
 }
-
-/* code to maybe get the input to be white on black */
-#question-input {
-  color: var(--c-l-10);
-  border-color: var(--c-l-10);
-  background: var(--c-l-0);
+.text-heading.-sub{
+  font-size: 1.2em;
+	margin-bottom: 0.875em;
+  line-height: 1.1;
+  font-weight: 300;
 }
+
+/* some nice form blocks*/
+.form {
+  margin-bottom: calc(var(--mini-unit) * 3);
+}
+/* code to maybe get the input to be white on black */
 #question-input .mq-matrixed {
-  background: var(--c-l-0);
+  background: var(--c-l-1);
 }
 #question-input .mq-matrixed-container {
   filter: progid:DXImageTransform.Microsoft.Chroma(color='black');
@@ -402,3 +431,33 @@ main {
 .mq-cursor{
   border-left: 1px solid var(--c-l-10) !important;
 }
+
+.mq-editable-field.mq-focused,
+.mq-math-mode .mq-editable-field.mq-focused {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: var(--c-l-4);
+  border-radius: var(--mini-unit)
+}
+
+.toast{
+  
+  border: 1px solid var(--c-l-5);
+  padding: var(--mini-unit);
+  font-size:calc(var(--mini-unit) * 2.5) ;
+  border-radius: var(--mini-unit);
+  padding-left:calc(var(--mini-unit) * 2) ;
+  background-color: var(--c-l-0);
+}
+.toast.-alert{
+  border-left:calc(var(--mini-unit) * 2) solid var(--c-yellow);
+  border-color: var(--c-yellow);
+}
+.toast.-floating{
+  position:fixed;
+  bottom:calc(var(--mini-unit) * 4);
+  right:calc(var(--mini-unit) * 4);
+  width:calc(var(--mini-unit) * 47);
+}
+

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
-{% block title%}{{code}} Student{%endblock%}
-{% block roomCode %}{{code}}{%endblock%}
+
+{% block title%}Student{%endblock%}
+{% block roomCode %}Room Code: {{code}}{%endblock%}
+
 {% block head %}
 
 <script type="text/javascript" charset="utf-8">
@@ -25,14 +27,15 @@
 
 {% endblock %}
 {% block content %}
-		<i>\({{question['text']}}\)</i><br/>
+		<h2 class="text-heading">\({{question['text']}}\)</h2>
 		{% if answer %}
 		Your current answer: {{answer['answer']}}
-		<h3>Change answer</h3>
+		<h3 class="text-heading -sub">Change answer</h3>
 		{% else %}
-		<h3>Submit answer</h3>
+		<h3 class="text-heading -sub">Submit answer</h3>
 		{% endif %}
-		<p><span id="answer-input"></span></p><br/>
+		<label class="field"><span id="answer-input" class="field__input"></span></label>
+		
 		<!-- MathQuill -->
 		<script>
 			var answerSpan = document.getElementById('answer-input');
