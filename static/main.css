@@ -351,6 +351,9 @@ main {
 	border-color: var(--c-blue--dark);
 	color: var(--c-blue);
 }
+.field__input.-password{
+  font-style:normal;
+}
 
 /* the twopart field*/
 .twopart-field{
@@ -386,7 +389,17 @@ main {
 	margin-bottom: 0.875em;
 	line-height: 1.1;
 }
+.text-heading.-sub{
+  font-size: 1.2em;
+	margin-bottom: 0.875em;
+  line-height: 1.1;
+  font-weight: 300;
+}
 
+/* some nice form blocks*/
+.form {
+  margin-bottom: calc(var(--mini-unit) * 3);
+}
 /* code to maybe get the input to be white on black */
 #question-input {
   color: var(--c-l-10);
@@ -394,7 +407,7 @@ main {
   background: var(--c-l-0);
 }
 #question-input .mq-matrixed {
-  background: var(--c-l-0);
+  background: var(--c-l-1);
 }
 #question-input .mq-matrixed-container {
   filter: progid:DXImageTransform.Microsoft.Chroma(color='black');

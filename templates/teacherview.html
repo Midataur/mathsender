@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title%}{{code}} Teacher{%endblock%}
-{% block roomCode %}{{code}}{%endblock%}
+{% block roomCode %}Room Code: {{code}}{%endblock%}
 {% block head %}
 
 <script type="text/javascript" charset="utf-8">
@@ -53,7 +53,7 @@
 
 {% endblock %}
 {% block content %}
-		<h3>Submit new question</h3>
+		<h2>Submit new question</h2>
 		<br/>
 		Question: <p><span id="question-input"></span></p>
 		
@@ -70,7 +70,6 @@
 		</script>
 
 		<div class="wysiwyg">
-			<p class="hint"><i>Tip: type \text to create a text field!</i></p>
 			<p class="hint">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://www.math.brown.edu/~jhs/ReferenceCards/TeXRefCard.v1.5.pdf" target="_blank">here</a></p>
 		</div>
 

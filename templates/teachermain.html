@@ -6,18 +6,26 @@
 		
 {% endblock %}
 {% block content %}
-
-        <h3>Join existing room</h3>
-        <form action="/teacher/join" method="POST">
-            Code:<input type="text" name="code">
-            <br/>
-            Password:<input type="password" name="password">
-            <input type="submit" value="Join" class="button">
+        <h2 class="text-heading">Teacher View</h2>
+        <h3 class="text-heading -sub">Join existing room:</h3>
+        <form action="/teacher/join" method="POST" class="form">
+            <label class="field twopart-field ">
+                <div class="twopart-field__left -primary">Code:</div>
+                <input type="text" name="code" inputmode="decimal" class="field__input twopart-field__right -primary" required/>
+            </label>
+            <label class="field twopart-field">
+                <div class="twopart-field__left">Password:</div>
+                <input type="password" name="password" class="field__input twopart-field__right -password" required/>
+            </label>
+            <input type="submit" value="◈ Join Room" class="button -fill">
         </form>
-		<br/>
-		<h3>Create new room</h3>
-        <form action="/teacher/create" method="POST">
-            Password:<input type="password" name="password">
-            <input type="submit" value="Create" class="button">
+        <br>
+		<h3 class="text-heading -sub">Create new room:</h3>
+        <form action="/teacher/create" method="POST" class="form">
+            <label class="field twopart-field">
+                <div class="twopart-field__left">Password:</div>
+                <input type="password" name="password" class="field__input twopart-field__right -password" required/>
+            </label>
+            <input type="submit" value="▣ Create Room" class="button -fill">
         </form>
 {%endblock%}
