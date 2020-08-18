@@ -4,11 +4,16 @@ from collections import defaultdict
 import json
 import random
 
+classrooms = defaultdict(lambda: None)
+
 app = Flask(__name__)
-app.config['DEBUG'] = True
+app.config['DEBUG'] = True if __name__ == '__main__' else False
 socketio = SocketIO(app)
 
-classrooms = defaultdict(lambda: None)
+#this is just for heroku
+def create_app():
+    global app
+    return app
 
 def valid_code(code):
     global classrooms
@@ -214,4 +219,4 @@ def debug():
 print(app.url_map)
 
 if __name__ == '__main__':
-    socketio.run(app,host='0.0.0.0')
+    socketio.run(create_app(True),host='0.0.0.0')

@@ -47,6 +47,7 @@
 {% block content %}
         <h2 class="text-heading">\({{question['text']}}\)</h2>
         <h3 class="text-heading -sub">Answers:</h3>
+
         <div id="answers">
             {% for answer in question['answers'] %}
                 <div class="answer" id='answer-{{answer["submitted_by"]}}'>
