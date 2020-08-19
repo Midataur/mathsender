@@ -39,12 +39,7 @@
 		<!-- MathQuill -->
 		<script>
 			var answerSpan = document.getElementById('answer-input');
-			var answerMathField = MQ.MathField(answerSpan, {
-			  handlers: {
-				enter: function() {
-					send_answer(); //submits the answer
-				}
-			  }
-			});
+			var answerMathField = MQ.MathField(answerSpan, {handlers: {}});
 		</script>
+		<button onclick="send_answer();" class="button -fill">Submit answer</button>
 {%endblock%}

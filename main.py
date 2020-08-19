@@ -34,7 +34,9 @@ def fetch_answer(answer_list,author):
 @socketio.on('room_connect')
 def connect(room):
     join_room(room)
+    questions = list(classrooms[int(room)]['questions'].values())
     print('New connection from',room)
+    socketio.emit('question_list',questions,broadcast=True, room=room)
 
 @socketio.on('new_answer')
 def new_answer(name,answer_text,code,qid):
@@ -140,7 +142,6 @@ def teacher_room(code):
         return render_template(
             'teacherview.html',
             code=code,
-            questions=questions,
             password=password
         )
     else:
