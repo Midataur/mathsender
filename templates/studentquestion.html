@@ -9,7 +9,7 @@
 	//puts you in a room
     var socket = io();
     socket.on('connect', function() {
-        socket.emit('room_connect','{{code}}');
+        socket.emit('room_connect','{{code}}','{{question["id"]}}');
     });
 </script>
 

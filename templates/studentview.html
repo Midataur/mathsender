@@ -43,10 +43,10 @@
 		qid = qdata[1];
 
         question_el = gen_question_el(question,qid);
+		question_el.firstChild.href = "/student/room/{{code}}/questions/"+qid+"?name={{name}}"
         console.log(question_el);
         
 		questions = document.getElementById('questions');
-
 		questions.insertBefore(question_el, questions.firstChild);
 		renderMathInElement(question_el);
     });

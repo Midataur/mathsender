@@ -36,7 +36,12 @@ def connect(room):
     join_room(room)
     questions = list(classrooms[int(room)]['questions'].values())
     print('New connection from',room)
-    socketio.emit('question_list', questions, room=room)
+    socketio.emit('question_list',questions,room=room)
+
+@socketio.on('request_answers')
+def send_answers(room,qid):
+    answers = classrooms[int(room)]['questions'][int(qid)]['answers']
+    socketio.emit('answers_list',answers,room=room)
 
 @socketio.on('new_answer')
 def new_answer(name,answer_text,code,qid):
@@ -218,5 +223,5 @@ if __name__ == '__main__':
     @app.route('/debug')
     def debug():
         global classrooms
-        return str(classrooms)
+        0/0
     socketio.run(create_app(),host='0.0.0.0')
