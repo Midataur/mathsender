@@ -163,7 +163,7 @@ def teacher_question(code,qid):
             if password == room['password']:
                 #checks passed, render
                 question = room['questions'][int(qid)]
-                return render_template('teacherquestion.html',question=question, code=code)
+                return render_template('teacherquestion.html',question=question, code=code, password=password)
             else:
                 return 'Wrong room password'
         else:

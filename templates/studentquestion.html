@@ -9,7 +9,7 @@
 	//puts you in a room
     var socket = io();
     socket.on('connect', function() {
-        socket.emit('room_connect','{{code}}','{{question["id"]}}');
+        socket.emit('room_connect','{{code}}');
     });
 </script>
 
@@ -40,10 +40,11 @@
 
 {% endblock %}
 {% block content %}
+		<a href="/student/room/{{code}}?name={{name}}">Back</a>
 		<h2 class="text-heading">\({{question['text']}}\)</h2>
 		{% if answer %}
-		<span id="current-answer">Your current answer: {{answer['answer']}}</span>
 		<h3 class="text-heading -sub" id="submit-or-change">Change answer</h3>
+		<span id="current-answer">Your current answer: {{answer['answer']}}</span>
 		{% else %}
 		<h3 class="text-heading -sub" id="submit-or-change">Submit answer</h3>
 		<span id="current-answer" hidden></span>
@@ -57,4 +58,5 @@
 			var answerMathField = MQ.MathField(answerSpan, {handlers: {}});
 		</script>
 		<button onclick="send_answer();" class="button -fill">Submit answer</button>
+		<p class="wysiwyg">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://www.math.brown.edu/~jhs/ReferenceCards/TeXRefCard.v1.5.pdf" target="_blank">here</a></p>
 {%endblock%}
