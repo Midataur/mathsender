@@ -25,26 +25,36 @@
 	}
 </script>
 
+<script type="text/javascript" charset="utf-8">
+    socket.on('new_answer_teacher', function( answer ) {
+		console.log(answer)
+		if (answer['submitted_by'] == '{{name}}') {
+			current_answer = document.getElementById('current-answer');
+			current_answer.hidden = false;
+			current_answer.textContent = "Your current answer: "+answer['answer'];
+			document.getElementById('submit-or-change').textContent = 'Change answer';
+			renderMathInElement(current_answer);
+		}
+    });
+</script>
+
 {% endblock %}
 {% block content %}
 		<h2 class="text-heading">\({{question['text']}}\)</h2>
 		{% if answer %}
-		Your current answer: {{answer['answer']}}
-		<h3 class="text-heading -sub">Change answer</h3>
+		<span id="current-answer">Your current answer: {{answer['answer']}}</span>
+		<h3 class="text-heading -sub" id="submit-or-change">Change answer</h3>
 		{% else %}
-		<h3 class="text-heading -sub">Submit answer</h3>
+		<h3 class="text-heading -sub" id="submit-or-change">Submit answer</h3>
+		<span id="current-answer" hidden></span>
 		{% endif %}
+		<br/>
 		<label class="field"><span id="answer-input" class="field__input"></span></label>
 		
 		<!-- MathQuill -->
 		<script>
 			var answerSpan = document.getElementById('answer-input');
-			var answerMathField = MQ.MathField(answerSpan, {
-			  handlers: {
-				enter: function() {
-					send_answer(); //submits the answer
-				}
-			  }
-			});
+			var answerMathField = MQ.MathField(answerSpan, {handlers: {}});
 		</script>
+		<button onclick="send_answer();" class="button -fill">Submit answer</button>
 {%endblock%}

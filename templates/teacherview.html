@@ -22,6 +22,30 @@
 	}
 </script>
 
+<script>
+	function add_question(question_el) {
+		questions = document.getElementById('questions');
+		questions.insertBefore(question_el, questions.firstChild);
+		renderMathInElement(question_el);
+	}
+</script>
+
+<script>
+	loaded = false;
+	//get all the questions
+	socket.on('question_list', function( questions ) {
+		if (!loaded) {
+			console.log(questions)
+			for (i = 0; i < questions.length; i++) {
+				question = questions[i]
+				question_el = gen_question_el('\\('+question['text']+'\\)',questions['id']);
+				add_question(question_el)
+			}
+			loaded = true;
+		}
+    });
+</script>
+
 <script type="text/javascript" charset="utf-8">
     socket.on('new_question_client', function( qdata ) {
 		question = '\\('+qdata[0]+'\\)';
@@ -30,10 +54,7 @@
         question_el = gen_question_el(question,qid);
         console.log(question_el);
         
-		questions = document.getElementById('questions');
-
-		questions.insertBefore(question_el, questions.firstChild);
-		renderMathInElement(question_el);
+		add_question(question_el);
     });
 </script>
 
@@ -49,26 +70,15 @@
 		<!-- MathQuill -->
 		<script>
 			var questionSpan = document.getElementById('question-input');
-			var questionMathField = MQ.MathField(questionSpan, {
-			  handlers: {
-				enter: function() {
-					send_question(); //submit the question
-				}
-			  }
-			});
+			var questionMathField = MQ.MathField(questionSpan, {handlers: {}});
 		</script>
+		<button onclick="send_question();" class="button -fill">Submit question</button>
+		<!-- Quang's button ^ -->
 
-		
 		<p class="wysiwyg">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://www.math.brown.edu/~jhs/ReferenceCards/TeXRefCard.v1.5.pdf" target="_blank">here</a></p>
 		<br>
 		<h3 class="text-heading -sub">Existing questions:</h3>
-		<div id="questions" class="questions">
-			{% for question in questions %}
-				<div>
-					<a href="{{code}}/questions/{{question['id']}}?password={{password}}"><div class="button -fill -math">\({{question['text']}}\)</div></a>
-				</div>
-			
-			{% endfor %}
-		</div>
+		<!-- Gets filled by JS -->
+		<div id="questions" class="questions"></div>
 
 {%endblock%}
