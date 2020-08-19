@@ -7,6 +7,15 @@
 {% endblock %}
 {% block content %}
         <h2 class="text-heading">Teacher View</h2>
+        <h3 class="text-heading -sub">Create new room:</h3>
+        <form action="/teacher/create" method="POST" class="form">
+            <label class="field twopart-field">
+                <div class="twopart-field__left">Password:</div>
+                <input type="password" name="password" class="field__input twopart-field__right -password" required/>
+            </label>
+            <input type="submit" value="▣ Create Room" class="button -fill">
+        </form>
+        <br>
         <h3 class="text-heading -sub">Join existing room:</h3>
         <form action="/teacher/join" method="POST" class="form">
             <label class="field twopart-field ">
@@ -18,14 +27,5 @@
                 <input type="password" name="password" class="field__input twopart-field__right -password" required/>
             </label>
             <input type="submit" value="◈ Join Room" class="button -fill">
-        </form>
-        <br>
-		<h3 class="text-heading -sub">Create new room:</h3>
-        <form action="/teacher/create" method="POST" class="form">
-            <label class="field twopart-field">
-                <div class="twopart-field__left">Password:</div>
-                <input type="password" name="password" class="field__input twopart-field__right -password" required/>
-            </label>
-            <input type="submit" value="▣ Create Room" class="button -fill">
         </form>
 {%endblock%}

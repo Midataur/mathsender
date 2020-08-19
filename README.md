@@ -7,3 +7,4 @@
 
 > A tool for sending maths equations between teachers and students during online learning.
 
+[Visit the MathSender website!](http://mathsender.fun)

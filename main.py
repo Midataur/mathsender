@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['DEBUG'] = True if __name__ == '__main__' else False
 socketio = SocketIO(app)
 
-#this is just for heroku
+#this one is just for heroku
 def create_app():
     global app
     return app
@@ -34,7 +34,14 @@ def fetch_answer(answer_list,author):
 @socketio.on('room_connect')
 def connect(room):
     join_room(room)
+    questions = list(classrooms[int(room)]['questions'].values())
     print('New connection from',room)
+    socketio.emit('question_list',questions,room=room)
+
+@socketio.on('request_answers')
+def send_answers(room,qid):
+    answers = classrooms[int(room)]['questions'][int(qid)]['answers']
+    socketio.emit('answers_list',answers,room=room)
 
 @socketio.on('new_answer')
 def new_answer(name,answer_text,code,qid):
@@ -140,7 +147,6 @@ def teacher_room(code):
         return render_template(
             'teacherview.html',
             code=code,
-            questions=questions,
             password=password
         )
     else:
@@ -157,7 +163,7 @@ def teacher_question(code,qid):
             if password == room['password']:
                 #checks passed, render
                 question = room['questions'][int(qid)]
-                return render_template('teacherquestion.html',question=question, code=code)
+                return render_template('teacherquestion.html',question=question, code=code, password=password)
             else:
                 return 'Wrong room password'
         else:
@@ -182,11 +188,15 @@ def student_room(code):
 
 @app.route('/student/join',methods=['GET','POST'])
 def student_join():
+    global classrooms
     if request.method == 'GET':
         return render_template('studentjoin.html')
     else:
         code = request.form['code']
         name = request.form['name']
+        room = classrooms[int(code)]
+        if not room:
+            return 'Invalid code. Check that you typed it correctly'
         return f'<script>window.location = "/student/room/{code}?name={name}"</script>'
 
 @app.route('/student/room/<code>/questions/<qid>')
@@ -211,12 +221,11 @@ def student_question(code,qid):
     else:
         return 'Invalid room code'
 
-@app.route('/debug')
-def debug():
-    global classrooms
-    return str(classrooms)
-
 print(app.url_map)
 
 if __name__ == '__main__':
-    socketio.run(create_app(True),host='0.0.0.0')
+    @app.route('/debug')
+    def debug():
+        global classrooms
+        0/0
+    socketio.run(create_app(),host='0.0.0.0')

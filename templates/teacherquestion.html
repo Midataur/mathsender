@@ -8,6 +8,28 @@
     var socket = io.connect('http://' + document.domain + ':' + location.port);
     socket.on('connect', function() {
         socket.emit('room_connect','{{code}}');
+        socket.emit('request_answers','{{code}}','{{question["id"]}}');
+    });
+</script>
+
+<script>
+	loaded = false;
+	//get all the questions
+	socket.on('answers_list', function( answers ) {
+		if (!loaded) {
+			console.log(answers)
+            answers_div = document.getElementById('answers');
+			for (i = 0; i < answers.length; i++) {
+				answer = answers[i]
+				answer_el = gen_answer_el(answer);
+                container = document.createElement('div')
+                container.id = 'answer-'+answer['submitted_by'];
+                container.appendChild(answer_el)
+                answers_div.insertBefore(answer_el,answers_div.firstChild)
+                renderMathInElement(answers_div)
+			}
+			loaded = true;
+		}
     });
 </script>
 
@@ -19,6 +41,7 @@
         answer_el.appendChild(t1);
         answer_el.appendChild(document.createElement('br'));
         answer_el.appendChild(t2);
+        answer_el.appendChild(document.createElement('br'));
         answer_el.appendChild(document.createElement('br'));
         return answer_el;
     }
@@ -37,7 +60,7 @@
             answer_div = document.createElement('div');
             answer_div.id = 'answer-'+answer['submitted_by'];
             answer_div.appendChild(answer_el);
-            answers.append(answer_div);
+            answers.insertBefore(answer_div,answers.firstChild)
         }
         renderMathInElement(answer_div);
     });
@@ -45,17 +68,12 @@
 		
 {% endblock %}
 {% block content %}
-        <h2 class="text-heading -math">\({{question['text']}}\)</h2>
+
+        <a href="/teacher/room/{{code}}?password={{password}}">Back</a>
+        <h2 class="text-heading">\({{question['text']}}\)</h2>
+
         <h3 class="text-heading -sub">Answers:</h3>
 
-        <div id="answers">
-            {% for answer in question['answers'] %}
-                <div class="answer" id='answer-{{answer["submitted_by"]}}'>
-                    <p>
-                    Submitted by: {{ answer['submitted_by'] }}<br/>
-                    Answer given: {{ answer['answer'] }}<br/>
-                    </p>
-                </div>
-            {% endfor %}
-        </div>
+        <!-- Filled by JS -->
+        <div id="answers"></div>
 {%endblock%}
