@@ -188,11 +188,15 @@ def student_room(code):
 
 @app.route('/student/join',methods=['GET','POST'])
 def student_join():
+    global classrooms
     if request.method == 'GET':
         return render_template('studentjoin.html')
     else:
         code = request.form['code']
         name = request.form['name']
+        room = classrooms[int(code)]
+        if not room:
+            return 'Invalid code. Check that you typed it correctly'
         return f'<script>window.location = "/student/room/{code}?name={name}"</script>'
 
 @app.route('/student/room/<code>/questions/<qid>')
