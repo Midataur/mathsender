@@ -142,17 +142,16 @@ main {
   min-height: 85vh;
 }
 
-/* /* width */
+/* scrollbar 
 ::-webkit-scrollbar {
   width: 2px;
   height:2px
 }
-/* Track */
+
 ::-webkit-scrollbar-track {
   background: var(--c-yellow--dark); 
 }
  
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--c-yellow); 
 } */
