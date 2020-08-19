@@ -31,13 +31,17 @@
 </script>
 
 <script>
+	loaded = false;
 	//get all the questions
 	socket.on('question_list', function( questions ) {
-		console.log(questions)
-        for (i = 0; i < questions.length; i++) {
-			question = questions[i]
-			question_el = gen_question_el('\\('+question['text']+'\\)',questions['id']);
-			add_question(question_el)
+		if (!loaded) {
+			console.log(questions)
+			for (i = 0; i < questions.length; i++) {
+				question = questions[i]
+				question_el = gen_question_el('\\('+question['text']+'\\)',questions['id']);
+				add_question(question_el)
+			}
+			loaded = true;
 		}
     });
 </script>
