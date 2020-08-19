@@ -42,6 +42,7 @@
 {% block content %}
 		<a href="/student/room/{{code}}?name={{name}}">Back</a>
 		<h2 class="text-heading">\({{question['text']}}\)</h2>
+
 		{% if answer %}
 		<h3 class="text-heading -sub" id="submit-or-change">Change answer</h3>
 		<span id="current-answer">Your current answer: {{answer['answer']}}</span>

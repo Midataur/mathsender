@@ -100,17 +100,17 @@ Modifiers -> Popsicles (.button.-blue)
   --c-blue: hsl(190, 100%, 50%);
   --c-blue--light: hsl(190, 100%, 65%);
 
-  --c-l-10: hsl(220, 5%, 100%);
-  --c-l-9: hsl(220, 5%, 91%);
-  --c-l-8: hsl(220, 5%, 81%);
-  --c-l-7: hsl(220, 5%, 71%);
-  --c-l-6: hsl(220, 5%, 61%);
-  --c-l-5: hsl(220, 5%, 51%);
-  --c-l-4: hsl(220, 5%, 41%);
-  --c-l-3: hsl(220, 5%, 31%);
-  --c-l-2: hsl(220, 5%, 21%);
-  --c-l-1: hsl(220, 5%, 16%);
-  --c-l-0: hsl(220, 5%, 8%);
+  --c-l-10: hsl(240, 5%, 100%);
+  --c-l-9: hsl(240, 5%, 91%);
+  --c-l-8: hsl(240, 5%, 81%);
+  --c-l-7: hsl(240, 5%, 71%);
+  --c-l-6: hsl(240, 5%, 61%);
+  --c-l-5: hsl(240, 5%, 51%);
+  --c-l-4: hsl(240, 5%, 41%);
+  --c-l-3: hsl(240, 5%, 31%);
+  --c-l-2: hsl(240, 5%, 21%);
+  --c-l-1: hsl(240, 5%, 16%);
+  --c-l-0: hsl(240, 5%, 8%);
 }
 
 /* generic element styles */
@@ -142,7 +142,19 @@ main {
   min-height: 85vh;
 }
 
+/* scrollbar 
+::-webkit-scrollbar {
+  width: 2px;
+  height:2px
+}
 
+::-webkit-scrollbar-track {
+  background: var(--c-yellow--dark); 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: var(--c-yellow); 
+} */
 /* header block */
 .header {
   display: flex;
@@ -415,6 +427,13 @@ main {
 	margin-bottom: 0.875em;
   line-height: 1.1;
   font-weight: 300;
+}
+.text-heading.-math{
+  overflow-x:scroll;
+  overflow-y:hidden;
+  font-size:140%;
+/*   scrollbar-color: var(--c-yellow) var(--c-yellow--dark);
+  scrollbar-width: thin; */
 }
 
 /* some nice form blocks*/
