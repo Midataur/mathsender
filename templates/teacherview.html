@@ -65,6 +65,9 @@
 			<div class="twopart-field__left">Question:</div>
 			<span id="question-input" class="field__input twopart-field__right -math"></span>
 		</label>
+		<label class="field">
+			<button onclick="send_question();" class="button -fill">Submit question</button>
+		</label>
 			
 		
 		<!-- MathQuill -->
@@ -72,8 +75,8 @@
 			var questionSpan = document.getElementById('question-input');
 			var questionMathField = MQ.MathField(questionSpan, {handlers: {}});
 		</script>
-		<button onclick="send_question();" class="button -fill">Submit question</button>
-		<!-- Quang's button ^ -->
+		
+		
 
 		<p class="wysiwyg">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://katex.org/docs/supported.html" target="_blank">here</a></p>
 
