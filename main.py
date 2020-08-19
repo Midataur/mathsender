@@ -36,7 +36,7 @@ def connect(room):
     join_room(room)
     questions = list(classrooms[int(room)]['questions'].values())
     print('New connection from',room)
-    socketio.emit('question_list',questions,broadcast=True, room=room)
+    socketio.emit('question_list', questions, room=room)
 
 @socketio.on('new_answer')
 def new_answer(name,answer_text,code,qid):

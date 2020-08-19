@@ -28,7 +28,7 @@
 			for (i = 0; i < questions.length; i++) {
 				question = questions[i]
 				question_el = gen_question_el('\\('+question['text']+'\\)',questions['id']);
-				question_el.href = "/student/room/{{code}}/questions/"+question['id']+"?name={{name}}"
+				question_el.firstChild.href = "/student/room/{{code}}/questions/"+question['id']+"?name={{name}}"
 
 				add_question(question_el)
 			}
