@@ -31,13 +31,10 @@
 </script>
 
 <script>
-	numStuds = 0;
 	socket.on('current_student_count', function( newNumStuds ) {
 		count_span = document.getElementById('student-num')
-		if (newNumStuds != numStuds) {
-			numStuds = newNumStuds;
-			count_span.textContent = numStuds;
-		}
+		numStuds = newNumStuds;
+		count_span.textContent = numStuds;
 	});
 </script>
 
