@@ -35,8 +35,10 @@ def fetch_answer(answer_list,author):
 def connect(room):
     join_room(room)
     questions = list(classrooms[int(room)]['questions'].values())
+    num_studs = len(classrooms[int(room)]['students'])
     print('New connection from',room)
     socketio.emit('question_list',questions,room=room)
+    socketio.emit('current_student_count',num_studs,room=room)
 
 @socketio.on('request_answers')
 def send_answers(room,qid):
@@ -118,7 +120,8 @@ def teacher_create():
     classrooms[code] = {
         'password': password,
         'questions': {},
-        'curqid':0
+        'curqid': 0,
+        'students': []
     }
     """
     classrooms[code]['questions'][1] = {
@@ -176,11 +179,12 @@ def student_room(code):
     global classrooms
     name = request.args.get('name')
     if valid_code(code):
-        questions = list(classrooms[int(code)]['questions'].values())[::-1]
+        room = classrooms[int(code)]
+        if name not in room['students']:
+            room['students'].append(name)
         return render_template(
             'studentview.html',
             name=name,
-            questions=questions,
             code=code
         )
     else:
