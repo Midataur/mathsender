@@ -57,7 +57,8 @@ def new_answer(name,answer_text,code,qid):
     else:
         answer = {
             'submitted_by': name,
-            'answer': '\\('+answer_text+'\\)'
+            'answer': '\\('+answer_text+'\\)',
+            'correct': 'unknown'
         }
         answers.append(answer)
     #send out to the teacher page
