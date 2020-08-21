@@ -3,7 +3,7 @@
 {% block roomCode %}Room Code: {{code}}{%endblock%}
 {% block head %}
 
-<script type="text/javascript" charset="utf-8">
+<script>
 	// Puts you in a room
     var socket = io.connect('http://' + document.domain + ':' + location.port);
     socket.on('connect', function() {
@@ -13,53 +13,8 @@
 </script>
 
 <script>
-    // Define function to generate the div for an answer
-
-    function gen_answer_div(answer) {
-        // Make a container
-        container = document.createElement('div')
-        container.id = 'answer-' + answer['submitted_by'];
-        container.className = 'answer'
-        
-        // Paragraph with name & answer info
-        p = document.createElement("p");
-        t1 = document.createTextNode('Submitted by: '+answer['submitted_by']);
-        t2 = document.createTextNode('Answer given: '+answer['answer']);
-        
-        p.appendChild(t1);
-        p.appendChild(document.createElement('br'));
-        p.appendChild(t2);
-        p.appendChild(document.createElement('br'));
-        container.append(p);
-
-        // Tick and cross icons
-        icons = document.createElement('div');
-        icons.className = 'icons';
-
-        tick = document.createElement("img");
-        tick.className = 'tick';
-        tick.src = '/static/tick.svg';
-        tick.onclick = function() {mark_correct(answer)};
-
-        cross = document.createElement("img");
-        cross.className = 'cross';
-        cross.src = '/static/cross.svg';
-        cross.onclick = function() {mark_incorrect(answer)};
-
-        icons.appendChild(tick);
-        icons.appendChild(cross);
-        container.appendChild(icons)
-
-        return container;
-    }
-</script>
-
-<script>
     // Render the existing answers
-
     loaded = false;
-    var answers; // declare it as a global variable so it can accessed/changed later
-	
 	socket.on('answers_list', function( answers_input ) {
         answers = answers_input
 		if (!loaded) {
@@ -77,53 +32,90 @@
     });
 </script>
 
-<script type="text/javascript" charset="utf-8">
-    // Handle new Answers
-    socket.on('new_answer_teacher', function( answer ) {
-        answers.push(answer)
-        console.log(answers)
-        answer_div = gen_answer_div(answer);
-        answers_div.insertBefore(answer_div,answers_div.firstChild)
-        renderMathInElement(answers_div)
+<script>
+    // Handle new answers
+    socket.on('new_answer_teacher', function( data ) {
+        //Check that the question is for the right room
+        //make a room for each question (?)
+        if (data['qid'] == '{{question["id"]}}'){
+            console.log('new answer')
+            answer = data['answer']
+            answer_div = gen_answer_div(answer);
+            answers_div.insertBefore(answer_div,answers_div.firstChild)
+            renderMathInElement(answers_div)
+        }
     });
 </script>
 
-
 <script>
-    function mark_correct(correct_answer) {
-        console.log(correct_answer)
+    // Define function to generate the div for an answer
 
-        for (i = 0; i < answers.length; i++) {
-            answers[i]['correct'] = true
-            answer = answers[i]
-            if (answer['answer'] == correct_answer['answer']){
-                container = document.getElementById('answer-' + answer['submitted_by'])
-                container.className = 'correct answer';
-            }
-        }
-        update_percentage()
-    }
+    function gen_answer_div(answer) {
+        // Make a container
+        container = document.createElement('div')
+        container.id = 'answer-' + answer['submitted_by'];
+        container.className = 'answer'
+    
+        // Paragraph with name & answer info
+        p = document.createElement("p");
+        t1 = document.createTextNode('Submitted by: '+answer['submitted_by']);
+        t2 = document.createTextNode('Answer given: '+answer['answer']);
+        p.appendChild(t1);
+        p.appendChild(document.createElement('br'));
+        p.appendChild(t2);
+        p.appendChild(document.createElement('br'));
+        container.append(p);
 
-    function mark_incorrect(incorrect_answer) {
-        console.log(incorrect_answer)
+        // Tick and cross icons
+        icons = document.createElement('div');
+        icons.className = 'icons';
 
-        for (i = 0; i < answers.length; i++) {
-            answers[i]['incorrect'] = true
-            answer = answers[i]
-            if (answer['answer'] == incorrect_answer['answer']){
-                container = document.getElementById('answer-' + answer['submitted_by']);
-                container.className = 'incorrect answer';
-            }
-        }
-        update_percentage()
+        tick = document.createElement("img");
+        tick.className = 'tick';
+        tick.src = '/static/tick.svg';
+        tick.onclick = function() {socket.emit('autocorrect', answer, true,'{{code}}','{{question["id"]}}')};
+
+        cross = document.createElement("img");
+        cross.className = 'cross';
+        cross.src = '/static/cross.svg';
+        cross.onclick = function() {socket.emit('autocorrect', answer, false,'{{code}}','{{question["id"]}}')};
+
+        icons.appendChild(tick);
+        icons.appendChild(cross);
+        container.appendChild(icons)
+
+        return container;
     }
 </script>
 
 <script>
-    function update_percentage(){
-        
-    }
+    socket.on('mark_correct', function ( data ) {
+        // Same as accepting new answers
+        // Check that the correction is for the right room
+        // make a room for each question (?)
+
+        if (data['qid'] == '{{question["id"]}}'){
+            answer = data['answer']
+            console.log('Autograded ' + answer['submitted_by'] + "'s answer")
+            container = document.getElementById('answer-' + answer['submitted_by'])
+            container.className = 'correct answer';
+        }
+    });
+
+    socket.on('mark_incorrect', function ( data ) {
+        // Same as accepting new answers
+        // Check that the correction is for the right room
+        // make a room for each question (?)
+
+        if (data['qid'] == '{{question["id"]}}'){
+            answer = data['answer']
+            console.log('Autograded ' + answer['submitted_by'] + "'s answer")
+            container = document.getElementById('answer-' + answer['submitted_by'])
+            container.className = 'incorrect answer';
+        }
+    });
 </script>
+
 
 		
 {% endblock %}

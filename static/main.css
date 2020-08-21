@@ -290,7 +290,6 @@ main {
 }
 .icons {
   float: right;
-  background-color: inherit;
 }
 .cross, .tick{
   display: inline-block;

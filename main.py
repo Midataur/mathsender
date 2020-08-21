@@ -29,21 +29,22 @@ def fetch_answer(answer_list,author):
              return x
     return None
 
+
 ### SOCKETS ###
 
 @socketio.on('room_connect')
-def connect(room):
-    join_room(room)
-    questions = list(classrooms[int(room)]['questions'].values())
-    num_studs = len(classrooms[int(room)]['students'])
-    print('New connection from',room)
-    socketio.emit('question_list',questions,room=room)
-    socketio.emit('current_student_count',num_studs,room=room)
+def connect(code):
+    join_room(code)
+    questions = list(classrooms[int(code)]['questions'].values())
+    num_studs = len(classrooms[int(code)]['students'])
+    print('New connection from',code)
+    socketio.emit('question_list',questions,room=code)
+    socketio.emit('current_student_count',num_studs,room=code)
 
 @socketio.on('request_answers')
-def send_answers(room,qid):
-    answers = classrooms[int(room)]['questions'][int(qid)]['answers']
-    socketio.emit('answers_list',answers,room=room)
+def send_answers(code,qid):
+    answers = classrooms[int(code)]['questions'][int(qid)]['answers']
+    socketio.emit('answers_list',answers,room=code)
 
 @socketio.on('new_answer')
 def new_answer(name,answer_text,code,qid):
@@ -57,15 +58,17 @@ def new_answer(name,answer_text,code,qid):
     else:
         answer = {
             'submitted_by': name,
-            'answer': '\\('+answer_text+'\\)'
+            'answer': '\\('+answer_text+'\\)',
+            'correct': None
         }
         answers.append(answer)
-    #send out to the teacher page
+
+    # Send out to the teacher page
     socketio.emit(
         'new_answer_teacher',
-        answer,
-        broadcast=True,
-        room=code
+        {'answer': answer, 'qid': qid},
+        room=code,
+        broadcast=True
     )
 
 @socketio.on('new_question')
@@ -81,13 +84,39 @@ def new_question(question_text,code,password):
         }
         room['curqid'] += 1
         room['questions'][room['curqid']] = question
-        #send out to the student page
+        # Send out to the student page
         socketio.emit(
             'new_question_client',
             [question_text,room['curqid']],
-            broadcast=True,
-            room=code
+            room=code,
+            broadcast=True
+            
         )
+
+@socketio.on('autocorrect')
+def autocorrect(clicked_answer,correct,code,qid):
+    # if correct is True, the clicked answer is correct
+    answers = classrooms[int(code)]['questions'][int(qid)]['answers']
+    for i in range(len(answers)):
+        if answers[i]['answer'] == clicked_answer['answer']:
+            if correct:
+                classrooms[int(code)]['questions'][int(qid)]['answers'][i]['correct'] = True
+                # Send out to the teacher page
+                socketio.emit(
+                    'mark_correct',
+                    {'answer': answers[i], 'qid': qid},
+                    room=code,
+                    broadcast=True
+                )
+            else:
+                classrooms[int(code)]['questions'][int(qid)]['answers'][i]['correct'] = False
+                socketio.emit(
+                    'mark_incorrect',
+                    {'answer': answers[i], 'qid': qid},
+                    room=code,
+                    broadcast=True
+                )
+
 
 ### ROUTES ###
 
@@ -123,22 +152,31 @@ def teacher_create():
         'curqid': 0,
         'students': []
     }
-    """
+    
     classrooms[code]['questions'][1] = {
         'text': 'What is 1+1?',
         'id':1,
         'answers': [
             {
                 'submitted_by': 'Jerome',
-                'answer': '2'
+                'answer': '2',
+                'correct': None,
+
+            },
+            {
+                'submitted_by': 'Another Jerome',
+                'answer': '2',
+                'correct': None,
+
             },
             {
                 'submitted_by': 'The cooler Jerome',
-                'answer': '`e^(i pi)+3`'
+                'answer': '`e^(i pi)+3`',
+                'correct': None,
             }
         ]
     }
-    """
+    
     return f'<script>window.location = "/teacher/room/{code}?password={password}"</script>'
 
 @app.route('/teacher/room/<code>')
