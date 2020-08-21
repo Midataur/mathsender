@@ -4,7 +4,7 @@
 {% block head %}
 
 <script type="text/javascript" charset="utf-8">
-	//puts you in a room
+	// Puts you in a room
     var socket = io.connect('http://' + document.domain + ':' + location.port);
     socket.on('connect', function() {
         socket.emit('room_connect','{{code}}');
@@ -13,19 +13,64 @@
 </script>
 
 <script>
+    // Define function to generate the div for an answer
+
+    function gen_answer_div(answer) {
+        console.log(answer)
+
+        // Make a container
+        container = document.createElement('div')
+        container.id = 'answer-' + answer['submitted_by'];
+        container.className = 'answer'
+        
+        //Paragraph with name & answer info
+        p = document.createElement("p");
+        t1 = document.createTextNode('Submitted by: '+answer['submitted_by']);
+        t2 = document.createTextNode('Answer given: '+answer['answer']);
+        
+        p.appendChild(t1);
+        p.appendChild(document.createElement('br'));
+        p.appendChild(t2);
+        p.appendChild(document.createElement('br'));
+        container.append(p)
+
+        // Tick and cross icons
+        icons = document.createElement('div');
+        // icons.id = container.id + '-icons'
+        icons.className = 'icons'
+
+        tick = document.createElement("img");
+        tick.className = 'tick'
+        tick.src = '/static/tick.svg'
+        
+        cross = document.createElement("img");
+        cross.className = 'cross'
+        cross.src = '/static/cross.svg'
+        // cross.onclick = 
+
+        icons.appendChild(tick);
+        icons.appendChild(cross);
+        container.appendChild(icons)
+
+        return container;
+    }
+</script>
+
+<script>
 	loaded = false;
-	//get all the questions
+	// Render the existing answers
 	socket.on('answers_list', function( answers ) {
 		if (!loaded) {
-			console.log(answers)
+            console.log(answers)
+            
+            // answers_div is an empty div where all the answers will go
             answers_div = document.getElementById('answers');
 			for (i = 0; i < answers.length; i++) {
-				answer = answers[i]
-				answer_el = gen_answer_el(answer);
-                container = document.createElement('div')
-                container.id = 'answer-'+answer['submitted_by'];
-                container.appendChild(answer_el)
-                answers_div.insertBefore(answer_el,answers_div.firstChild)
+                answer = answers[i]
+                
+                // Generate the div for one answer
+				answer_div = gen_answer_div(answer);
+                answers_div.insertBefore(answer_div,answers_div.firstChild)
                 renderMathInElement(answers_div)
 			}
 			loaded = true;
@@ -34,35 +79,19 @@
 </script>
 
 <script>
-    function gen_answer_el(answer) {
-        answer_el = document.createElement("p");
-        t1 = document.createTextNode('Submitted by: '+answer['submitted_by']);
-        t2 = document.createTextNode('Answer given: '+answer['answer']);
-        answer_el.appendChild(t1);
-        answer_el.appendChild(document.createElement('br'));
-        answer_el.appendChild(t2);
-        answer_el.appendChild(document.createElement('br'));
-        answer_el.appendChild(document.createElement('br'));
-        return answer_el;
+    function correct() {
+
     }
 </script>
 
+
+
 <script type="text/javascript" charset="utf-8">
+    // Handle new Answers
     socket.on('new_answer_teacher', function( answer ) {
-        answer_el = gen_answer_el(answer);
-        console.log(answer_el);
-        answer_div = document.getElementById('answer-'+answer['submitted_by']);
-        if (answer_div) {
-            answer_div.textContent = '';
-            answer_div.appendChild(answer_el);
-        } else {
-            answers = document.getElementById('answers');
-            answer_div = document.createElement('div');
-            answer_div.id = 'answer-'+answer['submitted_by'];
-            answer_div.appendChild(answer_el);
-            answers.insertBefore(answer_div,answers.firstChild)
-        }
-        renderMathInElement(answer_div);
+        answer_div = gen_answer_div(answer);
+        answers_div.insertBefore(answer_div,answers_div.firstChild)
+        renderMathInElement(answers_div)
     });
 </script>
 		

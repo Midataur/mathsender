@@ -275,6 +275,29 @@ main {
 .questions > * {
   margin-bottom: var(--mini-unit);
 }
+
+
+/* answers on the teacher's page */
+.answer {
+  margin-bottom: 50px;
+  width: 30%;
+}
+
+.icons {
+  float: right;
+}
+.cross, .tick{
+  height: 40px;
+  padding: 5px;
+  display: inline-block;
+  opacity: 0.6;
+}
+
+.cross:hover, .tick:hover {
+  opacity: 0.8;
+}
+
+
 /* the room code block */
 .room-code {
   align-items: center;
