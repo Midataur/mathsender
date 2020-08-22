@@ -89,11 +89,11 @@
                 container.id = 'answer-'+answer['submitted_by'];
                 container.className = "t-answer"
                 container.appendChild(answer_el)
-            
-                answers_div = document.getElementById('answers');
-                answers_div.insertBefore(container,answers_div.firstChild)
-                renderMathInElement(answers_div)
             }
+            // Render any latex, if it's a new answer or a changed answer
+            answers_div = document.getElementById('answers');
+            answers_div.insertBefore(container,answers_div.firstChild)
+            renderMathInElement(answers_div)
         }
     });
 </script>
@@ -109,7 +109,7 @@
             container = document.getElementById('answer-' + answer['submitted_by'])
             container.className = 'correct answer';
         }
-    };
+    });
 
     socket.on('mark_incorrect', function ( data ) {
         // Same as accepting new answers

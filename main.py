@@ -60,18 +60,17 @@ def new_answer(name,answer_text,code,qid):
 
     #walrus time?
     if answer := fetch_answer(answers,name):
-        # answer['answer'] = '\\('+answer_text+'\\)'
-        answer['answer'] = answer_text
+        answer['answer'] = '\\('+answer_text+'\\)'
         answer['correct'] = autocorrect_new(answers,answer)
     else:
         answer = {
             'submitted_by': name,
-            'answer': answer_text,
+            'answer': '\\('+answer_text+'\\)',
         }
         answer['correct'] = autocorrect_new(answers,answer)
         answers.append(answer)
 
-
+    print(answer)
     # Send out to the teacher page
     socketio.emit(
         'new_answer_teacher',
@@ -163,7 +162,7 @@ def teacher_create():
         'students': []
     }
     
-    """
+    '''
     classrooms[code]['questions'][1] = {
         'text': 'What is 1+1?',
         'id':1,
@@ -187,7 +186,8 @@ def teacher_create():
             }
         ]
     }
-    """
+    '''
+
     return f'<script>window.location = "/teacher/room/{code}?password={password}"</script>'
 
 @app.route('/teacher/room/<code>')
