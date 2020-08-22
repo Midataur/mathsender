@@ -40,15 +40,16 @@
         // clone said template
         var answer_el = templ.content.cloneNode(true)
         // create the two bits of text
-        var t1 = document.createTextNode('Submitted by: '+answer['submitted_by']);
-        var t2 = document.createTextNode('Answer given: '+answer['answer']);
+        var t1 = document.createTextNode(answer['submitted_by']);
+        var t2 = document.createTextNode(answer['answer']);
 
         // replace the template text with created text
         var answerUser = answer_el.querySelector("#answerUser")
         var answerText = answer_el.querySelector("#answerText")
-        
+
         answerUser.appendChild(t1)
         answerText.appendChild(t2)
+
         console.log(answer_el)
         // return the element
         return answer_el;
@@ -67,6 +68,7 @@
             answers = document.getElementById('answers');
             answer_div = document.createElement('div');
             answer_div.id = 'answer-'+answer['submitted_by'];
+            answer_div.className = "t-answer"
             answer_div.appendChild(answer_el);
             answers.insertBefore(answer_div,answers.firstChild)
         }
@@ -86,8 +88,8 @@
 
         <!-- answer template -->
         <template id="answer">
-            <div id="answerUser"></div>
-            <div id="answerText"></div>
+            <div id="answerUser" class="t-answer-user"></div>
+            <div id="answerText" class="t-answer-text"></div>
         </template>
 
         <!-- Filled by JS -->
