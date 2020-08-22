@@ -40,7 +40,10 @@
 
 {% endblock %}
 {% block content %}
-		<a href="/student/room/{{code}}?name={{name}}">Back</a>
+		<div class="back-link">
+			<a href="/student/room/{{code}}?name={{name}}">Go back</a>
+		</div>
+		
 		<h2 class="text-heading">\({{question['text']}}\)</h2>
 
 		{% if answer %}

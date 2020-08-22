@@ -68,8 +68,10 @@
 		
 {% endblock %}
 {% block content %}
-
-        <a href="/teacher/room/{{code}}?password={{password}}">Back</a>
+        <div class="back-link">
+            <a href="/teacher/room/{{code}}?password={{password}}">Go back</a>
+        </div>
+       
         <h2 class="text-heading">\({{question['text']}}\)</h2>
 
         <h3 class="text-heading -sub">Answers:</h3>

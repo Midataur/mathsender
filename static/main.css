@@ -480,3 +480,6 @@ main {
   width:calc(var(--mini-unit) * 47);
 }
 
+.back-link{
+  margin-bottom:calc(var(--mini-unit) * 2)
+}
