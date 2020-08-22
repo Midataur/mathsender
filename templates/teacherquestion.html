@@ -35,14 +35,22 @@
 
 <script>
     function gen_answer_el(answer) {
-        answer_el = document.createElement("p");
-        t1 = document.createTextNode('Submitted by: '+answer['submitted_by']);
-        t2 = document.createTextNode('Answer given: '+answer['answer']);
-        answer_el.appendChild(t1);
-        answer_el.appendChild(document.createElement('br'));
-        answer_el.appendChild(t2);
-        answer_el.appendChild(document.createElement('br'));
-        answer_el.appendChild(document.createElement('br'));
+        // get the template element
+        var templ = document.querySelector("template#answer")
+        // clone said template
+        var answer_el = templ.content.cloneNode(true)
+        // create the two bits of text
+        var t1 = document.createTextNode('Submitted by: '+answer['submitted_by']);
+        var t2 = document.createTextNode('Answer given: '+answer['answer']);
+
+        // replace the template text with created text
+        var answerUser = answer_el.querySelector("#answerUser")
+        var answerText = answer_el.querySelector("#answerText")
+        
+        answerUser.appendChild(t1)
+        answerText.appendChild(t2)
+        console.log(answer_el)
+        // return the element
         return answer_el;
     }
 </script>
@@ -75,6 +83,12 @@
         <h2 class="text-heading">\({{question['text']}}\)</h2>
 
         <h3 class="text-heading -sub">Answers:</h3>
+
+        <!-- answer template -->
+        <template id="answer">
+            <div id="answerUser"></div>
+            <div id="answerText"></div>
+        </template>
 
         <!-- Filled by JS -->
         <div id="answers"></div>
