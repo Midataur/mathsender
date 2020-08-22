@@ -23,7 +23,7 @@
 			for (i = 0; i < answers.length; i++) {
                 answer = answers[i]
                 // Generate the div for each answer and add it
-				answer_div = gen_answer_div(answer);
+				answer_div = gen_answer_div(answer, answer['correct']);
                 answers_div.insertBefore(answer_div,answers_div.firstChild)
                 renderMathInElement(answers_div)
             }
@@ -40,7 +40,7 @@
         if (data['qid'] == '{{question["id"]}}'){
             console.log('new answer')
             answer = data['answer']
-            answer_div = gen_answer_div(answer);
+            answer_div = gen_answer_div(answer, answer['correct']);
             answers_div.insertBefore(answer_div,answers_div.firstChild)
             renderMathInElement(answers_div)
         }
@@ -50,12 +50,21 @@
 <script>
     // Define function to generate the div for an answer
 
-    function gen_answer_div(answer) {
+    function gen_answer_div(answer,correct) {
         // Make a container
         container = document.createElement('div')
         container.id = 'answer-' + answer['submitted_by'];
-        container.className = 'answer'
-    
+        
+        if (correct){
+            container.className = 'correct answer'
+        }
+        else if (correct == false){
+            container.className = 'incorrect answer'
+        }
+        else {
+            container.className = 'answer'
+        }
+
         // Paragraph with name & answer info
         p = document.createElement("p");
         t1 = document.createTextNode('Submitted by: '+answer['submitted_by']);

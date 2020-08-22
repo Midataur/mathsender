@@ -23,12 +23,17 @@ def valid_code(code):
         return False
     return code in classrooms
 
-def fetch_answer(answer_list,author):
-    for x in answer_list:
-        if x['submitted_by'] == author:
+def fetch_answer(answers,name):
+    for x in answers:
+        if x['submitted_by'] == name:
              return x
     return None
 
+def autocorrect_new(answers,answer):
+    for x in answers:
+        # if the text is identical, 'correct' will be identical too
+        if x['answer'] == answer['answer']:
+            return x['correct']
 
 ### SOCKETS ###
 
@@ -52,16 +57,25 @@ def new_answer(name,answer_text,code,qid):
     room = classrooms[int(code)]
     question = room['questions'][int(qid)]
     answers = question['answers']
+
+    print(f'Before:{answers}')
+
+
     #walrus time?
     if answer := fetch_answer(answers,name):
         answer['answer'] = '\\('+answer_text+'\\)'
+        answer['answer'] = answer_text
+        answer['correct'] = autocorrect_new(answers,answer)
     else:
         answer = {
             'submitted_by': name,
-            'answer': '\\('+answer_text+'\\)',
-            'correct': None
+            'answer': answer_text,
         }
+        answer['correct'] = autocorrect_new(answers,answer)
+        print(f'\n{answer}\n')
         answers.append(answer)
+
+    print(f'After:{answers}')
 
     # Send out to the teacher page
     socketio.emit(
@@ -97,6 +111,7 @@ def new_question(question_text,code,password):
 def autocorrect(clicked_answer,correct,code,qid):
     # if correct is True, the clicked answer is correct
     answers = classrooms[int(code)]['questions'][int(qid)]['answers']
+    print(answers)
     for i in range(len(answers)):
         if answers[i]['answer'] == clicked_answer['answer']:
             if correct:
