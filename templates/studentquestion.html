@@ -29,11 +29,16 @@
     socket.on('new_answer_teacher', function( answer ) {
 		console.log(answer)
 		if (answer['submitted_by'] == '{{name}}') {
-			current_answer = document.getElementById('current-answer');
+			/* current_answer = document.getElementById('current-answer');
 			current_answer.hidden = false;
-			current_answer.textContent = "Your current answer: "+answer['answer'];
+			current_answer.textContent = "Your current answer: "+answer['answer']; */
+			//var mathQuillInput = MQ(document.querySelector("#answer-input"))
+			answerMathField.select()
+			answerMathField.clearSelection()
+			answerMathField.write(answer["answer"])
+
 			document.getElementById('submit-or-change').textContent = 'Change answer';
-			renderMathInElement(current_answer);
+			//renderMathInElement(current_answer);
 		}
     });
 </script>
@@ -47,13 +52,11 @@
 		<h2 class="text-heading">\({{question['text']}}\)</h2>
 
 		{% if answer %}
-		<h3 class="text-heading -sub" id="submit-or-change">Change answer</h3>
-		<span id="current-answer">Your current answer: {{answer['answer']}}</span>
+		<h3 class="text-heading -sub" id="submit-or-change">Change answer:</h3>
 		{% else %}
-		<h3 class="text-heading -sub" id="submit-or-change">Submit answer</h3>
-		<span id="current-answer" hidden></span>
+		<h3 class="text-heading -sub" id="submit-or-change">Submit answer:</h3>
 		{% endif %}
-		<br/>
+		
 		<label class="field"><span id="answer-input" class="field__input"></span></label>
 		
 		<!-- MathQuill -->
@@ -61,6 +64,7 @@
 			var answerSpan = document.getElementById('answer-input');
 			var answerMathField = MQ.MathField(answerSpan, {handlers: {}});
 		</script>
-		<button onclick="send_answer();" class="button -fill">Submit answer</button>
+		<label class="field"><button onclick="send_answer();" class="button -fill">Submit answer</button></label>
+		
 		<p class="wysiwyg">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://www.math.brown.edu/~jhs/ReferenceCards/TeXRefCard.v1.5.pdf" target="_blank">here</a></p>
 {%endblock%}
