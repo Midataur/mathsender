@@ -461,7 +461,8 @@ main {
 }
 
 .toast{
-  
+  display:none;
+
   border: 1px solid var(--c-l-5);
   padding: var(--mini-unit);
   font-size:calc(var(--mini-unit) * 2.5) ;
@@ -469,7 +470,7 @@ main {
   padding-left:calc(var(--mini-unit) * 2) ;
   background-color: var(--c-l-0);
 }
-.toast.-alert{
+.toast.-warning{
   border-left:calc(var(--mini-unit) * 2) solid var(--c-yellow);
   border-color: var(--c-yellow);
 }
@@ -477,7 +478,7 @@ main {
   position:fixed;
   bottom:calc(var(--mini-unit) * 4);
   right:calc(var(--mini-unit) * 4);
-  width:calc(var(--mini-unit) * 47);
+  width: min( 376px, 70vw );
 }
 
 .back-link{
