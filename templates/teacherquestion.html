@@ -15,8 +15,7 @@
 <script>
     // Render the existing answers
     loaded = false;
-	socket.on('answers_list', function( answers_input ) {
-        answers = answers_input
+	socket.on('answers_list', function( answers ) {
 		if (!loaded) {
             console.log(answers)
             answers_div = document.getElementById('answers');   // answers_div is an empty div where all the answers will go
@@ -25,7 +24,7 @@
                 // Generate the div for each answer and add it
 				answer_div = gen_answer_div(answer, answer['correct']);
                 answers_div.insertBefore(answer_div,answers_div.firstChild)
-                renderMathInElement(answers_div)
+                renderMathInElement(answer_div)
             }
 			loaded = true;
 		}
