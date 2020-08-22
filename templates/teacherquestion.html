@@ -2,6 +2,11 @@
 {% block title%}Teacher{%endblock%}
 {% block roomCode %}Room Code: {{code}}{%endblock%}
 {% block head %}
+<!-- answer template -->
+<template id="answer">
+    <div id="answerUser" class="t-answer-user"></div>
+    <div id="answerText" class="t-answer-text"></div>
+</template>
 
 <script type="text/javascript" charset="utf-8">
 	//puts you in a room
@@ -21,12 +26,19 @@
             answers_div = document.getElementById('answers');
 			for (i = 0; i < answers.length; i++) {
 				answer = answers[i]
+                console.log("answer " + i)
+                //console.log(answer)
 				answer_el = gen_answer_el(answer);
+
                 container = document.createElement('div')
                 container.id = 'answer-'+answer['submitted_by'];
+                container.className = "t-answer"
                 container.appendChild(answer_el)
-                answers_div.insertBefore(answer_el,answers_div.firstChild)
+                //console.log(container)
+                answers_div.insertBefore(container,answers_div.firstChild)
+                //console.log(answers_div)
                 renderMathInElement(answers_div)
+                //console.log("----")
 			}
 			loaded = true;
 		}
@@ -35,14 +47,23 @@
 
 <script>
     function gen_answer_el(answer) {
-        answer_el = document.createElement("p");
-        t1 = document.createTextNode('Submitted by: '+answer['submitted_by']);
-        t2 = document.createTextNode('Answer given: '+answer['answer']);
-        answer_el.appendChild(t1);
-        answer_el.appendChild(document.createElement('br'));
-        answer_el.appendChild(t2);
-        answer_el.appendChild(document.createElement('br'));
-        answer_el.appendChild(document.createElement('br'));
+        // get the template element
+        var templ = document.querySelector("template#answer")
+        // clone said template
+        var answer_el = templ.content.cloneNode(true)
+        // create the two bits of text
+        var t1 = document.createTextNode(answer['submitted_by']);
+        var t2 = document.createTextNode(answer['answer']);
+
+        // replace the template text with created text
+        var answerUser = answer_el.querySelector("#answerUser")
+        var answerText = answer_el.querySelector("#answerText")
+
+        answerUser.appendChild(t1)
+        answerText.appendChild(t2)
+
+        console.log(answer_el)
+        // return the element
         return answer_el;
     }
 </script>
@@ -59,6 +80,7 @@
             answers = document.getElementById('answers');
             answer_div = document.createElement('div');
             answer_div.id = 'answer-'+answer['submitted_by'];
+            answer_div.className = "t-answer"
             answer_div.appendChild(answer_el);
             answers.insertBefore(answer_div,answers.firstChild)
         }
@@ -68,11 +90,15 @@
 		
 {% endblock %}
 {% block content %}
-
-        <a href="/teacher/room/{{code}}?password={{password}}">Back</a>
+        <div class="back-link">
+            <a href="/teacher/room/{{code}}?password={{password}}">Go back</a>
+        </div>
+       
         <h2 class="text-heading">\({{question['text']}}\)</h2>
 
         <h3 class="text-heading -sub">Answers:</h3>
+
+        
 
         <!-- Filled by JS -->
         <div id="answers"></div>
