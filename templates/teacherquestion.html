@@ -2,6 +2,11 @@
 {% block title%}Teacher{%endblock%}
 {% block roomCode %}Room Code: {{code}}{%endblock%}
 {% block head %}
+<!-- answer template -->
+<template id="answer">
+    <div id="answerUser" class="t-answer-user"></div>
+    <div id="answerText" class="t-answer-text"></div>
+</template>
 
 <script type="text/javascript" charset="utf-8">
 	//puts you in a room
@@ -21,12 +26,19 @@
             answers_div = document.getElementById('answers');
 			for (i = 0; i < answers.length; i++) {
 				answer = answers[i]
+                console.log("answer " + i)
+                //console.log(answer)
 				answer_el = gen_answer_el(answer);
+
                 container = document.createElement('div')
                 container.id = 'answer-'+answer['submitted_by'];
+                container.className = "t-answer"
                 container.appendChild(answer_el)
-                answers_div.insertBefore(answer_el,answers_div.firstChild)
+                //console.log(container)
+                answers_div.insertBefore(container,answers_div.firstChild)
+                //console.log(answers_div)
                 renderMathInElement(answers_div)
+                //console.log("----")
 			}
 			loaded = true;
 		}
@@ -86,11 +98,7 @@
 
         <h3 class="text-heading -sub">Answers:</h3>
 
-        <!-- answer template -->
-        <template id="answer">
-            <div id="answerUser" class="t-answer-user"></div>
-            <div id="answerText" class="t-answer-text"></div>
-        </template>
+        
 
         <!-- Filled by JS -->
         <div id="answers"></div>
