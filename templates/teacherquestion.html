@@ -109,7 +109,7 @@
             container = document.getElementById('answer-' + answer['submitted_by'])
             container.className = 'correct answer';
         }
-    };
+    })
 
     socket.on('mark_incorrect', function ( data ) {
         // Same as accepting new answers
