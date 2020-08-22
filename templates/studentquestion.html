@@ -27,15 +27,16 @@
 
 <script type="text/javascript" charset="utf-8">
     socket.on('new_answer_teacher', function( answer ) {
-		console.log(answer)
-		if (answer['submitted_by'] == '{{name}}') {
+		console.log('Answer recieved!',answer,'{{name}}')
+		if (answer['answer']['submitted_by'] == '{{name}}') {
+			console.log('And it was by you')
 			/* current_answer = document.getElementById('current-answer');
 			current_answer.hidden = false;
 			current_answer.textContent = "Your current answer: "+answer['answer']; */
 			//var mathQuillInput = MQ(document.querySelector("#answer-input"))
 			answerMathField.select()
 			answerMathField.clearSelection()
-			answerMathField.write(answer["answer"])
+			answerMathField.write(answer['answer']['answer'])
 
 			document.getElementById('submit-or-change').textContent = 'Change answer:';
 			//renderMathInElement(current_answer);
@@ -64,6 +65,16 @@
 			var answerSpan = document.getElementById('answer-input');
 			var answerMathField = MQ.MathField(answerSpan, {handlers: {}});
 		</script>
+
+		{% if answer %}
+		<script>
+			answerMathField.select()
+			answerMathField.clearSelection()
+			answerMathField.write('{{answer["answer"]}}'.slice(1).slice(0,-1))
+			tmp_answer='{{answer["answer"]}}'
+		</script>
+		{% endif %}
+
 		<label class="field"><button onclick="send_answer();" class="button -fill">Submit answer</button></label>
 		
 		<p class="wysiwyg">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://www.math.brown.edu/~jhs/ReferenceCards/TeXRefCard.v1.5.pdf" target="_blank">here</a></p>
