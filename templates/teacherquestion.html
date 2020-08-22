@@ -79,19 +79,21 @@
             console.log(answer)
             answer_el = gen_answer_el(answer, answer['correct']);
             container = document.getElementById('answer-'+answer['submitted_by']);
-           if (container) {
-            // I think this might break
-            container.textContent = '';
-            container.appendChild(answer_el);
-        } else {
-            container = document.createElement('div')
-            container.id = 'answer-'+answer['submitted_by'];
-            container.className = "t-answer"
-            container.appendChild(answer_el)
-          
-            answers_div = document.getElementById('answers');
-            answers_div.insertBefore(container,answers_div.firstChild)
-            renderMathInElement(answers_div)
+            if (container) {
+                // I think this might break
+                container.textContent = '';
+                container.appendChild(answer_el);
+            } 
+            else {
+                container = document.createElement('div')
+                container.id = 'answer-'+answer['submitted_by'];
+                container.className = "t-answer"
+                container.appendChild(answer_el)
+            
+                answers_div = document.getElementById('answers');
+                answers_div.insertBefore(container,answers_div.firstChild)
+                renderMathInElement(answers_div)
+            }
         }
     });
 </script>
@@ -107,7 +109,7 @@
             container = document.getElementById('answer-' + answer['submitted_by'])
             container.className = 'correct answer';
         }
-    });
+    };
 
     socket.on('mark_incorrect', function ( data ) {
         // Same as accepting new answers
