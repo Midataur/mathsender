@@ -5,7 +5,13 @@
 <!-- answer template -->
 <template id="answer">
     <div id="answerUser" class="t-answer-user"></div>
-    <div id="answerText" class="t-answer-text"></div>
+    <div class="t-answer-bottom">
+        <div id="answerText" class="t-answer-text"></div>
+        <div class="t-answer-icons">
+            <img id="answerTick" class="tick" src="{{ url_for('static', filename='tick.svg') }}">
+            <img id="answerCross" class="cross" src="{{ url_for('static', filename='cross.svg') }}">
+        </div>
+    </div>
 </template>
 
 <script>
@@ -25,20 +31,31 @@
             console.log(answers)
             answers_div = document.getElementById('answers');   // answers_div is an empty div where all the answers will go
 			for (i = 0; i < answers.length; i++) {
-        answer = answers[i]
-        console.log("answer " + i)
-        
-        // Generate the div for each answer and add it
-        answer_el = gen_answer_el(answer);
-        
-        container = document.createElement('div')
-        container.id = 'answer-'+answer['submitted_by'];
-        container.className = "t-answer"
-        container.appendChild(answer_el)
-        
-        answers_div.insertBefore(container,answers_div.firstChild)
-        renderMathInElement(answers_div);
-       }
+                answer = answers[i]
+                console.log("answer " + i)
+                
+                // Generate the contents for each answer
+                answer_el = gen_answer_el(answer);
+                
+                // Make a container
+                container = document.createElement('div')
+                container.id = 'answer-'+answer['submitted_by'];
+
+                // Set class name for formatting
+                if (answer['correct'] == true) {
+                    container.className = "t-answer -correct"
+                }
+                else if (answer['correct'] == false) {
+                    container.className = "t-answer -incorrect"
+                }
+                else {
+                    container.className = "t-answer"
+                }
+
+                container.appendChild(answer_el)
+                answers_div.insertBefore(container,answers_div.firstChild)
+                renderMathInElement(answers_div);
+            }
 
 			loaded = true;
 		}
@@ -62,8 +79,13 @@
     answerUser.appendChild(t1)
     answerText.appendChild(t2)
 
+    var tick = answer_el.querySelector("#answerTick")
+    var cross = answer_el.querySelector("#answerCross")
 
-    console.log(answer_el)
+    tick.onclick = function() {socket.emit('autocorrect', answer, true,'{{code}}','{{question["id"]}}')};
+    cross.onclick = function() {socket.emit('autocorrect', answer, false,'{{code}}','{{question["id"]}}')};
+    
+    console.log(answer)
     // return the element
     return answer_el;
   }
@@ -77,20 +99,33 @@
         if (data['qid'] == '{{question["id"]}}'){
             answer = data['answer']
             console.log(answer)
-            answer_el = gen_answer_el(answer, answer['correct']);
+
+            // Generate the element
+            answer_el = gen_answer_el(answer);
             container = document.getElementById('answer-'+answer['submitted_by']);
             if (container) {
-                // I think this might break
+                // Clear the container if it already exists
                 container.textContent = '';
-                container.appendChild(answer_el);
             } 
             else {
+                // Otherwise create the container
                 container = document.createElement('div')
-                container.id = 'answer-'+answer['submitted_by'];
-                container.className = "t-answer"
-                container.appendChild(answer_el)
+                container.id = 'answer-'+answer['submitted_by'];    
             }
-            // Render any latex, if it's a new answer or a changed answer
+            container.appendChild(answer_el)
+            
+            // Set class name for formatting
+            if (answer['correct'] == true) {
+                container.className = "t-answer -correct"
+            }
+            else if (answer['correct'] == false) {
+                container.className = "t-answer -incorrect"
+            }
+            else {
+                container.className = "t-answer"
+            }
+
+            // Render any latex
             answers_div = document.getElementById('answers');
             answers_div.insertBefore(container,answers_div.firstChild)
             renderMathInElement(answers_div)
@@ -105,22 +140,21 @@
 
         if (data['qid'] == '{{question["id"]}}'){
             answer = data['answer']
-            console.log('Autograded ' + answer['submitted_by'] + "'s answer")
+            console.log('Marked ' + answer['submitted_by'] + '\'s answer correct')
             container = document.getElementById('answer-' + answer['submitted_by'])
-            container.className = 'correct answer';
+            container.className = 't-answer -correct';
         }
     });
 
     socket.on('mark_incorrect', function ( data ) {
-        // Same as accepting new answers
         // Check that the correction is for the right room
         // make a room for each question (?)
 
         if (data['qid'] == '{{question["id"]}}'){
             answer = data['answer']
-            console.log('Autograded ' + answer['submitted_by'] + "'s answer")
+            console.log('Marked ' + answer['submitted_by'] + '\'s answer incorrect')
             container = document.getElementById('answer-' + answer['submitted_by'])
-            container.className = 'incorrect answer';
+            container.className = 't-answer -incorrect';
         }
     });
     

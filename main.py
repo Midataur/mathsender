@@ -29,11 +29,12 @@ def fetch_answer(answers,name):
              return x
     return None
 
-def autocorrect_new(answers,answer):
+def autocorrect_new(answers,answer_text):
     for x in answers:
         # if the text is identical, 'correct' will be identical too
-        if x['answer'] == answer['answer']:
+        if x['answer'] == answer_text:
             return x['correct']
+    return None
 
 ### SOCKETS ###
 
@@ -58,16 +59,19 @@ def new_answer(name,answer_text,code,qid):
     question = room['questions'][int(qid)]
     answers = question['answers']
 
+    # Latex Formatting
+    answer_text = '\\('+answer_text+'\\)'
+
     #walrus time?
     if answer := fetch_answer(answers,name):
-        answer['answer'] = '\\('+answer_text+'\\)'
-        answer['correct'] = autocorrect_new(answers,answer)
+        answer['correct'] = autocorrect_new(answers,answer_text)
+        answer['answer'] = answer_text
     else:
         answer = {
             'submitted_by': name,
-            'answer': '\\('+answer_text+'\\)',
+            'answer': answer_text
         }
-        answer['correct'] = autocorrect_new(answers,answer)
+        answer['correct'] = autocorrect_new(answers,answer_text)
         answers.append(answer)
 
     print(answer)
@@ -166,28 +170,10 @@ def teacher_create():
     classrooms[code]['questions'][1] = {
         'text': 'What is 1+1?',
         'id':1,
-        'answers': [
-            {
-                'submitted_by': 'Jerome',
-                'answer': '2',
-                'correct': None,
-
-            },
-            {
-                'submitted_by': 'Another Jerome',
-                'answer': '2',
-                'correct': None,
-
-            },
-            {
-                'submitted_by': 'The cooler Jerome',
-                'answer': '`e^(i pi)+3`',
-                'correct': None,
-            }
-        ]
+        'answers': []
     }
     '''
-
+    
     return f'<script>window.location = "/teacher/room/{code}?password={password}"</script>'
 
 @app.route('/teacher/room/<code>')

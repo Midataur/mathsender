@@ -530,7 +530,7 @@ main {
 		padding:var(--mini-unit);
     font-weight:bold
 }
-.t-answer-text{
+.t-answer-bottom{
 	padding:var(--mini-unit);
 	
 	background-color: var(--c-l-0);
