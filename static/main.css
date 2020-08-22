@@ -483,3 +483,36 @@ main {
 .back-link{
   margin-bottom:calc(var(--mini-unit) * 2)
 }
+
+/* answer blocks for the [t]eacher scope */
+
+.t-answer{
+	border:2px solid var(--c-l-3);
+	border-radius:var(--mini-unit);
+	text-align:center;
+	background-color: var(--c-l-3);
+	margin-bottom:calc(var(--mini-unit) * 2)
+}
+.t-answer-user{
+		padding:var(--mini-unit);
+    font-weight:bold
+}
+.t-answer-text{
+	padding:var(--mini-unit);
+	
+	background-color: var(--c-l-0);
+	border-radius: 0px 0px var(--mini-unit) var(--mini-unit);
+	color: var(--c-l-10)
+}
+
+.t-answer.-correct{
+		background-color: hsl(150, 60%, 16%);
+		border-color: hsl(150, 60%, 16%);
+		color: hsl(150, 100%, 50%);
+	  
+}
+.t-answer.-incorrect{
+		background-color: hsl(9, 60%, 20%);
+		border-color: hsl(9, 60%, 20%);
+		color: hsl(9, 100%, 60%);
+}
