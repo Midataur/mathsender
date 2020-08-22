@@ -71,7 +71,7 @@
             // animates the alert popping up, waiting, and then sliding down.
             $( "#alert" ).animate({
             opacity: "show",
-                bottom: "show"}, 336, "swing").delay(4000).animate({
+                bottom: "show"}, 336, "swing").delay(2400).animate({
             opacity: "hide",
                 bottom: "hide"}, 336, "swing")
         }
@@ -104,7 +104,7 @@
         <a href="https://collective-fullstack.github.io" class="footer__a">Made by Collective Fullstack</a> — <a href="https://github.com/Midataur/mathsender" class="footer__a">Github</a></div>
     {%block foot%}
     {%endblock%}
-    <div class="toast -alert -floating" id="alert">
+    <div class="toast -warning -floating" id="alert">
         MathSender is loading.        
     </div>
 </body>
