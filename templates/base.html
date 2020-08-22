@@ -63,6 +63,18 @@
 		container.appendChild(question_el)
         return container;
     }
+
+    // a nice custom alert function
+    function MSAlert(_text){
+            //sets the text content to be text (makes it so you cant give it html lol)
+            $("#alert").text(_text)
+            // animates the alert popping up, waiting, and then sliding down.
+            $( "#alert" ).animate({
+            opacity: "show",
+                bottom: "show"}, 336, "swing").delay(4000).animate({
+            opacity: "hide",
+                bottom: "hide"}, 336, "swing")
+        }
 </script>
 
 </head>
@@ -92,9 +104,9 @@
         <a href="https://collective-fullstack.github.io" class="footer__a">Made by Collective Fullstack</a> — <a href="https://github.com/Midataur/mathsender" class="footer__a">Github</a></div>
     {%block foot%}
     {%endblock%}
-    <!--<div class="toast -alert" id="safariYucky">
-        MathSender does not work well with safari, we recommend using a different browser
-    </div>-->
+    <div class="toast -alert -floating" id="alert">
+        MathSender is loading.        
+    </div>
 </body>
 
 
