@@ -58,12 +58,9 @@ def new_answer(name,answer_text,code,qid):
     question = room['questions'][int(qid)]
     answers = question['answers']
 
-    print(f'Before:{answers}')
-
-
     #walrus time?
     if answer := fetch_answer(answers,name):
-        answer['answer'] = '\\('+answer_text+'\\)'
+        # answer['answer'] = '\\('+answer_text+'\\)'
         answer['answer'] = answer_text
         answer['correct'] = autocorrect_new(answers,answer)
     else:
@@ -72,10 +69,8 @@ def new_answer(name,answer_text,code,qid):
             'answer': answer_text,
         }
         answer['correct'] = autocorrect_new(answers,answer)
-        print(f'\n{answer}\n')
         answers.append(answer)
 
-    print(f'After:{answers}')
 
     # Send out to the teacher page
     socketio.emit(
