@@ -493,7 +493,8 @@ main {
 }
 
 .toast{
-  
+  display:none;
+
   border: 1px solid var(--c-l-5);
   padding: var(--mini-unit);
   font-size:calc(var(--mini-unit) * 2.5) ;
@@ -501,7 +502,7 @@ main {
   padding-left:calc(var(--mini-unit) * 2) ;
   background-color: var(--c-l-0);
 }
-.toast.-alert{
+.toast.-warning{
   border-left:calc(var(--mini-unit) * 2) solid var(--c-yellow);
   border-color: var(--c-yellow);
 }
@@ -509,6 +510,42 @@ main {
   position:fixed;
   bottom:calc(var(--mini-unit) * 4);
   right:calc(var(--mini-unit) * 4);
-  width:calc(var(--mini-unit) * 47);
+  width: min( 376px, 70vw );
 }
 
+.back-link{
+  margin-bottom:calc(var(--mini-unit) * 2)
+}
+
+/* answer blocks for the [t]eacher scope */
+
+.t-answer{
+	border:2px solid var(--c-l-3);
+	border-radius:var(--mini-unit);
+	text-align:center;
+	background-color: var(--c-l-3);
+	margin-bottom:calc(var(--mini-unit) * 2)
+}
+.t-answer-user{
+		padding:var(--mini-unit);
+    font-weight:bold
+}
+.t-answer-text{
+	padding:var(--mini-unit);
+	
+	background-color: var(--c-l-0);
+	border-radius: 0px 0px var(--mini-unit) var(--mini-unit);
+	color: var(--c-l-10)
+}
+
+.t-answer.-correct{
+		background-color: hsl(150, 60%, 16%);
+		border-color: hsl(150, 60%, 16%);
+		color: hsl(150, 100%, 50%);
+	  
+}
+.t-answer.-incorrect{
+		background-color: hsl(9, 60%, 20%);
+		border-color: hsl(9, 60%, 20%);
+		color: hsl(9, 100%, 60%);
+}

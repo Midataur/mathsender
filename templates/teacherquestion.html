@@ -2,6 +2,11 @@
 {% block title%}Teacher{%endblock%}
 {% block roomCode %}Room Code: {{code}}{%endblock%}
 {% block head %}
+<!-- answer template -->
+<template id="answer">
+    <div id="answerUser" class="t-answer-user"></div>
+    <div id="answerText" class="t-answer-text"></div>
+</template>
 
 <script>
 	// Puts you in a room
@@ -20,15 +25,48 @@
             console.log(answers)
             answers_div = document.getElementById('answers');   // answers_div is an empty div where all the answers will go
 			for (i = 0; i < answers.length; i++) {
-                answer = answers[i]
-                // Generate the div for each answer and add it
-				answer_div = gen_answer_div(answer, answer['correct']);
-                answers_div.insertBefore(answer_div,answers_div.firstChild)
-                renderMathInElement(answer_div)
-            }
+        answer = answers[i]
+        console.log("answer " + i)
+        
+        // Generate the div for each answer and add it
+        answer_el = gen_answer_el(answer);
+        
+        container = document.createElement('div')
+        container.id = 'answer-'+answer['submitted_by'];
+        container.className = "t-answer"
+        container.appendChild(answer_el)
+        
+        answers_div.insertBefore(container,answers_div.firstChild)
+        renderMathInElement(answers_div);
+       }
+
 			loaded = true;
 		}
     });
+</script>
+
+<script>
+  function gen_answer_el(answer) {
+    // get the template element
+    var templ = document.querySelector("template#answer")
+    // clone said template
+    var answer_el = templ.content.cloneNode(true)
+    // create the two bits of text
+    var t1 = document.createTextNode(answer['submitted_by']);
+    var t2 = document.createTextNode(answer['answer']);
+
+    // replace the template text with created text
+    var answerUser = answer_el.querySelector("#answerUser")
+    var answerText = answer_el.querySelector("#answerText")
+
+    answerUser.appendChild(t1)
+    answerText.appendChild(t2)
+
+
+    console.log(answer_el)
+    // return the element
+    return answer_el;
+  }
 </script>
 
 <script>
@@ -37,68 +75,29 @@
         //Check that the question is for the right room
         //make a room for each question (?)
         if (data['qid'] == '{{question["id"]}}'){
-            console.log('new answer')
             answer = data['answer']
-            answer_div = gen_answer_div(answer, answer['correct']);
-            answers_div.insertBefore(answer_div,answers_div.firstChild)
+            console.log(answer)
+            answer_el = gen_answer_el(answer, answer['correct']);
+            container = document.getElementById('answer-'+answer['submitted_by']);
+           if (container) {
+            // I think this might break
+            container.textContent = '';
+            container.appendChild(answer_el);
+        } else {
+            container = document.createElement('div')
+            container.id = 'answer-'+answer['submitted_by'];
+            container.className = "t-answer"
+            container.appendChild(answer_el)
+          
+            answers_div = document.getElementById('answers');
+            answers_div.insertBefore(container,answers_div.firstChild)
             renderMathInElement(answers_div)
         }
     });
 </script>
 
 <script>
-    // Define function to generate the div for an answer
-
-    function gen_answer_div(answer,correct) {
-        // Make a container
-        container = document.createElement('div')
-        container.id = 'answer-' + answer['submitted_by'];
-        
-        if (correct){
-            container.className = 'correct answer'
-        }
-        else if (correct == false){
-            container.className = 'incorrect answer'
-        }
-        else {
-            container.className = 'answer'
-        }
-
-        // Paragraph with name & answer info
-        p = document.createElement("p");
-        t1 = document.createTextNode('Submitted by: '+answer['submitted_by']);
-        t2 = document.createTextNode('Answer given: '+answer['answer']);
-        p.appendChild(t1);
-        p.appendChild(document.createElement('br'));
-        p.appendChild(t2);
-        p.appendChild(document.createElement('br'));
-        container.append(p);
-
-        // Tick and cross icons
-        icons = document.createElement('div');
-        icons.className = 'icons';
-
-        tick = document.createElement("img");
-        tick.className = 'tick';
-        tick.src = '/static/tick.svg';
-        tick.onclick = function() {socket.emit('autocorrect', answer, true,'{{code}}','{{question["id"]}}')};
-
-        cross = document.createElement("img");
-        cross.className = 'cross';
-        cross.src = '/static/cross.svg';
-        cross.onclick = function() {socket.emit('autocorrect', answer, false,'{{code}}','{{question["id"]}}')};
-
-        icons.appendChild(tick);
-        icons.appendChild(cross);
-        container.appendChild(icons)
-
-        return container;
-    }
-</script>
-
-<script>
     socket.on('mark_correct', function ( data ) {
-        // Same as accepting new answers
         // Check that the correction is for the right room
         // make a room for each question (?)
 
@@ -122,17 +121,20 @@
             container.className = 'incorrect answer';
         }
     });
+    
 </script>
-
-
 		
 {% endblock %}
 {% block content %}
-
-        <a href="/teacher/room/{{code}}?password={{password}}">Back</a>
+        <div class="back-link">
+            <a href="/teacher/room/{{code}}?password={{password}}">Go back</a>
+        </div>
+       
         <h2 class="text-heading">\({{question['text']}}\)</h2>
 
         <h3 class="text-heading -sub">Answers:</h3>
+
+        
 
         <!-- Filled by JS -->
         <div id="answers"></div>
