@@ -20,7 +20,7 @@
 		var qid = '{{question["id"]}}'
 		var name = '{{name}}'
 		socket.emit('new_answer',name,answer,code,qid);
-		alert('Answer sent!')
+		MSAlert('Answer sent!')
 		return false;
 	}
 </script>
