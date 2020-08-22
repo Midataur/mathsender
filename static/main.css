@@ -275,6 +275,38 @@ main {
 .questions > * {
   margin-bottom: var(--mini-unit);
 }
+
+
+/* answers on the teacher's page */
+.answer {
+  margin-bottom: 50px;
+  width: 200px;
+}
+.correct {
+  background-color: #01411e;
+}
+.incorrect {
+  background-color: #460000;
+}
+.icons {
+  float: right;
+}
+.cross, .tick{
+  display: inline-block;
+  height: 20px;
+  margin: 6px;
+  
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.cross:hover, .tick:hover {
+  opacity: 1;
+  height: 26px;
+  margin: 3px;
+}
+
+
 /* the room code block */
 .room-code {
   align-items: center;

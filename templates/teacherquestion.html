@@ -8,8 +8,8 @@
     <div id="answerText" class="t-answer-text"></div>
 </template>
 
-<script type="text/javascript" charset="utf-8">
-	//puts you in a room
+<script>
+	// Puts you in a room
     var socket = io.connect('http://' + document.domain + ':' + location.port);
     socket.on('connect', function() {
         socket.emit('room_connect','{{code}}');
@@ -18,74 +18,110 @@
 </script>
 
 <script>
-	loaded = false;
-	//get all the questions
+    // Render the existing answers
+    loaded = false;
 	socket.on('answers_list', function( answers ) {
 		if (!loaded) {
-			console.log(answers)
-            answers_div = document.getElementById('answers');
+            console.log(answers)
+            answers_div = document.getElementById('answers');   // answers_div is an empty div where all the answers will go
 			for (i = 0; i < answers.length; i++) {
-				answer = answers[i]
-                console.log("answer " + i)
-                //console.log(answer)
-				answer_el = gen_answer_el(answer);
+        answer = answers[i]
+        console.log("answer " + i)
+        
+        // Generate the div for each answer and add it
+        answer_el = gen_answer_el(answer);
+        
+        container = document.createElement('div')
+        container.id = 'answer-'+answer['submitted_by'];
+        container.className = "t-answer"
+        container.appendChild(answer_el)
+        
+        answers_div.insertBefore(container,answers_div.firstChild)
+        renderMathInElement(answers_div);
+       }
 
-                container = document.createElement('div')
-                container.id = 'answer-'+answer['submitted_by'];
-                container.className = "t-answer"
-                container.appendChild(answer_el)
-                //console.log(container)
-                answers_div.insertBefore(container,answers_div.firstChild)
-                //console.log(answers_div)
-                renderMathInElement(answers_div)
-                //console.log("----")
-			}
 			loaded = true;
 		}
     });
 </script>
 
 <script>
-    function gen_answer_el(answer) {
-        // get the template element
-        var templ = document.querySelector("template#answer")
-        // clone said template
-        var answer_el = templ.content.cloneNode(true)
-        // create the two bits of text
-        var t1 = document.createTextNode(answer['submitted_by']);
-        var t2 = document.createTextNode(answer['answer']);
+  function gen_answer_el(answer) {
+    // get the template element
+    var templ = document.querySelector("template#answer")
+    // clone said template
+    var answer_el = templ.content.cloneNode(true)
+    // create the two bits of text
+    var t1 = document.createTextNode(answer['submitted_by']);
+    var t2 = document.createTextNode(answer['answer']);
 
-        // replace the template text with created text
-        var answerUser = answer_el.querySelector("#answerUser")
-        var answerText = answer_el.querySelector("#answerText")
+    // replace the template text with created text
+    var answerUser = answer_el.querySelector("#answerUser")
+    var answerText = answer_el.querySelector("#answerText")
 
-        answerUser.appendChild(t1)
-        answerText.appendChild(t2)
+    answerUser.appendChild(t1)
+    answerText.appendChild(t2)
 
-        console.log(answer_el)
-        // return the element
-        return answer_el;
-    }
+
+    console.log(answer_el)
+    // return the element
+    return answer_el;
+  }
 </script>
 
-<script type="text/javascript" charset="utf-8">
-    socket.on('new_answer_teacher', function( answer ) {
-        answer_el = gen_answer_el(answer);
-        console.log(answer_el);
-        answer_div = document.getElementById('answer-'+answer['submitted_by']);
-        if (answer_div) {
-            answer_div.textContent = '';
-            answer_div.appendChild(answer_el);
+<script>
+    // Handle new answers
+    socket.on('new_answer_teacher', function( data ) {
+        //Check that the question is for the right room
+        //make a room for each question (?)
+        if (data['qid'] == '{{question["id"]}}'){
+            answer = data['answer']
+            console.log(answer)
+            answer_el = gen_answer_el(answer, answer['correct']);
+            container = document.getElementById('answer-'+answer['submitted_by']);
+           if (container) {
+            // I think this might break
+            container.textContent = '';
+            container.appendChild(answer_el);
         } else {
-            answers = document.getElementById('answers');
-            answer_div = document.createElement('div');
-            answer_div.id = 'answer-'+answer['submitted_by'];
-            answer_div.className = "t-answer"
-            answer_div.appendChild(answer_el);
-            answers.insertBefore(answer_div,answers.firstChild)
+            container = document.createElement('div')
+            container.id = 'answer-'+answer['submitted_by'];
+            container.className = "t-answer"
+            container.appendChild(answer_el)
+          
+            answers_div = document.getElementById('answers');
+            answers_div.insertBefore(container,answers_div.firstChild)
+            renderMathInElement(answers_div)
         }
-        renderMathInElement(answer_div);
     });
+</script>
+
+<script>
+    socket.on('mark_correct', function ( data ) {
+        // Check that the correction is for the right room
+        // make a room for each question (?)
+
+        if (data['qid'] == '{{question["id"]}}'){
+            answer = data['answer']
+            console.log('Autograded ' + answer['submitted_by'] + "'s answer")
+            container = document.getElementById('answer-' + answer['submitted_by'])
+            container.className = 'correct answer';
+        }
+    });
+
+    socket.on('mark_incorrect', function ( data ) {
+        // Same as accepting new answers
+        // Check that the correction is for the right room
+        // make a room for each question (?)
+
+        if (data['qid'] == '{{question["id"]}}'){
+            answer = data['answer']
+            console.log('Autograded ' + answer['submitted_by'] + "'s answer")
+            container = document.getElementById('answer-' + answer['submitted_by'])
+            container.className = 'incorrect answer';
+        }
+    });
+    
 </script>
 		
 {% endblock %}
