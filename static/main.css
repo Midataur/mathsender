@@ -470,7 +470,7 @@ main {
   padding-left:calc(var(--mini-unit) * 2) ;
   background-color: var(--c-l-0);
 }
-.toast.-alert{
+.toast.-warning{
   border-left:calc(var(--mini-unit) * 2) solid var(--c-yellow);
   border-color: var(--c-yellow);
 }
