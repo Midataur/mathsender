@@ -3,8 +3,8 @@
  <g>
   <title>Layer 1</title>
   <g id="layer1">
-   <path fill="#ff0000" fill-rule="evenodd" stroke-width="0.25pt" id="path4950" d="m40,0l-40,40l170,170l40,-40l-170,-170z"/>
-   <path fill="#ff0000" fill-rule="evenodd" stroke-width="0.25pt" id="path4952" d="m0,170l170,-170l40,40l-170,170l-40,-40z"/>
+   <path fill="hsl(9, 100%, 60%)" fill-rule="evenodd" stroke-width="0.25pt" id="path4950" d="m40,0l-40,40l170,170l40,-40l-170,-170z"/>
+   <path fill="hsl(9, 100%, 60%)" fill-rule="evenodd" stroke-width="0.25pt" id="path4952" d="m0,170l170,-170l40,40l-170,170l-40,-40z"/>
   </g>
  </g>
 </svg>
