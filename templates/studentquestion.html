@@ -25,6 +25,29 @@
 	}
 </script>
 
+<script>
+	//handles marking of answers
+	socket.on('mark_correct', function( answer ) {
+		console.log('Answer marked correct',answer,'{{name}}')
+		if (answer['answer']['submitted_by'] == '{{name}}' && answer['qid'] == '{{question["id"]}}') {
+			console.log('And it was for you')
+			markCss(answer);
+		}
+    });
+
+	socket.on('mark_incorrect', function( answer ) {
+		console.log('Answer marked incorrect',answer,'{{name}}')
+		if (answer['answer']['submitted_by'] == '{{name}}' && answer['qid'] == '{{question["id"]}}') {
+			console.log('And it was for you')
+			markCss(answer);
+		}
+    });
+
+	function markCss(answer) {
+		//Darcy do your thing
+	}
+</script>
+
 <script type="text/javascript" charset="utf-8">
     socket.on('new_answer_teacher', function( answer ) {
 		console.log('Answer recieved!',answer,'{{name}}')
@@ -40,6 +63,9 @@
 
 			document.getElementById('submit-or-change').textContent = 'Change answer:';
 			//renderMathInElement(current_answer);
+			if (answer['answer']['correct'] != null) {
+				markCss(answer);
+			}
 		}
     });
 </script>

@@ -280,7 +280,6 @@ main {
 
 
 
-
 /* the room code block */
 .room-code {
   align-items: center;
@@ -523,7 +522,6 @@ main {
 		border-color: hsl(9, 60%, 20%);
 		color: hsl(9, 100%, 60%);
 }
-
 .cross, .tick{
   display: inline-block;
   height: 20px;

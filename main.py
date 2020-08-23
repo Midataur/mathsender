@@ -64,15 +64,16 @@ def new_answer(name,answer_text,code,qid):
 
     #walrus time?
     if answer := fetch_answer(answers,name):
-        answer['correct'] = autocorrect_new(answers,answer_text)
         answer['answer'] = answer_text
+        answers.remove(answer)
     else:
         answer = {
             'submitted_by': name,
             'answer': answer_text
         }
-        answer['correct'] = autocorrect_new(answers,answer_text)
-        answers.append(answer)
+    
+    answer['correct'] = autocorrect_new(answers,answer_text)
+    answers.append(answer)
 
     print(answer)
     # Send out to the teacher page
@@ -108,9 +109,11 @@ def new_question(question_text,code,password):
 @socketio.on('autocorrect')
 def autocorrect(clicked_answer,correct,code,qid):
     # if correct is True, the clicked answer is correct
+    # man we are running a loooooot of linear time operations -max
+    # also, why are there two autocorrect functons? -max
     answers = classrooms[int(code)]['questions'][int(qid)]['answers']
     print(answers)
-    for i in range(len(answers)):
+    for i in range(len(answers)): #protip: enumerate() is cool and exists
         if answers[i]['answer'] == clicked_answer['answer']:
             if correct:
                 classrooms[int(code)]['questions'][int(qid)]['answers'][i]['correct'] = True
