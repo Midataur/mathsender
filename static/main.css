@@ -277,34 +277,7 @@ main {
 }
 
 
-/* answers on the teacher's page */
-.answer {
-  margin-bottom: 50px;
-  width: 200px;
-}
-.correct {
-  background-color: #01411e;
-}
-.incorrect {
-  background-color: #460000;
-}
-.icons {
-  float: right;
-}
-.cross, .tick{
-  display: inline-block;
-  height: 20px;
-  margin: 6px;
-  
-  opacity: 0.7;
-  cursor: pointer;
-}
 
-.cross:hover, .tick:hover {
-  opacity: 1;
-  height: 26px;
-  margin: 3px;
-}
 
 
 /* the room code block */
@@ -530,14 +503,16 @@ main {
 		padding:var(--mini-unit);
     font-weight:bold
 }
-.t-answer-text{
+.t-answer-bottom{
 	padding:var(--mini-unit);
 	
 	background-color: var(--c-l-0);
 	border-radius: 0px 0px var(--mini-unit) var(--mini-unit);
 	color: var(--c-l-10)
 }
-
+.t-answer-text{
+  padding:var(--mini-unit)
+}
 .t-answer.-correct{
 		background-color: hsl(150, 60%, 16%);
 		border-color: hsl(150, 60%, 16%);
@@ -548,4 +523,32 @@ main {
 		background-color: hsl(9, 60%, 20%);
 		border-color: hsl(9, 60%, 20%);
 		color: hsl(9, 100%, 60%);
+}
+.cross, .tick{
+  display: inline-block;
+  height: 20px;
+  margin: 6px;
+  
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.cross:hover, .tick:hover {
+  opacity: 1;
+  height: 26px;
+  margin: 3px;
+}
+
+/* the text that indicates whether or not the student got it correct on the student view */
+.s-marking-text{
+  font-weight: 600;
+}
+.s-marking-text.-correct{
+  color: hsl(150, 100%, 50%);
+}
+.s-marking-text.-incorrect{
+  color: hsl(9, 100%, 60%);
+}
+.s-marking-text.-unmarked{
+  color: var(--c-l-10)
 }
