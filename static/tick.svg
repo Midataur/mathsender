@@ -2,7 +2,7 @@
  <g>
   <title>Layer 1</title>
   <g id="layer1">
-   <path fill="#00b050" fill-rule="evenodd" stroke-width="0.25pt" id="path3129" d="m0,125l100,90l180,-180l-35,-35l-145,145l-60,-60l-40,40z"/>
+   <path fill="hsl(150, 100%, 50%)" fill-rule="evenodd" stroke-width="0.25pt" id="path3129" d="m0,125l100,90l180,-180l-35,-35l-145,145l-60,-60l-40,40z"/>
   </g>
  </g>
 </svg>
