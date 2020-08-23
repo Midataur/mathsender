@@ -31,7 +31,7 @@
 		console.log('Answer marked correct',answer,'{{name}}')
 		if (answer['answer']['submitted_by'] == '{{name}}' && answer['qid'] == '{{question["id"]}}') {
 			console.log('And it was for you')
-			markCss(answer);
+			markCss(answer["answer"]["correct"]);
 		}
     });
 
@@ -39,18 +39,23 @@
 		console.log('Answer marked incorrect',answer,'{{name}}')
 		if (answer['answer']['submitted_by'] == '{{name}}' && answer['qid'] == '{{question["id"]}}') {
 			console.log('And it was for you')
-			markCss(answer);
+			markCss(answer["answer"]["correct"]);
 		}
     });
 
-	function markCss(answer) {
-		if (answer['answer']['correct'] == true) {
-			document.body.style.backgroundColor = '#07a102'
-		} else if (answer['answer']['correct'] == false) {
-			document.body.style.backgroundColor = '#c40038'
-		} else if (answer['answer']['correct'] == null) {
-			document.body.style.backgroundColor = '#141315'
-		}
+	function markCss(answerValidity="null") {
+		console.log(answerValidity)
+		const markingContent = {
+			true:"correct",
+			"True":"correct",
+			false:"incorrect",
+			"False":"incorrect",
+			null:"unmarked",
+			"None":"unmarked"
+		}[answerValidity]
+		console.log(markingContent)
+		$("#marking").text(markingContent)
+		$("#marking").attr("class",`s-marking-text -${markingContent}`)
 	}
 </script>
 
@@ -69,7 +74,7 @@
 
 			document.getElementById('submit-or-change').textContent = 'Change answer:';
 			//renderMathInElement(current_answer);
-			markCss(answer);
+			markCss(answer["answer"]["correct"]);
 		}
     });
 </script>
@@ -98,14 +103,20 @@
 
 		{% if answer %}
 		<script>
-			answerMathField.select()
-			answerMathField.clearSelection()
-			answerMathField.write('{{answer["answer"]}}'.slice(1).slice(0,-1))
-			tmp_answer='{{answer["answer"]}}'
+			$( document ).ready(function(){
+				answerMathField.select()
+				answerMathField.clearSelection()
+				answerMathField.write('{{answer["answer"]}}'.slice(1).slice(0,-1))
+				tmp_answer='{{answer["answer"]}}'
+				markCss(`{{answer["correct"]}}`)
+			})
+			
 		</script>
 		{% endif %}
 
 		<label class="field"><button onclick="send_answer();" class="button -fill">Submit answer</button></label>
 		
 		<p class="wysiwyg">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://www.math.brown.edu/~jhs/ReferenceCards/TeXRefCard.v1.5.pdf" target="_blank">here</a></p>
+
+		<p>Your answer is <span id="marking" class="s-marking-text">unmarked</span>.</p>
 {%endblock%}

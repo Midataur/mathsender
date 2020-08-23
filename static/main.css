@@ -510,7 +510,9 @@ main {
 	border-radius: 0px 0px var(--mini-unit) var(--mini-unit);
 	color: var(--c-l-10)
 }
-
+.t-answer-text{
+  padding:var(--mini-unit)
+}
 .t-answer.-correct{
 		background-color: hsl(150, 60%, 16%);
 		border-color: hsl(150, 60%, 16%);
@@ -535,4 +537,18 @@ main {
   opacity: 1;
   height: 26px;
   margin: 3px;
+}
+
+/* the text that indicates whether or not the student got it correct on the student view */
+.s-marking-text{
+  font-weight: 600;
+}
+.s-marking-text.-correct{
+  color: hsl(150, 100%, 50%);
+}
+.s-marking-text.-incorrect{
+  color: hsl(9, 100%, 60%);
+}
+.s-marking-text.-unmarked{
+  color: var(--c-l-10)
 }
