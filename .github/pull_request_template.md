@@ -5,6 +5,6 @@ before making a pull request, make sure that you:
 
 ---
 
-Please include information about **all** the changes you have made in this pull request.
+Please include specific information about **all** the changes you have made in this pull request.
 
 Additionally, make sure to request review from somebody.
