@@ -29,13 +29,6 @@ def fetch_answer(answers,name):
              return x
     return None
 
-def autocorrect_new(answers,answer_text):
-    for x in answers:
-        # if the text is identical, 'correct' will be identical too
-        if x['answer'] == answer_text:
-            return x['correct']
-    return None
-
 ### SOCKETS ###
 
 @socketio.on('room_connect')
@@ -58,24 +51,20 @@ def new_answer(name,answer_text,code,qid):
     room = classrooms[int(code)]
     question = room['questions'][int(qid)]
     answers = question['answers']
-
-    # Latex Formatting
-    answer_text = '\\('+answer_text+'\\)'
-
-    #walrus time?
-    if answer := fetch_answer(answers,name):
-        answer['answer'] = answer_text
-        answers.remove(answer)
-    else:
-        answer = {
-            'submitted_by': name,
-            'answer': answer_text
-        }
     
-    answer['correct'] = autocorrect_new(answers,answer_text)
+    # Remove an answer from the same person
+    if answer := fetch_answer(answers,name):
+        answers.remove(answer)
+    
+    # Crate the new answer
+    answer = {
+            'submitted_by': name,
+            'answer': '\\('+answer_text+'\\)', # Latex Formatting
+            'correct': None
+        }
+    print(answer)
     answers.append(answer)
 
-    print(answer)
     # Send out to the teacher page
     socketio.emit(
         'new_answer_teacher',
@@ -83,6 +72,10 @@ def new_answer(name,answer_text,code,qid):
         room=code,
         broadcast=True
     )
+
+    # Autocorrect the new answer
+    autocorrect(answer,None,code,qid)
+    
 
 @socketio.on('new_question')
 def new_question(question_text,code,password):
@@ -107,31 +100,55 @@ def new_question(question_text,code,password):
         )
 
 @socketio.on('autocorrect')
-def autocorrect(clicked_answer,correct,code,qid):
-    # if correct is True, the clicked answer is correct
+def autocorrect(answer,correct,code,qid):
+    # if correct is True, the answer is correct
     # man we are running a loooooot of linear time operations -max
-    # also, why are there two autocorrect functons? -max
+    # only 1 now, it's simplified a bit. I don't think there's a better way to do it really
+
     answers = classrooms[int(code)]['questions'][int(qid)]['answers']
     print(answers)
-    for i in range(len(answers)): #protip: enumerate() is cool and exists
-        if answers[i]['answer'] == clicked_answer['answer']:
-            if correct:
-                classrooms[int(code)]['questions'][int(qid)]['answers'][i]['correct'] = True
+
+    for i,other_answer in enumerate(answers):
+        if other_answer['answer'] == answer['answer']:
+            if correct == True: # i know this isn't necessary but it helps with clarity
+                answers[i]['correct'] = True # answers[i] is necessary to actually update the list
                 # Send out to the teacher page
                 socketio.emit(
                     'mark_correct',
-                    {'answer': answers[i], 'qid': qid},
+                    {'answer': other_answer, 'qid': qid},
                     room=code,
                     broadcast=True
                 )
-            else:
-                classrooms[int(code)]['questions'][int(qid)]['answers'][i]['correct'] = False
+            elif correct == False:
+                answers[i]['correct'] = False
                 socketio.emit(
                     'mark_incorrect',
-                    {'answer': answers[i], 'qid': qid},
+                    {'answer': other_answer, 'qid': qid},
                     room=code,
                     broadcast=True
                 )
+            elif correct == None:
+                # This section now handles new answers, which AREN'T in answers yet
+                # now the mark_correct/mark_incorrect sockets will be called for new/updated answers
+                if other_answer['correct'] == True:
+                    print('Marked new/changed answer correct')
+                    socketio.emit(
+                        'mark_correct',
+                        {'answer': answer, 'qid': qid},
+                        room=code,
+                        broadcast=True
+                    )
+                elif other_answer['correct'] == False:
+                    print('Marked new/changed answer INcorrect')
+                    socketio.emit(
+                        'mark_incorrect',
+                        {'answer': answer, 'qid': qid},
+                        room=code,
+                        broadcast=True
+                    )
+                # because only the new answer will be marked, you can stop checking once you've found a match
+                break
+
 
 
 ### ROUTES ###
@@ -171,9 +188,13 @@ def teacher_create():
     
     '''
     classrooms[code]['questions'][1] = {
-        'text': 'What is 1+1?',
+        'text': '1+\\frac{1}{2}',
         'id':1,
-        'answers': []
+        'answers': [
+            {'submitted_by': 'Jeremy', 'answer': '\\(\\frac{1}{2}\\)', 'correct': False},
+            {'submitted_by': 'Jerro', 'answer': '\\(\\frac{3}{2}\\)', 'correct': None},
+            {'submitted_by': 'Jamie', 'answer': '\\(\\frac{3}{2}\\)', 'correct': None},
+        ]
     }
     '''
     
@@ -184,7 +205,6 @@ def teacher_room(code):
     global classrooms
     if valid_code(code):
         password = request.args.get('password')
-        questions = list(classrooms[int(code)]['questions'].values())[::-1]
         return render_template(
             'teacherview.html',
             code=code,

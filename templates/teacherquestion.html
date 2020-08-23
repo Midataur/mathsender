@@ -98,7 +98,6 @@
         //make a room for each question (?)
         if (data['qid'] == '{{question["id"]}}'){
             answer = data['answer']
-            console.log(answer)
 
             // Generate the element
             answer_el = gen_answer_el(answer);
@@ -113,17 +112,7 @@
                 container.id = 'answer-'+answer['submitted_by'];    
             }
             container.appendChild(answer_el)
-            
-            // Set class name for formatting
-            if (answer['correct'] == true) {
-                container.className = "t-answer -correct"
-            }
-            else if (answer['correct'] == false) {
-                container.className = "t-answer -incorrect"
-            }
-            else {
-                container.className = "t-answer"
-            }
+            container.className = "t-answer"
 
             // Render any latex
             answers_div = document.getElementById('answers');
