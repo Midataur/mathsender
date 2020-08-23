@@ -44,7 +44,13 @@
     });
 
 	function markCss(answer) {
-		//Darcy do your thing
+		if (answer['answer']['correct'] == true) {
+			document.body.style.backgroundColor = '#07a102'
+		} else if (answer['answer']['correct'] == false) {
+			document.body.style.backgroundColor = '#c40038'
+		} else if (answer['answer']['correct'] == null) {
+			document.body.style.backgroundColor = '#141315'
+		}
 	}
 </script>
 
@@ -63,9 +69,7 @@
 
 			document.getElementById('submit-or-change').textContent = 'Change answer:';
 			//renderMathInElement(current_answer);
-			if (answer['answer']['correct'] != null) {
-				markCss(answer);
-			}
+			markCss(answer);
 		}
     });
 </script>
