@@ -20,6 +20,9 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
+**Suggested fix (optional)**
+If you have a suggested way of fixing this problem, please describe it here.
+
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
@@ -33,4 +36,5 @@ If applicable, add screenshots to help explain your problem.
  - Browser [e.g. stock browser, safari]
 
 **Additional context**
-Add any other context about the problem here.
+Add any other context about the problem here. 
+
