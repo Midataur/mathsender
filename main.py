@@ -56,7 +56,7 @@ def new_answer(name,answer_text,code,qid):
     if answer := fetch_answer(answers,name):
         answers.remove(answer)
     
-    # Crate the new answer
+    # Create the new answer
     answer = {
             'submitted_by': name,
             'answer': '\\('+answer_text+'\\)', # Latex Formatting
@@ -112,15 +112,28 @@ def autocorrect(new_answer,correct,code,qid):
     correct_answers = question['corrections']['correct']
     incorrect_answers = question['corrections']['incorrect']
 
-    # i see why this was two functions now
-    if new_answer['answer'] not in correct_answers+incorrect_answers:
-        if correct == True:
-            correct_answers.append(new_answer['answer'])
-        elif correct == False:
-            incorrect_answers.append(new_answer['answer'])
+    # the way you had it you couldn't change an answer from incorrect to correct
+    if correct == True:
+        if new_answer['answer'] in correct_answers: #if already marked correct, do nothing
+            return None
+        
+        if new_answer['answer'] in incorrect_answers: #if already marked incorrect
+            incorrect_answers.remove(new_answer['answer'])
 
+        correct_answers.append(new_answer['answer'])
+
+    elif correct == False:
+        if new_answer['answer'] in incorrect_answers: #if already marked incorrect, do nothing
+            return None
+        
+        if new_answer['answer'] in correct_answers: #if already marked correct
+            correct_answers.remove(new_answer['answer'])
+
+        incorrect_answers.append(new_answer['answer'])
+    
     #actual correcting part
     #yes this is still linear time but at least it's clean now
+    # I don't think you can do it not in linear time
     for answer in answers:
         if answer['answer'] in question['corrections']['correct']:
             answer['correct'] = True
