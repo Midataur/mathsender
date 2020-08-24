@@ -75,6 +75,15 @@
             opacity: "hide",
                 bottom: "hide"}, 336, "swing")
         }
+
+    function copyCode() {
+        navigator.clipboard.writeText('{{code}}').then(
+        function() {
+            console.log('Successfully copied to clipboard')
+        }, function() {
+            console.log('Failed to copy to clipboard')
+        });
+    }
 </script>
 
 </head>
@@ -88,7 +97,7 @@
         </div>
         
         <div class="button-group -fill">
-        <div class="room-code">{% block roomCode %}{%endblock%}</div>
+        <div class="room-code" onclick="copyCode()">{% block roomCode %}{%endblock%}</div>
         <a class="button -small -secondary button-group__button" href="/student/join">
             ◈ Join a room
         </a>
