@@ -93,7 +93,7 @@
             // }, function(){
             //     $(room_code).removeClass('-copied')
             // })
-            
+
         }, function() {
             console.log('Failed to copy to clipboard')
         });
@@ -111,7 +111,9 @@
         </div>
         
         <div class="button-group -fill">
+        {% if code %}
         <div class="room-code" onclick="copyCode(this)"><span>{% block roomCode %}{%endblock%}</span></div>
+        {% endif %}
         <a class="button -small -secondary button-group__button" href="/student/join">
             ◈ Join a room
         </a>
