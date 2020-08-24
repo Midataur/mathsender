@@ -86,7 +86,11 @@ def new_question(question_text,code,password):
         question = {
             'text': question_text,
             'id': room['curqid']+1,
-            'answers': []
+            'answers': [],
+            'corrections': {
+                'correct': [],
+                'incorrect': []
+            }
         }
         room['curqid'] += 1
         room['questions'][room['curqid']] = question
@@ -99,57 +103,39 @@ def new_question(question_text,code,password):
             
         )
 
+#I'm rewriting this to be a bit better and have less bugs -max
 @socketio.on('autocorrect')
-def autocorrect(answer,correct,code,qid):
-    # if correct is True, the answer is correct
-    # man we are running a loooooot of linear time operations -max
-    # only 1 now, it's simplified a bit. I don't think there's a better way to do it really
+def autocorrect(new_answer,correct,code,qid):
 
-    answers = classrooms[int(code)]['questions'][int(qid)]['answers']
-    print(answers)
+    question = classrooms[int(code)]['questions'][int(qid)]
+    answers = question['answers']
+    correct_answers = question['corrections']['correct']
+    incorrect_answers = question['corrections']['incorrect']
 
-    for i,other_answer in enumerate(answers):
-        if other_answer['answer'] == answer['answer']:
-            if correct == True: # i know this isn't necessary but it helps with clarity
-                answers[i]['correct'] = True # answers[i] is necessary to actually update the list
-                # Send out to the teacher page
-                socketio.emit(
-                    'mark_correct',
-                    {'answer': other_answer, 'qid': qid},
-                    room=code,
-                    broadcast=True
-                )
-            elif correct == False:
-                answers[i]['correct'] = False
-                socketio.emit(
-                    'mark_incorrect',
-                    {'answer': other_answer, 'qid': qid},
-                    room=code,
-                    broadcast=True
-                )
-            elif correct == None:
-                # This section now handles new answers, which AREN'T in answers yet
-                # now the mark_correct/mark_incorrect sockets will be called for new/updated answers
-                if other_answer['correct'] == True:
-                    print('Marked new/changed answer correct')
-                    socketio.emit(
-                        'mark_correct',
-                        {'answer': answer, 'qid': qid},
-                        room=code,
-                        broadcast=True
-                    )
-                elif other_answer['correct'] == False:
-                    print('Marked new/changed answer INcorrect')
-                    socketio.emit(
-                        'mark_incorrect',
-                        {'answer': answer, 'qid': qid},
-                        room=code,
-                        broadcast=True
-                    )
-                # because only the new answer will be marked, you can stop checking once you've found a match
-                break
+    # i see why this was two functions now
+    if new_answer['answer'] not in correct_answers+incorrect_answers:
+        if correct == True:
+            correct_answers.append(new_answer['answer'])
+        elif correct == False:
+            incorrect_answers.append(new_answer['answer'])
 
+    #actual correcting part
+    #yes this is still linear time but at least it's clean now
+    for answer in answers:
+        if answer['answer'] in question['corrections']['correct']:
+            answer['correct'] = True
+            send_mark('mark_correct',answer,qid,code)
+        elif answer['answer'] in question['corrections']['incorrect']:
+            answer['correct'] = False
+            send_mark('mark_incorrect',answer,qid,code)
 
+def send_mark(protocol,answer,qid,code):
+    socketio.emit(
+        protocol,
+        {'answer': answer, 'qid': qid},
+        room=code,
+        broadcast=True
+    )
 
 ### ROUTES ###
 
@@ -185,18 +171,6 @@ def teacher_create():
         'curqid': 0,
         'students': []
     }
-    
-    '''
-    classrooms[code]['questions'][1] = {
-        'text': '1+\\frac{1}{2}',
-        'id':1,
-        'answers': [
-            {'submitted_by': 'Jeremy', 'answer': '\\(\\frac{1}{2}\\)', 'correct': False},
-            {'submitted_by': 'Jerro', 'answer': '\\(\\frac{3}{2}\\)', 'correct': None},
-            {'submitted_by': 'Jamie', 'answer': '\\(\\frac{3}{2}\\)', 'correct': None},
-        ]
-    }
-    '''
     
     return f'<script>window.location = "/teacher/room/{code}?password={password}"</script>'
 
