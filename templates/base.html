@@ -20,9 +20,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" media="screen" charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.css">
 
-        <!-- KaTeX -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
        
     <link href="{{ url_for('static', filename='main.css') }}?q=toast" type="text/css" rel="stylesheet">
 
@@ -46,11 +46,15 @@
         });
     </script>
 
+    <!-- Clipboard.js -->
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+
     <!-- Google verification -->
     <meta name="google-site-verification" content="CNboQgXE9hDScVQUdc_rVK3E6BlteajwS-Kb6bLWX6Q" />
- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 {% block head %}
 {% endblock %}
+
 <script>
     function gen_question_el(question,qid) {
 		question_el = document.createElement("a");
@@ -75,6 +79,22 @@
             opacity: "hide",
                 bottom: "hide"}, 336, "swing")
         }
+
+    function codeCopied(room_code) {
+        $(room_code).addClass('-copied')
+
+        // Reset after a second
+        setTimeout(function(){
+            $(room_code).removeClass('-copied')
+        }, 1000)
+            
+        // Reset after you stop hovering
+        // $(room_code).hover(function(){
+        //     //pass
+        // }, function(){
+        //     $(room_code).removeClass('-copied')
+        // })
+    }
 </script>
 
 </head>
@@ -84,16 +104,22 @@
             <a href="/">
                 <img src="{{ url_for('static', filename='MathSenderLogoColoured.svg') }}" alt="MathSender" class="header-logo__img">
             </a>
-            
         </div>
         
         <div class="button-group -fill">
-        <div class="room-code">{% block roomCode %}{%endblock%}</div>
-        <a class="button -small -secondary button-group__button" href="/student/join">
-            ◈ Join a room
-        </a>
+            {% if code %}
+            <script>new ClipboardJS('.room-code')</script>
+            <div class="room-code" data-clipboard-text="{{code}}" onclick="codeCopied(this)">
+                <span>{% block roomCode %}{%endblock%}</span>
+            </div>
+            {% endif %}
+
+            <a class="button -small -secondary button-group__button" href="/student/join">
+                ◈ Join a room
+            </a>
         </div>
     </header>
+
     <main class="container">
         {% block content %}
         {%endblock%}
@@ -108,7 +134,4 @@
         MathSender is loading.        
     </div>
 </body>
-
-
-  
 </html>
