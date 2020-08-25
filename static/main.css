@@ -167,6 +167,7 @@ main {
 .header.-sticky {
   position: sticky;
   top: 0;
+  z-index: 10000;
 }
 .header-logo {
   transition: all 0.1s ease-in-out;
@@ -290,7 +291,6 @@ main {
   display: inline-flex;
   font-size: calc(var(--mini-unit) * 2);
   min-height: 2rem;
-  width: 190px;
   justify-content: center;
   padding: 0 calc(var(--mini-unit) * 2);
   text-decoration: none;
@@ -298,25 +298,7 @@ main {
   box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.05);
   font-weight: 700;
 }
-.room-code:hover {
-  cursor: pointer;
-}
-.room-code:hover span{
-  font-size: 0;
-}
-.room-code:hover:after{
-  content: "Click to copy";
-}
 
-.room-code.-copied{
-  background-color: var(--c-blue--darkest);
-}
-.room-code.-copied span{
-  font-size: 0;
-}
-.room-code.-copied:after{
-  content: "Copied";
-}
 /* footer block */
 .footer {
   text-align: center;

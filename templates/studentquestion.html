@@ -104,10 +104,11 @@
 		{% if answer %}
 		<script>
 			$( document ).ready(function(){
+				answerMathField.focus()
 				answerMathField.select()
 				answerMathField.clearSelection()
-				answerMathField.write('{{answer["answer"]}}'.slice(1).slice(0,-1))
-				tmp_answer='{{answer["answer"]}}'
+				answerMathField.write('{{answer["answer"]}}'.slice(2).slice(0,-2))
+				tmp='{{answer["answer"]}}'.slice(2).slice(0,-2)
 				markCss(`{{answer["correct"]}}`)
 			})
 			

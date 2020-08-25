@@ -10,7 +10,11 @@
 [Visit the MathSender website!](http://mathsender.fun)
 
 ---
-**Progress:** ~~Make it Work~~. Make it Good. Make it Fast.
+**General Progress:** ~~Make it Work~~. Make it Good. Make it Fast.
+
+<p>
+<img alt="Issues progress" src="https://issue-card.vercel.app/api/midataur/mathsender?one=Makeitwork&two=Makeitgood&three=Makeitfast&theme=dark" align="center" />
+</p>
 
 ---
 > Created by [Collective Fullstack](https://collective-fullstack.github.io/) in 2020
