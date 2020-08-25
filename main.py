@@ -258,6 +258,12 @@ def student_question(code,qid):
         if qid.isdigit() and int(qid) in room['questions']:
             question = room['questions'][int(qid)]
             answer = fetch_answer(question['answers'],name)
+            #sanitization
+            if answer:
+                tmp_answer = dict(answer)
+                print('Sanitizing worked:',tmp_answer is not answer)
+                tmp_answer['answer'] = tmp_answer['answer'].replace('\\','\\\\')
+                answer = tmp_answer
             return render_template(
                 'studentquestion.html',
                 question=question,
