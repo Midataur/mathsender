@@ -46,6 +46,9 @@
         });
     </script>
 
+    <!-- Clipboard.js -->
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+
     <!-- Google verification -->
     <meta name="google-site-verification" content="CNboQgXE9hDScVQUdc_rVK3E6BlteajwS-Kb6bLWX6Q" />
  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
@@ -76,27 +79,20 @@
                 bottom: "hide"}, 336, "swing")
         }
 
-    function copyCode(room_code) {
-        navigator.clipboard.writeText('{{code}}').then(
-        function() {
-            console.log('Successfully copied to clipboard')
-            $(room_code).addClass('-copied')
+    function codeCopied(room_code) {
+        $(room_code).addClass('-copied')
 
-            // Reset after 5 seconds
-            setTimeout(function(){
-                $(room_code).removeClass('-copied')
-            }, 1000)
+        // Reset after a second
+        setTimeout(function(){
+            $(room_code).removeClass('-copied')
+        }, 1000)
             
-            // Reset after you stop hovering
-            // $(room_code).hover(function(){
-            //     //pass
-            // }, function(){
-            //     $(room_code).removeClass('-copied')
-            // })
-
-        }, function() {
-            console.log('Failed to copy to clipboard')
-        });
+        // Reset after you stop hovering
+        // $(room_code).hover(function(){
+        //     //pass
+        // }, function(){
+        //     $(room_code).removeClass('-copied')
+        // })
     }
 </script>
 
@@ -112,7 +108,8 @@
         
         <div class="button-group -fill">
         {% if code %}
-        <div class="room-code" onclick="copyCode(this)"><span>{% block roomCode %}{%endblock%}</span></div>
+        <script>new ClipboardJS('.room-code');</script>
+        <div class="room-code" data-clipboard-text="{{code}}" onclick="codeCopied(this)"><span>{% block roomCode %}{%endblock%}</span></div>
         {% endif %}
            <a class="button -small -secondary button-group__button" href="/student/join">
             ◈ Join a room
