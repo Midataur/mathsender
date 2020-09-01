@@ -113,6 +113,22 @@ Modifiers -> Popsicles (.button.-blue)
   --c-l-0: hsl(240, 5%, 8%);
 }
 
+/* utils */
+.--desktop{
+  display: block;
+}
+.--mobile{
+  display: none
+}
+@media (max-width: 670px) {
+  .--desktop{ 
+    display: none !important
+  }
+  .--mobile{
+    display: block
+  }
+}
+
 /* generic element styles */
 
 /* import the nice fonts */
@@ -164,6 +180,17 @@ main {
   color: var(--c-l-10);
   align-items: center;
 }
+@media (max-width: 670px) {
+  .header {
+    display: block;
+    padding: calc(var(--mini-unit) * 2) calc(var(--mini-unit));
+
+  }
+  .header > * {
+    margin-bottom:var(--mini-unit)
+  }
+  
+}
 .header.-sticky {
   position: sticky;
   top: 0;
@@ -178,7 +205,17 @@ main {
 .header-logo__img {
   height: calc(var(--mini-unit) * 4);
 }
-
+@media (max-width: 670px) {
+  .header-logo__img {
+    height: calc(var(--mini-unit) * 5);
+  }
+  .header-logo{
+    padding-right: var(--mini-unit);
+  }
+}
+.header-buttons-mobile>*{
+  margin-bottom: var(--mini-unit);
+}
 /* button block */
 .button {
   background-color: var(--c-l-2);
@@ -245,12 +282,16 @@ main {
   display: flex;
   align-items: center;
 }
+.button-group>*{
+  margin-bottom: var(--mini-unit);
+}
 .button-group__button {
   margin-left: var(--mini-unit);
 }
 .button-group__button:first-child {
   margin-left: 0px;
 }
+
 
 /* main container block */
 .container {
@@ -299,16 +340,18 @@ main {
   box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.05);
   font-weight: 700;
 }
-.room-code:hover {
+.room-code:hover{
   cursor: pointer;
 }
 .room-code:hover span{
-  font-size: 0;
+  display: none;
 }
 .room-code:hover:after{
   content: "Click to copy";
 }
-
+.room-code.-fill{
+  width:100%
+}
 .room-code.-copied{
   background-color: var(--c-blue--darkest);
 }
