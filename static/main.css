@@ -1,3 +1,6 @@
+/* import the nice fonts */
+@import url("https://rsms.me/inter/inter.css");
+
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 html,
 body,
@@ -115,8 +118,7 @@ Modifiers -> Popsicles (.button.-blue)
 
 /* generic element styles */
 
-/* import the nice fonts */
-@import url("https://rsms.me/inter/inter.css");
+
 html {
   font-family: "Inter", sans-serif;
 }
