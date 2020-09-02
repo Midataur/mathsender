@@ -66,6 +66,22 @@
     });
 </script>
 
+<script>
+    //Change existing question
+    socket.on('changed_question', function ( data ) {
+        console.log('Question change recieved')
+        var qid = data[0];
+        var qtext = data[1];
+        questionDiv = document.getElementById('question-'+qid);
+        if (questionDiv) {
+			console.log('Changing question')
+            qheader = questionDiv.children[0];
+            qheader.textContent = '\\('+qtext+'\\)'
+            renderMathInElement(qheader)
+        }
+    });
+</script>
+
 {% endblock %}
 {% block content %}
 		<span>Number of students joined: <span id="student-num">0</span></span><br/>

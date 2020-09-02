@@ -59,6 +59,7 @@
     function gen_question_el(question,qid) {
 		question_el = document.createElement("a");
 		div = document.createElement('div')
+        div.id = "question-"+qid;
 		question_el.href = '{{code}}/questions/'+qid+'?password={{password}}';
 		div.innerText = question;
 		$(div).addClass("button -fill -math")
@@ -67,6 +68,11 @@
 		container.appendChild(question_el)
         return container;
     }
+
+    //if you're here about to copy a function that's used on multiple pages
+    //don't
+    //or at the very least check that all instances function exactly the same
+    //because last time we did that we broke something
 
     // a nice custom alert function
     function MSAlert(_text){

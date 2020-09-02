@@ -148,6 +148,33 @@
     });
     
 </script>
+
+<script>
+    //Change existing question
+    socket.on('changed_question', function ( data ) {
+        console.log('Question change recieved')
+        var qid = data[0];
+        var qtext = data[1];
+        if (qid == '{{question["id"]}}') {
+            console.log('And it was this question')
+            console.log(qid,qtext)
+            qheader = document.getElementById('qheader');
+            qheader.textContent = '\\('+qtext+'\\)'
+            renderMathInElement(qheader)
+        }
+    });
+</script>
+
+<script>
+	function send_question() {
+		var question = questionMathField.latex();
+		var code = '{{code}}';
+		var password = '{{password}}'
+		socket.emit('edit_question',question,code,password,'{{question["id"]}}');
+		MSAlert('Question sent!')
+		return false;
+	}
+</script>
 		
 {% endblock %}
 {% block content %}
@@ -155,12 +182,28 @@
             <a href="/teacher/room/{{code}}?password={{password}}">Go back</a>
         </div>
        
-        <h2 class="text-heading">\({{question['text']}}\)</h2>
+        <h2 class="text-heading" id="qheader">\({{question['text']}}\)</h2>
 
-        <h3 class="text-heading -sub">Answers:</h3>
+        <label class="field twopart-field">
+			<div class="twopart-field__left">Question:</div>
+			<span id="question-input" class="field__input twopart-field__right -math"></span>
+		</label>
+		<label class="field">
+			<button onclick="send_question();" class="button -fill">Edit question</button>
+		</label>
+			
+		
+		<!-- MathQuill -->
+		<script>
+			var questionSpan = document.getElementById('question-input');
+			var questionMathField = MQ.MathField(questionSpan, {handlers: {}});
+		</script>
+		
+		
 
-        
+		<p class="wysiwyg">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://katex.org/docs/supported.html" target="_blank">here</a></p>
 
         <!-- Filled by JS -->
         <div id="answers"></div>
+        <h3 class="text-heading -sub">Answers:</h3>
 {%endblock%}
