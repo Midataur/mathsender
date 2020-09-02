@@ -180,7 +180,7 @@ main {
   color: var(--c-l-10);
   align-items: center;
 }
-@media (max-width: 670px) {
+@media (max-width: 600px) {
   .header {
     display: block;
     padding: calc(var(--mini-unit) * 2) calc(var(--mini-unit));
@@ -281,15 +281,22 @@ main {
 .button-group {
   display: flex;
   align-items: center;
+  margin: calc(-1 * var(--mini-unit)) 0 0 calc(-1 * var(--mini-unit));
 }
 .button-group>*{
-  margin-bottom: var(--mini-unit);
+  margin: var(--mini-unit) 0 0 var(--mini-unit);
 }
 .button-group__button {
   margin-left: var(--mini-unit);
 }
 .button-group__button:first-child {
   margin-left: 0px;
+}
+@media (max-width: 670px) {
+  .button-group__button {
+    flex-grow: 1;
+  }
+
 }
 
 
