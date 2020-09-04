@@ -23,13 +23,13 @@
 	loaded = false;
 	//get all the questions
 	socket.on('question_list', function( questions ) {
+		console.log(questions)
 		if (!loaded) {
 			console.log(questions)
 			for (i = 0; i < questions.length; i++) {
 				question = questions[i]
-				question_el = gen_question_el('\\('+question['text']+'\\)',questions['id']);
+				question_el = gen_question_el('\\('+question['text']+'\\)',question['id']);
 				question_el.firstChild.href = "/student/room/{{code}}/questions/"+question['id']+"?name={{name}}"
-
 				add_question(question_el)
 			}
 			loaded = true;
@@ -49,6 +49,22 @@
 		questions = document.getElementById('questions');
 		questions.insertBefore(question_el, questions.firstChild);
 		renderMathInElement(question_el);
+    });
+</script>
+
+<script>
+    //Change existing question
+    socket.on('changed_question', function ( data ) {
+        console.log('Question change recieved')
+        var qid = data[0];
+        var qtext = data[1];
+        questionDiv = document.getElementById('question-'+qid);
+        if (questionDiv) {
+			console.log('Changing question')
+            qheader = questionDiv.children[0];
+            qheader.textContent = '\\('+qtext+'\\)'
+            renderMathInElement(qheader)
+        }
     });
 </script>
 

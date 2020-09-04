@@ -26,6 +26,22 @@
 </script>
 
 <script>
+    //Change question
+    socket.on('changed_question', function ( data ) {
+        console.log('Question change recieved')
+        var qid = data[0];
+        var qtext = data[1];
+        if (qid == '{{question["id"]}}') {
+            console.log('And it was this question')
+            console.log(qid,qtext)
+            qheader = document.getElementById('qheader');
+            qheader.textContent = '\\('+qtext+'\\)'
+            renderMathInElement(qheader)
+        }
+    });
+</script>
+
+<script>
 	//handles marking of answers
 	socket.on('mark_correct', function( answer ) {
 		console.log('Answer marked correct',answer,'{{name}}')
@@ -85,7 +101,7 @@
 			<a href="/student/room/{{code}}?name={{name}}">Go back</a>
 		</div>
 		
-		<h2 class="text-heading">\({{question['text']}}\)</h2>
+		<h2 class="text-heading" id="qheader">\({{question['text']}}\)</h2>
 
 		{% if answer %}
 		<h3 class="text-heading -sub" id="submit-or-change">Change answer:</h3>
