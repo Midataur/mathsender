@@ -171,7 +171,7 @@
 		var code = '{{code}}';
 		var password = '{{password}}'
 		socket.emit('edit_question',question,code,password,'{{question["id"]}}');
-		MSAlert('Question sent!')
+		MSAlert('Question updated!')
 		return false;
 	}
 </script>
@@ -184,19 +184,29 @@
        
         <h2 class="text-heading" id="qheader">\({{question['text']}}\)</h2>
 
-        <label class="field twopart-field">
-			<div class="twopart-field__left">Question:</div>
-			<span id="question-input" class="field__input twopart-field__right -math"></span>
-		</label>
-		<label class="field">
-			<button onclick="send_question();" class="button -fill">Edit question</button>
-		</label>
+        <details class="details -background">
+        <summary class="summary-as-link">Change Question</summary>
+        <div class="change-question-main">
+            <label class="field twopart-field">
+                <div class="twopart-field__left">Question:</div>
+                <span id="question-input" class="field__input twopart-field__right -math"></span>
+            </label>
+            <label class="field">
+                <button onclick="send_question();" class="button -fill ">Change Question</button>
+            </label>
+        </div>
+            
+        </details>
+       
 			
 		
 		<!-- MathQuill -->
 		<script>
 			var questionSpan = document.getElementById('question-input');
 			var questionMathField = MQ.MathField(questionSpan, {handlers: {}});
+            // note: it should fill in the field the same way it does with the student answer page, but idk how you did that, so...
+            //questionMathField.write('{{question["text"]}}')
+		    //tmp='{{question["text"]}}'.slice(2).slice(0,-2)
 		</script>
 		
 		

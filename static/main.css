@@ -251,7 +251,7 @@ main {
   color: var(--c-l-0);
 }
 .button.-inverse:hover {
-  background-color: hsl(0, 0%, 98%);
+  background-color: var(--c-l-8);
 }
 .button.-primary {
   background-color: var(--c-blue--dark);
@@ -421,7 +421,7 @@ main {
 */
 .field {
     display: flex;
-    margin-bottom: calc(var(--mini-unit) * 3);
+    margin-bottom: calc(var(--mini-unit) * 2);
     position: relative;
 	text-align: left;
 	
@@ -622,4 +622,31 @@ main {
 }
 .s-marking-text.-unmarked{
   color: var(--c-l-10)
+}
+
+.change-question-main{
+  padding: calc(2 * var(--mini-unit));
+  padding-bottom: 0px;
+  padding-top: calc(4 * var(--mini-unit))
+}
+.change-question-main:last-child{
+  margin-bottom: calc(-1 * var(--mini-unit));
+}
+.summary-as-link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.summary-as-link:hover{
+  opacity: 0.8;
+}
+
+.details {
+  padding:calc(2 * var(--mini-unit));
+  margin-bottom:var(--mini-unit);
+}
+.details.-background{
+  background-color: var(--c-l-0);
+  border-radius: var(--mini-unit);
+  border: 1px solid var(--c-l-2)
 }
