@@ -629,9 +629,7 @@ main {
   padding-bottom: 0px;
   padding-top: calc(4 * var(--mini-unit))
 }
-.change-question-main:last-child{
-  margin-bottom: calc(-1 * var(--mini-unit));
-}
+
 .summary-as-link {
   text-decoration: underline;
   cursor: pointer;
@@ -643,7 +641,7 @@ main {
 
 .details {
   padding:calc(2 * var(--mini-unit));
-  margin-bottom:var(--mini-unit);
+  margin-bottom:calc(2 * var(--mini-unit));
 }
 .details.-background{
   background-color: var(--c-l-0);
