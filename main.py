@@ -103,6 +103,19 @@ def new_question(question_text,code,password):
             
         )
 
+@socketio.on('edit_question')
+def edit_question(question_text,code,password,qid):
+    room = classrooms[int(code)]
+    question = room['questions'][int(qid)]
+    if password == room['password']:
+        question['text'] = question_text
+    socketio.emit(
+        'changed_question',
+        [qid,question_text],
+        room=code,
+        broadcast=True
+    )
+
 #I'm rewriting this to be a bit better and have less bugs -max
 @socketio.on('autocorrect')
 def autocorrect(new_answer,correct,code,qid):
