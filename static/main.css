@@ -159,7 +159,9 @@ a {
 main {
   min-height: 85vh;
 }
-
+b{
+  font-weight: 700;
+}
 /* scrollbar 
 ::-webkit-scrollbar {
   width: 2px;
@@ -641,12 +643,25 @@ main {
   opacity: 0.8;
 }
 
-.details {
-  padding:calc(2 * var(--mini-unit));
-  margin-bottom:calc(2 * var(--mini-unit));
-}
+
 .details.-background{
   background-color: var(--c-l-0);
   border-radius: var(--mini-unit);
   border: 1px solid var(--c-l-2)
+}
+.link:hover{
+	opacity:0.8
+}
+.details{
+	 padding:calc(2 * var(--mini-unit));
+  margin-bottom:calc(2 * var(--mini-unit));
+	border:1px solid var(--c-l-2);
+	border-radius:var(--mini-unit)
+}
+.details-content{
+	padding-top:var(--mini-unit);
+
+}
+.details-content > * {
+	margin-bottom: var(--mini-unit)
 }

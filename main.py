@@ -288,6 +288,9 @@ def student_question(code,qid):
             return ''
     else:
         return 'Invalid room code'
+@app.route("/about")
+def aboutPage():
+    return render_template('about.html')
 
 print(app.url_map)
 
