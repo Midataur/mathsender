@@ -341,7 +341,7 @@ main {
   display: inline-flex;
   font-size: calc(var(--mini-unit) * 2);
   min-height: 2rem;
-  width: 190px;
+  width: 200px;
   justify-content: center;
   padding: 0 calc(var(--mini-unit) * 2);
   text-decoration: none;
