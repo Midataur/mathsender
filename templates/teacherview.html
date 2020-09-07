@@ -84,6 +84,11 @@
 
 {% endblock %}
 {% block content %}
+		<form action="/export" method="POST">
+			<input type="text" name="code" value="{{code}}" hidden>
+			<input type="text" name="password" value="{{password}}" hidden>
+			<input type="submit" value="Export questions">
+		</form>
 		<span>Number of students joined: <span id="student-num">0</span></span><br/>
 		<h2 class="text-heading">Submit new question</h2>
 		<label class="field twopart-field">

@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, render_template
+from flask import Flask, request, url_for, render_template, make_response
 from flask_socketio import SocketIO, join_room, leave_room
 from collections import defaultdict
 import json
@@ -198,6 +198,13 @@ def teacher_create():
         'students': []
     }
     
+    qfile = request.files['questions']
+    questions = qfile.read().decode()
+    if questions:
+        questions = json.loads(questions)
+        questions = {int(key): value for key, value in questions.items()}
+        classrooms[code]['questions'] = questions
+        
     return f'<script>window.location = "/teacher/room/{code}?password={password}"</script>'
 
 @app.route('/teacher/room/<code>')
@@ -224,7 +231,7 @@ def teacher_question(code,qid):
             if password == room['password']:
                 #checks passed, render
                 question = room['questions'][int(qid)]
-                return render_template('teacherquestion.html',question=question, code=code, password=password)
+                return render_template('teacherquestion.html', question=question, code=code, password=password)
             else:
                 return 'Wrong room password'
         else:
@@ -288,6 +295,21 @@ def student_question(code,qid):
             return ''
     else:
         return 'Invalid room code'
+
+@app.route('/export',methods=["POST"])
+def export_questions():
+    global classrooms
+    room = classrooms[int(request.form['code'])]
+    password = request.form['password']
+    if room['password'] == password:
+        questions = dict(room['questions'])
+        for key in questions.keys():
+            questions[key]['answers'] = []
+        data = json.dumps(questions)
+        response = make_response(data)
+        response.headers["Content-Disposition"] = "attachment; filename=questions.json"
+        return response
+    return "Wrong password!"
 
 print(app.url_map)
 
