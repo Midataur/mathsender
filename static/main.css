@@ -74,6 +74,12 @@ td:not([align]),
 th:not([align]) {
   text-align: left;
 }
+
+hr{
+  display: block; height: 1px;
+    border: 0; border-top: 1px solid var(--c-l-2);
+}
+
 /* a demo https://codepen.io/coolbezos_420/pen/jOqWBqL?editors=1100 */
 /* reference for the css style, although, we use a slightly different version */
 /* https://www.cutestrap.com/features/popsicle */
@@ -275,6 +281,42 @@ main {
   padding-top:var(--mini-unit);
   padding-bottom: var(--mini-unit);
 }
+.button.-as-link{
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    font-weight:500;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.-as-link:hover{
+  opacity:0.8
+}
+
+/* change how the file input button looks like on browser != firefox/ie */
+::-webkit-file-upload-button{
+  background-color: var(--c-l-2);
+  color: var(--c-l-10);
+  border-color: transparent;
+
+  align-items: center;
+  border-radius: var(--mini-unit);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  padding: 0 calc(var(--mini-unit) * 2);
+  text-decoration: none;
+  hyphens: auto;
+  box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.1s ease-in-out 0s, border 0.1s, background-color 0.1s;
+  font-weight: 700;
+  margin-right:var(--mini-unit);
+  font-size: calc(var(--mini-unit) * 2);
+  min-height: 2rem;
+}
+::-webkit-file-upload-button:hover{
+  background-color: var(--c-l-1);
+}
 /* fix wysiwyg problem */
 .wysiwyg > a.button:hover {
   border-bottom: 0px solid !important;
@@ -341,7 +383,7 @@ main {
   display: inline-flex;
   font-size: calc(var(--mini-unit) * 2);
   min-height: 2rem;
-  width: 190px;
+  width: 200px;
   justify-content: center;
   padding: 0 calc(var(--mini-unit) * 2);
   text-decoration: none;
@@ -427,6 +469,9 @@ main {
     position: relative;
 	text-align: left;
 	
+}
+.form > .field:last-child {
+  margin-bottom: 0px;
 }
 .field__label{
 	margin-right: var(--mini-unit);
@@ -641,12 +686,25 @@ main {
   opacity: 0.8;
 }
 
-.details {
+.details{
   padding:calc(2 * var(--mini-unit));
-  margin-bottom:calc(2 * var(--mini-unit));
+ margin-bottom:calc(2 * var(--mini-unit));
+ border:1px solid var(--c-l-2);
+ border-radius:var(--mini-unit)
 }
 .details.-background{
   background-color: var(--c-l-0);
   border-radius: var(--mini-unit);
   border: 1px solid var(--c-l-2)
+}
+.details-content{
+ padding-top:var(--mini-unit);
+
+}
+.details-content > * {
+ margin-bottom: var(--mini-unit)
+}
+
+.details-form-container {
+  padding-top: calc(2 * var(--mini-unit));
 }

@@ -13,10 +13,18 @@
                 <div class="twopart-field__left">Password:</div>
                 <input type="password" name="password" class="field__input twopart-field__right -password" required/>
             </label>
-            <label class="field twopart-field">
-                <div class="twopart-field__left">Import:</div>
-                <input type="file" name="questions" class="field__input twopart-field__right" accept=".json"/>
-            </label>
+            <details class="details">
+                <summary>Import Question Set</summary>
+                <div class="details-content">
+                    <div class="details-form-container form">
+                        <label class="field">
+                            <input type="file" id="file" name="questions" class="field__input" accept=".json"/>
+                        </label>
+                    </div>
+                    
+                </div>
+            </details>
+            
             <input type="submit" value="▣ Create Room" class="button -fill">
         </form>
         <br>

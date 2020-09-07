@@ -84,11 +84,7 @@
 
 {% endblock %}
 {% block content %}
-		<form action="/export" method="POST">
-			<input type="text" name="code" value="{{code}}" hidden>
-			<input type="text" name="password" value="{{password}}" hidden>
-			<input type="submit" value="Export questions">
-		</form>
+
 		<span>Number of students joined: <span id="student-num">0</span></span><br/>
 		<h2 class="text-heading">Submit new question</h2>
 		<label class="field twopart-field">
@@ -109,7 +105,12 @@
 		
 
 		<p class="wysiwyg">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://katex.org/docs/supported.html" target="_blank">here</a></p>
-
+			<form action="/export" method="POST" class="form">
+				<input type="text" name="code" value="{{code}}" hidden>
+				<input type="text" name="password" value="{{password}}" hidden>
+				<input type="submit" value="Export questions" class="button -as-link">
+			</form>
+		<hr>
 		<br>
 		<h3 class="text-heading -sub">Existing questions:</h3>
 		<!-- Gets filled by JS -->
