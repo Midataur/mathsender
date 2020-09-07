@@ -3,6 +3,8 @@ from flask_socketio import SocketIO, join_room, leave_room
 from collections import defaultdict
 import json
 import random
+from datetime import datetime
+
 
 classrooms = defaultdict(lambda: None)
 
@@ -307,7 +309,9 @@ def export_questions():
             questions[key]['answers'] = []
         data = json.dumps(questions)
         response = make_response(data)
-        response.headers["Content-Disposition"] = "attachment; filename=questions.json"
+        file_name = f"questions-{datetime.date(datetime.now())}.MathSender.json"
+        response.headers["Content-Type"] = "application/json"
+        response.headers["Content-Disposition"] = f"attachment; filename={file_name}"
         return response
     return "Wrong password!"
 
