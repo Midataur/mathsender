@@ -697,6 +697,7 @@ main {
   border-radius: var(--mini-unit);
   border: 1px solid var(--c-l-2)
 }
+
 .details-content{
  padding-top:var(--mini-unit);
 
@@ -708,3 +709,4 @@ main {
 .details-form-container {
   padding-top: calc(2 * var(--mini-unit));
 }
+
