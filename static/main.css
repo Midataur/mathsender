@@ -570,6 +570,13 @@ main {
   scrollbar-width: thin; */
 }
 
+.description {
+  font-size: 0.8em;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--c-l-8);
+}
+
 /* some nice form blocks*/
 .form {
   margin-bottom: calc(var(--mini-unit) * 3);

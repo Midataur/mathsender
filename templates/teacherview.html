@@ -44,6 +44,10 @@
 	socket.on('question_list', function( questions ) {
 		if (!loaded) {
 			console.log(questions)
+			if (questions.length) {
+				question_info = document.getElementById('question-info')
+				question_info.innerText = "Click a question below to see answers from students"
+			}
 			for (i = 0; i < questions.length; i++) {
 				question = questions[i]
 				question_el = gen_question_el('\\('+question['text']+'\\)',question['id']);
@@ -63,6 +67,9 @@
         console.log(question_el);
         
 		add_question(question_el);
+
+		question_info = document.getElementById('question-info')
+		question_info.innerText = "Click a question below to see answers from students"
     });
 </script>
 
@@ -85,7 +92,8 @@
 {% endblock %}
 {% block content %}
 
-		<span>Number of students joined: <span id="student-num">0</span></span><br/>
+		<p class="wysiwyg">Number of students joined: <span id="student-num">0</span></p>
+		<hr>
 		<h2 class="text-heading">Submit new question</h2>
 		<label class="field twopart-field">
 			<div class="twopart-field__left">Question:</div>
@@ -94,7 +102,7 @@
 		<label class="field">
 			<button onclick="send_question();" class="button -fill">Submit question</button>
 		</label>
-			
+		
 		
 		<!-- MathQuill -->
 		<script>
@@ -102,26 +110,24 @@
 			var questionMathField = MQ.MathField(questionSpan, {handlers: {}});
 		</script>
 		
-		
 
 		<p class="wysiwyg">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://katex.org/docs/supported.html" target="_blank">here</a></p>
 		<br>
-		<hr>
 		<br>
+		<hr>
 		<div class="heading-container">
 			<h2 class="text-heading">Questions</h2>
 			<form action="/export" method="POST" class="form">
 				<input type="text" name="code" value="{{code}}" hidden>
 				<input type="text" name="password" value="{{password}}" hidden>
 				<button type="submit" class="button -as-link -flexend">
-					<p>Export</p>
+					<p class="wysiwyg">Export</p>
 					<img src="{{ url_for('static', filename='export-white.svg') }}" alt="Export questions" class="export-icon">
 				</button>
-				
 			</form>
-			
 		</div>
-		<p class="wysiwyg">Click a question below to see answers from students</p>
+		<!-- Changes to "Click a question below to see answers from students" -->
+		<p id="question-info" class="wysiwyg description">Once you submit a question, it'll appear below</p>
 		<br>
 		<!-- Gets filled by JS -->
 		<div id="questions" class="questions"></div>
