@@ -80,6 +80,9 @@ hr{
     border: 0; border-top: 1px solid var(--c-l-2);
 }
 
+summary{
+  cursor: pointer;
+}
 /* a demo https://codepen.io/coolbezos_420/pen/jOqWBqL?editors=1100 */
 /* reference for the css style, although, we use a slightly different version */
 /* https://www.cutestrap.com/features/popsicle */
@@ -181,6 +184,13 @@ b{
 ::-webkit-scrollbar-thumb {
   background: var(--c-yellow); 
 } */
+.force-base-link{
+  text-decoration: underline !important;
+  border-bottom: none !important;
+}
+.force-base-link:hover{
+  opacity: 0.8;
+}
 /* header block */
 .header {
   display: flex;
@@ -290,6 +300,10 @@ b{
     font-weight:500;
     text-decoration: underline;
     cursor: pointer;
+}
+.-as-link{
+  text-decoration: underline;
+  cursor: pointer;
 }
 .-as-link:hover{
   opacity:0.8
