@@ -105,14 +105,24 @@
 		
 
 		<p class="wysiwyg">All \(\LaTeX\) is supported. For a cheatsheet click <a href="https://katex.org/docs/supported.html" target="_blank">here</a></p>
+		<br>
+		<hr>
+		<br>
+		<div class="heading-container">
+			<h2 class="text-heading">Questions</h2>
 			<form action="/export" method="POST" class="form">
 				<input type="text" name="code" value="{{code}}" hidden>
 				<input type="text" name="password" value="{{password}}" hidden>
-				<input type="submit" value="Export questions" class="button -as-link">
+				<button type="submit" class="button -as-link -flexend">
+					<p>Export</p>
+					<img src="{{ url_for('static', filename='export-white.svg') }}" alt="Export questions" class="export-icon">
+				</button>
+				
 			</form>
-		<hr>
+			
+		</div>
+		<p class="wysiwyg">Click a question below to see answers from students</p>
 		<br>
-		<h3 class="text-heading -sub">Existing questions:</h3>
 		<!-- Gets filled by JS -->
 		<div id="questions" class="questions"></div>
 

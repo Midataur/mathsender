@@ -286,11 +286,22 @@ main {
     border: none;
     padding: 0!important;
     font-weight:500;
-    text-decoration: underline;
+    /* text-decoration: underline; */
     cursor: pointer;
 }
 .-as-link:hover{
   opacity:0.8
+}
+
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.export-icon {
+  width: 30px;
+  margin-left: 10px;
+  vertical-align: middle;
 }
 
 /* change how the file input button looks like on browser != firefox/ie */
