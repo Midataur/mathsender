@@ -722,8 +722,9 @@ main {
 }
 
 .summary-as-link {
-  /* text-decoration: underline; */
+  text-decoration: underline;
   cursor: pointer;
+  /* please actually think about what the class does before changing it */
 }
 
 .summary-as-link:hover{
@@ -737,9 +738,9 @@ main {
  border-radius:var(--mini-unit)
 }
 .details.-background{
-  background-color: var(--c-l-0);
+  background-color: var(--c-l-1);
   border-radius: var(--mini-unit);
-  border: 1px solid var(--c-l-2)
+  border: 1px solid var(--c-l-0)
 }
 
 .details-content{
