@@ -286,11 +286,25 @@ main {
     border: none;
     padding: 0!important;
     font-weight:500;
-    text-decoration: underline;
+    /* text-decoration: underline; */
     cursor: pointer;
 }
 .-as-link:hover{
   opacity:0.8
+}
+
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.export-icon {
+  width: calc(var(--mini-unit) * 3);
+  margin-left: var(--mini-unit);
+  vertical-align: middle;
+}
+.export-text {
+  text-decoration: underline;
 }
 
 /* change how the file input button looks like on browser != firefox/ie */
@@ -413,6 +427,27 @@ main {
   content: "Copied";
 }
 
+/* Number of students block */
+#student-count {
+  position:fixed;
+  bottom:calc(var(--mini-unit) * 4);
+  left: calc(var(--mini-unit) * -1);
+  /* left:calc(var(--mini-unit) * 4); */
+
+  border: 1px solid var(--c-l-5);
+  padding: var(--mini-unit);
+  padding-left: calc(var(--mini-unit) * 2.5);
+  padding-right: calc(var(--mini-unit) * 2);
+  border-radius: var(--mini-unit);
+  
+  background-color: var(--c-blue--darkest);
+  background-color: var(--c-l-0);
+  border-color: var(--c-blue);
+
+  color: var(--c-blue);
+  font-size: calc(var(--mini-unit) * 2.5) ;
+  font-weight: 500;
+}
 /* footer block */
 .footer {
   text-align: center;
@@ -559,6 +594,15 @@ main {
   scrollbar-width: thin; */
 }
 
+.description {
+  font-size: 0.8em;
+  line-height: 1.1;
+  font-weight: 400;
+  color: var(--c-l-8);
+}
+.description.hidden {
+  display: none;
+}
 /* some nice form blocks*/
 .form {
   margin-bottom: calc(var(--mini-unit) * 3);
@@ -680,6 +724,7 @@ main {
 .summary-as-link {
   text-decoration: underline;
   cursor: pointer;
+  /* please actually think about what the class does before changing it */
 }
 
 .summary-as-link:hover{
@@ -693,9 +738,9 @@ main {
  border-radius:var(--mini-unit)
 }
 .details.-background{
-  background-color: var(--c-l-0);
+  background-color: var(--c-l-1);
   border-radius: var(--mini-unit);
-  border: 1px solid var(--c-l-2)
+  border: 1px solid var(--c-l-0)
 }
 
 .details-content{
