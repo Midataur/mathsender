@@ -298,11 +298,13 @@ main {
   justify-content: space-between;
   align-items: center;
 }
-
 .export-icon {
-  width: 25px;
-  margin-left: 10px;
+  width: calc(var(--mini-unit) * 3);
+  margin-left: var(--mini-unit);
   vertical-align: middle;
+}
+.export-text {
+  text-decoration: underline;
 }
 
 /* change how the file input button looks like on browser != firefox/ie */
@@ -598,7 +600,9 @@ main {
   font-weight: 400;
   color: var(--c-l-8);
 }
-
+.description.hidden {
+  display: none;
+}
 /* some nice form blocks*/
 .form {
   margin-bottom: calc(var(--mini-unit) * 3);

@@ -29,6 +29,11 @@
 	socket.on('answers_list', function( answers ) {
 		if (!loaded) {
             console.log(answers)
+            if (answers.length){
+                // Hide no-answers-info
+                info = document.getElementById('no-answers-info')
+                $(info).addClass("hidden")
+            }
             answers_div = document.getElementById('answers');   // answers_div is an empty div where all the answers will go
 			for (i = 0; i < answers.length; i++) {
                 answer = answers[i]
@@ -95,10 +100,13 @@
     // Handle new answers
     socket.on('new_answer_teacher', function( data ) {
         //Check that the question is for the right room
-        //make a room for each question (?)
+        // maybe make a room for each question (?)
         if (data['qid'] == '{{question["id"]}}'){
+            // Hide no-answers-info
+            info = document.getElementById('no-answers-info')
+                $(info).addClass("hidden")
+            
             answer = data['answer']
-
             // Generate the element
             answer_el = gen_answer_el(answer);
             container = document.getElementById('answer-'+answer['submitted_by']);
@@ -215,9 +223,10 @@
 
 
         <!-- Filled by JS -->
-        <h3 class="text-heading -sub">Answers:</h3>
+        <br><hr><br>
+        <h2 class="text-heading">Answers</h2>
         <div id="answers"></div>
-        
+        <p id="no-answers-info" class="wysiwyg description">Answers will pop up here - tell your students to hurry up and submit!</p>
 
         <!-- Show the number of students in the bottom left -->
 		<div id="student-count">0 students</div>
@@ -227,10 +236,10 @@
 				count_p = document.getElementById('student-count')
 				numStuds = newNumStuds;
 				if (numStuds == 1) {
-					count_p.textContent = '1 student';
+					count_p.innerText = '1 student';
 				}
 				else {
-					count_p.textContent = numStuds + ' students';
+					count_p.innerText = numStuds + ' students';
 				}
 			});
 		</script>

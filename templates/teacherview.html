@@ -110,7 +110,7 @@
 				<input type="text" name="code" value="{{code}}" hidden>
 				<input type="text" name="password" value="{{password}}" hidden>
 				<button type="submit" class="button -as-link -flexend">
-					<p class="wysiwyg">Export</p>
+					<p class="wysiwyg export-text">Export</p>
 					<img src="{{ url_for('static', filename='export-white.svg') }}" alt="Export questions" class="export-icon">
 				</button>
 			</form>
@@ -129,10 +129,10 @@
 				count_p = document.getElementById('student-count')
 				numStuds = newNumStuds;
 				if (numStuds == 1) {
-					count_p.textContent = '1 student';
+					count_p.innerText = '1 student';
 				}
 				else {
-					count_p.textContent = numStuds + ' students';
+					count_p.innerText = numStuds + ' students';
 				}
 			});
 		</script>
