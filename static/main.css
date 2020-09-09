@@ -722,7 +722,7 @@ main {
 }
 
 .summary-as-link {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   cursor: pointer;
 }
 
