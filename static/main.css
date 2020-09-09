@@ -296,10 +296,11 @@ main {
 .heading-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .export-icon {
-  width: 30px;
+  width: 25px;
   margin-left: 10px;
   vertical-align: middle;
 }
@@ -594,7 +595,7 @@ main {
 .description {
   font-size: 0.8em;
   line-height: 1.1;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--c-l-8);
 }
 
