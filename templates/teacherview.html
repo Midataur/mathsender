@@ -31,14 +31,6 @@
 </script>
 
 <script>
-	socket.on('current_student_count', function( newNumStuds ) {
-		count_span = document.getElementById('student-num')
-		numStuds = newNumStuds;
-		count_span.textContent = numStuds;
-	});
-</script>
-
-<script>
 	loaded = false;
 	//get all the questions
 	socket.on('question_list', function( questions ) {
@@ -84,7 +76,6 @@
 
 {% endblock %}
 {% block content %}
-		<span>Number of students joined: <span id="student-num">0</span></span><br/>
 		<h2 class="text-heading">Submit new question</h2>
 		<label class="field twopart-field">
 			<div class="twopart-field__left">Question:</div>
@@ -110,4 +101,20 @@
 		<!-- Gets filled by JS -->
 		<div id="questions" class="questions"></div>
 
-{%endblock%}
+		<!-- Show the number of students in the bottom left -->
+		<div id="student-count">0 students</div>
+		<script>
+			socket.on('current_student_count', function( newNumStuds ) {
+
+				count_p = document.getElementById('student-count')
+				numStuds = newNumStuds;
+				if (numStuds == 1) {
+					count_p.textContent = '1 student';
+				}
+				else {
+					count_p.textContent = numStuds + ' students';
+				}
+			});
+		</script>
+
+{% endblock %}

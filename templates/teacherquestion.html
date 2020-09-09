@@ -217,4 +217,21 @@
         <!-- Filled by JS -->
         <div id="answers"></div>
         <h3 class="text-heading -sub">Answers:</h3>
+
+        <!-- Show the number of students in the bottom left -->
+		<div id="student-count">0 students</div>
+		<script>
+			socket.on('current_student_count', function( newNumStuds ) {
+
+				count_p = document.getElementById('student-count')
+				numStuds = newNumStuds;
+				if (numStuds == 1) {
+					count_p.textContent = '1 student';
+				}
+				else {
+					count_p.textContent = numStuds + ' students';
+				}
+			});
+		</script>
+            
 {%endblock%}
