@@ -8,11 +8,23 @@
 {% block content %}
         <h2 class="text-heading">Teacher View</h2>
         <h3 class="text-heading -sub">Create new room:</h3>
-        <form action="/teacher/create" method="POST" class="form">
+        <form action="/teacher/create" method="POST" class="form" enctype="multipart/form-data">
             <label class="field twopart-field">
                 <div class="twopart-field__left">Password:</div>
                 <input type="password" name="password" class="field__input twopart-field__right -password" required/>
             </label>
+            <details class="details">
+                <summary>Import Question Set</summary>
+                <div class="details-content">
+                    <div class="details-form-container form">
+                        <label class="field">
+                            <input type="file" id="file" name="questions" class="field__input" accept=".json"/>
+                        </label>
+                    </div>
+                    
+                </div>
+            </details>
+            
             <input type="submit" value="▣ Create Room" class="button -fill">
         </form>
         <br>
