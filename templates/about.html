@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
         <h2 class="text-heading">About MathSender</h2>
-				<p class="wysiwyg">MathSender lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur tempore expedita, accusantium architecto cupiditate impedit autem aliquid enim et beatae laborum labore deleniti voluptatum maxime quae, doloribus quo provident saepe!</p>
+				<p class="wysiwyg">MathSender is a tool desgined to help teachers ask maths questions to students during online learning. Born out of how garbage sending equations via Webex text chat is, MathSender provides a way to send beautiful \(\LaTeX\) based expressions in real time via a question and answer system.</p>
 			<!--<div class="action-button">
 				<div class="button-group -fill">
             <a class="button -primary -fill button-group__button" href="#">
@@ -21,9 +21,9 @@
 				<div class="details-content">
 					<p>Mathsender was made by:</p>
 					<p class="links-list">
-						<li>@ehne — <a href="#" class="link">Github</a></li>
-						<li>@midataur — <a href="#" class="link">Github</a></li>
-						<li>@jmang0 — <a href="#" class="link">Github</a></li>
+						<li>@ehne — <a href="https://github.com/ehne" class="link">Github</a></li>
+						<li>@midataur — <a href="https://github.com/midataur" class="link">Github</a></li>
+						<li>@jmang0 — <a href="https://github.com/jmang0" class="link">Github</a></li>
 					</p>
 					 
 					
@@ -32,9 +32,9 @@
 			<details class="details">
 				<summary class="details-summary">Changelog</summary>
 				<div class="details-content wysiwyg">
-					<p><b>2 September 2020:</b> added the about page you are looking at right now.</p>
-					<p><b>10 August 2020:</b> all of these things should be generated using jinja templates probably, and a seperate python file with just, a dictionary/list of the different stuff y'know.</p>
-					<p><b>9 August 2020:</b> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque, doloremque. Sed inventore molestias maxime iusto unde accusamus fugit suscipit ab id, impedit consectetur minus quia, at consequatur repudiandae quaerat reprehenderit.</p>
+					{%for i in changelogData%}
+					<p><b>{{i["DATE"]}}:</b> {{i["NEWS"]}}</p>
+					{%endfor%}
 				</div>
 			</details>
 {%endblock%}
