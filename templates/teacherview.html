@@ -104,14 +104,13 @@
 		<br>
 		<hr>
 		<br>
-		<div class="heading-container">
+		<div class="heading-flex-container">
 			<h2 class="text-heading">Questions</h2>
 			<form action="/export" method="POST" class="form">
 				<input type="text" name="code" value="{{code}}" hidden>
 				<input type="text" name="password" value="{{password}}" hidden>
-				<button type="submit" class="button -as-link -flexend">
-					<p class="wysiwyg export-text">Export</p>
-					<img src="{{ url_for('static', filename='export-white.svg') }}" alt="Export questions" class="export-icon">
+				<button type="submit" class="button -as-link -flexend -with-icon">
+					Save Questions <span class="iconify -right-of-text" data-icon="carbon:document-download" data-width="24px" data-height="24px"></span>
 				</button>
 			</form>
 		</div>

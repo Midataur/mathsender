@@ -181,6 +181,28 @@ main {
 ::-webkit-scrollbar-thumb {
   background: var(--c-yellow); 
 } */
+
+/* main container block */
+.container {
+  width: 100%;
+  margin: 0px auto;
+  padding: var(--mini-unit);
+  padding-top: calc(var(--mini-unit) * 4);
+}
+.container > * {
+  margin-bottom: var(--mini-unit);
+}
+@media (min-width: 600px) {
+  .container {
+    max-width: 600px;
+  }
+}
+@media (min-width: 900px) {
+  .container {
+    max-width: 900px;
+  }
+}
+
 /* header block */
 .header {
   display: flex;
@@ -279,8 +301,11 @@ main {
 .button.-secondary:hover {
   background-color: var(--c-yellow--darkest);
 }
-.button.-with-icon>.iconify{
+.button.-with-icon>.iconify.-left-of-text{
   margin-right: var(--mini-unit);
+}
+.button.-with-icon>.iconify.-right-of-text{
+  margin-left: var(--mini-unit);
 }
 .button.-math{
   padding-top:var(--mini-unit);
@@ -298,10 +323,14 @@ main {
   opacity:0.8
 }
 
-.heading-container {
+.heading-flex-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: calc(var(--mini-unit) * 3);
+}
+.heading-flex-container>*{
+  margin-bottom:0px !important
 }
 .export-icon {
   width: calc(var(--mini-unit) * 3);
@@ -362,27 +391,6 @@ main {
 
 }
 
-
-/* main container block */
-.container {
-  width: 100%;
-  margin: 0px auto;
-  padding: var(--mini-unit);
-  padding-top: calc(var(--mini-unit) * 4);
-}
-.container > * {
-  margin-bottom: var(--mini-unit);
-}
-@media (min-width: 600px) {
-  .container {
-    max-width: 600px;
-  }
-}
-@media (min-width: 900px) {
-  .container {
-    max-width: 900px;
-  }
-}
 
 .questions > * {
   margin-bottom: var(--mini-unit);
