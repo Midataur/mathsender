@@ -24,7 +24,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
        
-    <link href="{{ url_for('static', filename='main.css') }}?q=toast" type="text/css" rel="stylesheet">
+
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+
+    <link href="{{ url_for('static', filename='main.css') }}?q=icons" type="text/css" rel="stylesheet">
 
     <!-- Socket config -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
@@ -120,8 +123,8 @@
             </div>
             {% endif %}
 
-            <a class="button -small -secondary button-group__button" href="/student/join">
-                ◈ Join a room
+            <a class="button -small -secondary button-group__button -with-icon" href="/student/join">
+                <span class="iconify" data-icon="carbon:face-add" data-width="20px" data-height="20px"></span> Join a room
             </a>
         </div>
     </header>
