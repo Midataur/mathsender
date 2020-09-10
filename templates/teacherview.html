@@ -109,9 +109,9 @@
 			<form action="/export" method="POST" class="form">
 				<input type="text" name="code" value="{{code}}" hidden>
 				<input type="text" name="password" value="{{password}}" hidden>
-				<button type="submit" class="button -as-link -flexend">
-					<p class="wysiwyg export-text">Export</p>
-					<img src="{{ url_for('static', filename='export-white.svg') }}" alt="Export questions" class="export-icon">
+				<button type="submit" class="button -as-link export-button">
+					<p class="wysiwyg">Export</p>
+					<img src="{{ url_for('static', filename='export-white.svg') }}" alt="Export questions">
 				</button>
 			</form>
 		</div>

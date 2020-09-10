@@ -294,17 +294,21 @@ main {
 }
 
 .heading-container {
-  margin-bottom: 0!important;
+  margin-bottom: calc(var(--mini-unit) * 3)!important;
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.export-icon {
+.heading-container h2,form {
+  margin-bottom: 0!important;
+}
+.export-button img {
   width: calc(var(--mini-unit) * 3);
   margin-left: var(--mini-unit);
   vertical-align: middle;
 }
-.export-text {
+.export-button p {
   text-decoration: underline;
 }
 
@@ -431,15 +435,16 @@ main {
 /* Number of students block */
 #student-count {
   position:fixed;
-  bottom:calc(var(--mini-unit) * 4);
+  bottom: calc(var(--mini-unit) * 4);
   left: calc(var(--mini-unit) * -1);
   /* left:calc(var(--mini-unit) * 4); */
 
-  border: 1px solid var(--c-l-5);
   padding: var(--mini-unit);
   padding-left: calc(var(--mini-unit) * 2.5);
   padding-right: calc(var(--mini-unit) * 2);
+  border: 1px solid var(--c-l-5);
   border-radius: var(--mini-unit);
+  margin: 0px;
   
   background-color: var(--c-blue--darkest);
   background-color: var(--c-l-0);
