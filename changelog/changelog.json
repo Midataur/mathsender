@@ -7,10 +7,11 @@
             "about() function",
             "changelog.json and guide to creating an update",
             "border styling applied to the .details class",
-            ".details-content class to add padding to the details content."
+            ".details-content class to add padding to the details content.",
+            "link to the about page in the navbar (only shows up on pages without a roomcode)"
         ],
         "Changed":[
-            "footer links now link to the about page, as opposed to the collective fullstack website and the contributions graph.",
+            "footer link text has changed as an about page exists now",
             "font weight of <b></b> tags is now 700"
         ],
         "Deprecated":[

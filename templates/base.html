@@ -117,9 +117,13 @@
             <script>new ClipboardJS('.room-code')</script>
             <div class="room-code -pointer  button-group__button" data-clipboard-text="{{code}}" onclick="codeCopied(this)">
                 <span>Room Code: {{code}}</span>
-            </div>
+            </div>    
+            {% else %}
+            <a class="button -small -primary button-group__button" href="/about">
+                About MathSender
+            </a>        
             {% endif %}
-
+            
             <a class="button -small -secondary button-group__button" href="/student/join">
                 ◈ Join a room
             </a>
@@ -133,7 +137,7 @@
     
     <!-- footer -->
     <div class="footer">
-        <a href="/about" class="footer__a">About</a>  — <a href="https://github.com/Midataur/mathsender" class="footer__a">Github</a></div>
+        <a href="https://collective-fullstack.github.io" class="footer__a">(c) 2020 Collective Fullstack</a>  — <a href="https://github.com/Midataur/mathsender" class="footer__a">Github</a></div>
     {%block foot%}
     {%endblock%}
     <div class="toast -warning -floating" id="alert">
