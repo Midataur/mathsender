@@ -26,6 +26,13 @@
 		console.log(questions)
 		if (!loaded) {
 			console.log(questions)
+
+			if (questions.length) {
+				// Hide no-questions-info
+				info = document.getElementById('no-questions-info')
+                $(info).addClass("hidden")
+			}
+
 			for (i = 0; i < questions.length; i++) {
 				question = questions[i]
 				question_el = gen_question_el('\\('+question['text']+'\\)',question['id']);
@@ -39,16 +46,21 @@
 
 <script type="text/javascript" charset="utf-8">
     socket.on('new_question_client', function( qdata ) {
+		// Hide no-questions-info
+		info = document.getElementById('no-questions-info')
+		console.log(info)
+        $(info).addClass("hidden")
+
 		question = '\\('+qdata[0]+'\\)';
 		qid = qdata[1];
 
+		// Generate an element
         question_el = gen_question_el(question,qid);
 		question_el.firstChild.href = "/student/room/{{code}}/questions/"+qid+"?name={{name}}"
         console.log(question_el);
         
-		questions = document.getElementById('questions');
-		questions.insertBefore(question_el, questions.firstChild);
-		renderMathInElement(question_el);
+		// Actually add it
+		add_question(question_el) // the exact code in the function was repeated lmao		
     });
 </script>
 
@@ -73,4 +85,7 @@
 		<h2 class="text-heading">Questions</h2>
 		<!-- Filled by JS -->
 		<div id="questions" class="questions"></div>
+
+		<p id="no-questions-info" class="wysiwyg description">When your teacher submits a question, it'll pop up here.</p>
+
 {%endblock%}
