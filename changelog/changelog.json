@@ -1,10 +1,17 @@
 [
     {
-        "DATE":"2020-09-04",
-        "NEWS":"",
+        "DATE":"2020-09-10",
+        "NEWS":"Added the about page you are reading now.",
         "Added":[
+            "about.html template",
+            "about() function",
+            "changelog.json and guide to creating an update",
+            "border styling applied to the .details class",
+            ".details-content class to add padding to the details content."
         ],
         "Changed":[
+            "footer links now link to the about page, as opposed to the collective fullstack website and the contributions graph.",
+            "font weight of <b></b> tags is now 700"
         ],
         "Deprecated":[
         ],
