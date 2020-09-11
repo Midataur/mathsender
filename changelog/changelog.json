@@ -16,7 +16,8 @@
     "Changed": [
       "footer link text has changed as an about page exists now",
       "font weight of <b></b> tags is now 700",
-      "<ul> tag now has 3mu left padding (0mu -> 3mu)"
+      "<ul> tag now has 3mu left padding (0mu -> 3mu)",
+      "main.css request has q=about now, so that the stylesheet reloads."
     ],
     "Deprecated": [],
     "Removed": [],
