@@ -721,3 +721,8 @@ ul > li {
 .details-form-container {
   padding-top: calc(2 * var(--mini-unit));
 }
+
+.support-button-container{
+  padding-top: calc(var(--mini-unit) * 2);
+  padding-bottom: calc(var(--mini-unit) * 3);
+}

@@ -9,7 +9,9 @@
       "border styling applied to the .details class",
       ".details-content class to add padding to the details content.",
       "link to the about page in the navbar (only shows up on pages without a roomcode)",
-      "<li> tags that are children of <ul> tags now have 1mu bottom margin."
+      "<li> tags that are children of <ul> tags now have 1mu bottom margin.",
+      "funding button",
+      "support-button-container class to get the padding to be nice around the funding button."
     ],
     "Changed": [
       "footer link text has changed as an about page exists now",
