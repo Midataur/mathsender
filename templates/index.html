@@ -1,16 +1,17 @@
-{% extends "base.html" %}
-{% block title%}Home{%endblock%}
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='wysiwyg.css') }}">
-	    
-		
-{% endblock %}
-{% block content %}
-    <div class="wysiwyg">
-        <h2 >Welcome to MathSender!</h2>
+{% extends "base.html" %} {% block title%}Home{%endblock%} {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='wysiwyg.css') }}" />
 
-        <p>MathSender is a tool desgined to help teachers ask maths questions to students during online learning. Born out of how garbage sending equations via Webex text chat is, MathSender provides a way to send beautiful \(\LaTeX\) based expressions in real time via a question and answer system.</p>
-        <a href="/student/join" class="button">Student Join Room</a>
-        <a href="/teacher/home" class="button">Teacher Room Setup</a>
-    </div>
+{% endblock %} {% block content %}
+<div class="wysiwyg">
+  <h2>Welcome to MathSender!</h2>
+
+  <p>
+    MathSender is a tool designed to help teachers ask maths questions to
+    students during online learning. Born out of how garbage sending equations
+    via Webex text chat is, MathSender provides a way to send beautiful
+    \(\LaTeX\) based expressions in real time via a question and answer system.
+  </p>
+  <a href="/student/join" class="button">Student Join Room</a>
+  <a href="/teacher/home" class="button">Teacher Room Setup</a>
+</div>
 {%endblock%}

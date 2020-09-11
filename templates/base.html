@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
        
-    <link href="{{ url_for('static', filename='main.css') }}?q=toast" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='main.css') }}?q=about" type="text/css" rel="stylesheet">
 
     <!-- Socket config -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
@@ -117,9 +117,13 @@
             <script>new ClipboardJS('.room-code')</script>
             <div class="room-code -pointer  button-group__button" data-clipboard-text="{{code}}" onclick="codeCopied(this)">
                 <span>Room Code: {{code}}</span>
-            </div>
+            </div>    
+            {% else %}
+            <a class="button -small -primary button-group__button" href="/about">
+                About MathSender
+            </a>        
             {% endif %}
-
+            
             <a class="button -small -secondary button-group__button" href="/student/join">
                 ◈ Join a room
             </a>
@@ -133,7 +137,7 @@
     
     <!-- footer -->
     <div class="footer">
-        <a href="https://collective-fullstack.github.io" class="footer__a">Made by Collective Fullstack</a> <a class="footer__a" href="https://github.com/Midataur/mathsender/graphs/contributors">and friends</a> — <a href="https://github.com/Midataur/mathsender" class="footer__a">Github</a></div>
+        <a href="https://collective-fullstack.github.io" class="footer__a">(c) 2020 Collective Fullstack</a>  — <a href="https://github.com/Midataur/mathsender" class="footer__a">Github</a></div>
     {%block foot%}
     {%endblock%}
     <div class="toast -warning -floating" id="alert">

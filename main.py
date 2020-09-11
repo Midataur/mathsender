@@ -297,6 +297,12 @@ def student_question(code,qid):
             return ''
     else:
         return 'Invalid room code'
+@app.route("/about")
+def aboutPage():
+    cData = ""
+    with open('changelog/changelog.json') as f:
+        cData = json.load(f)
+    return render_template('about.html', changelogData=cData)
 
 @app.route('/export',methods=["POST"])
 def export_questions():

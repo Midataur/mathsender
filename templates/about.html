@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title%}About{%endblock%}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='wysiwyg.css') }}">
+	    
+		
+{% endblock %}
+{% block content %}
+		<h2 class="text-heading">About MathSender</h2>
+			<div class="wysiwyg">
+				<p>MathSender is a tool designed to help teachers ask maths questions to students during online learning. Born out of how garbage sending equations via Webex text chat is, MathSender provides a way to send beautiful \(\LaTeX\) based expressions in real time via a question and answer system.</p>
+				<p><i>MathSender is a <a href="https://collective-fullstack.github.io" class="force-base-link">Collective Fullstack</a> product.</i></p>
+			
+			</div>
+				<div class="support-button-container">
+					<a class="button -secondary -fill button-group__button" href="https://liberapay.com/MathSender/donate">
+					   $ Support MathSender
+					</a>
+				</div>
+					
+			</div>
+			<details class="details">
+				<summary class="details-summary">Contributors</summary>
+				<div class="details-content">
+					<p>Mathsender was made by:</p>
+					<p class="links-list">
+						<ul>
+							<li>@ehne — <a href="https://github.com/ehne" class="link">Github</a></li>
+							<li>@midataur — <a href="https://github.com/midataur" class="link">Github</a></li>
+							<li>@jmang0 — <a href="https://github.com/jmang0" class="link">Github</a></li>	
+						</ul>
+					</p>
+					 
+					
+				</div>
+			</details>
+			<details class="details">
+				<summary class="details-summary">Changelog</summary>
+				<div class="details-content wysiwyg">
+					{%for i in changelogData%}
+					<p><b>{{i["DATE"]}}:</b> {{i["NEWS"]}}</p>
+					{%endfor%}
+				</div>
+			</details>
+{%endblock%}
