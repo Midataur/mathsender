@@ -17,13 +17,18 @@ def create_app():
     global app
     return app
 
-def valid_code(code):
+def code_exists(code):
+    # Check if a room with that code already exists
     global classrooms
+    return bool(classrooms[code]) # since it's a default dict, if the code doesn't exist it will just be None which is False
+
+def valid_code(code):
+    # Check if a code is valid (right format AND exists)
     try:
         code = int(code)
     except ValueError:
         return False
-    return code in classrooms
+    return code_exists(code)
 
 def fetch_answer(answers,name):
     for x in answers:
@@ -191,7 +196,12 @@ def teacher_join():
 @app.route('/teacher/create',methods=['POST'])
 def teacher_create():
     global classrooms
-    code = random.randint(100000,999999)
+    
+    while code := random.randint(100000,999999): # generate a random room code
+        if code_exists(code): 
+            continue #if it already exists, generate a new one
+        break
+
     password = request.form['password']
     classrooms[code] = {
         'password': password,
