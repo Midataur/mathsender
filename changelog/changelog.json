@@ -20,7 +20,9 @@
     ],
     "Deprecated": [],
     "Removed": [],
-    "Fixed": [],
+    "Fixed": [
+        "spelling mistake on homepage and main page. (desgined -> designed)"
+    ],
     "Security": []
   }
 ]
