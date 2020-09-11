@@ -20,7 +20,7 @@ def create_app():
 def code_exists(code):
     # Check if a room with that code already exists
     global classrooms
-    return code in classrooms
+    return bool(classrooms[code]) # since it's a default dict, if the code doesn't exist it will just be None which is False
 
 def valid_code(code):
     # Check if a code is valid (right format AND exists)
