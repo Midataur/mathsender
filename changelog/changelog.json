@@ -1,26 +1,24 @@
 [
-    {
-        "DATE":"2020-09-10",
-        "NEWS":"Added the about page you are reading now.",
-        "Added":[
-            "about.html template",
-            "about() function",
-            "changelog.json and guide to creating an update",
-            "border styling applied to the .details class",
-            ".details-content class to add padding to the details content.",
-            "link to the about page in the navbar (only shows up on pages without a roomcode)"
-        ],
-        "Changed":[
-            "footer link text has changed as an about page exists now",
-            "font weight of <b></b> tags is now 700"
-        ],
-        "Deprecated":[
-        ],
-        "Removed":[
-        ],
-        "Fixed":[
-        ], 
-        "Security":[
-        ] 
-    }
+  {
+    "DATE": "2020-09-10",
+    "NEWS": "Added the about page you are reading now.",
+    "Added": [
+      "about.html template",
+      "about() function",
+      "changelog.json and guide to creating an update",
+      "border styling applied to the .details class",
+      ".details-content class to add padding to the details content.",
+      "link to the about page in the navbar (only shows up on pages without a roomcode)",
+      "<li> tags that are children of <ul> tags now have 1mu bottom margin."
+    ],
+    "Changed": [
+      "footer link text has changed as an about page exists now",
+      "font weight of <b></b> tags is now 700",
+      "<ul> tag now has 3mu left padding (0mu -> 3mu)"
+    ],
+    "Deprecated": [],
+    "Removed": [],
+    "Fixed": [],
+    "Security": []
+  }
 ]
