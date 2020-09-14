@@ -2,6 +2,7 @@ from flask import Flask, request, url_for, render_template, make_response
 from flask_socketio import SocketIO, join_room, leave_room
 from collections import defaultdict
 import json
+import requests
 import random
 from datetime import datetime
 
@@ -164,6 +165,36 @@ def send_mark(protocol,answer,qid,code):
         room=code,
         broadcast=True
     )
+
+@socketio.on('create_data_sheet')
+def create_data_sheet(code,email):
+    
+    # Format the data
+    global classrooms
+    data = classrooms[int(code)]
+    print(data)
+
+    # remove the password
+    # add the email address
+    data.pop('password')
+    data['email'] = email
+    
+    data = json.dumps(data)
+
+    print(data)
+    # Make a POST request to the google script
+	# https://script.google.com/macros/s/AKfycby6Q7F8ANMItEfLXNSExPztX2oMSjq_7wPqhtspynUhhB-7BW8/exec
+
+    r = requests.post(
+        'https://script.google.com/macros/s/AKfycby6Q7F8ANMItEfLXNSExPztX2oMSjq_7wPqhtspynUhhB-7BW8/exec',
+        'hello'
+        )
+
+    # example of data
+    # {'password': 'rafwef', 'questions': {1: {'text': '1+\\frac{1}{2}', 'id': 1, 'answers': [{'submitted_by': 'Jai', 'answer': '\\(\\frac{3}{2}\\)', 'correct': True}, {'submitted_by': 'James', 'answer': '\\(1.5\\)', 'correct': True}], 'corrections': {'correct': ['\\(\\frac{3}{2}\\)', '\\(1.5\\)'], 'incorrect': []}}, 2: {'text': '2^3', 'id': 2, 'answers': [{'submitted_by': 'Jai', 'answer': '\\(1\\)', 'correct': None}, {'submitted_by': 'James', 'answer': '\\(6\\)', 'correct': True}], 'corrections': {'correct': ['\\(6\\)'], 'incorrect': []}}, 3: {'text': '2+4', 'id': 3, 'answers': [{'submitted_by': 'Jai', 'answer': '\\(6\\)', 'correct': True}, {'submitted_by': 'James', 'answer': '\\(5\\)', 'correct': False}], 'corrections': {'correct': ['\\(6\\)'], 'incorrect': ['\\(5\\)']}}}, 'curqid': 3, 'students': ['Jai', 'James', 'Lazy']}
+    
+ 
+    
 
 ### ROUTES ###
 

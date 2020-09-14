@@ -24,8 +24,8 @@
 
 <script>
 	function add_question(question_el) {
-		questions = document.getElementById('questions');
-		questions.insertBefore(question_el, questions.firstChild);
+		questionsDiv = document.getElementById('questions');
+		questionsDiv.insertBefore(question_el, questionsDiv.firstChild);
 		renderMathInElement(question_el);
 	}
 </script>
@@ -82,6 +82,19 @@
     });
 </script>
 
+<script>
+	function create_data_sheet() {
+		//Just for functionality, style it latter
+		document.getElementById('send_data').innerText = 'Sent' 
+
+		// Data to send
+		email = 'man0011@jmss.vic.edu.au'
+
+		// Pass to server
+		socket.emit('create_data_sheet','{{code}}',email)
+	}
+</script>
+
 {% endblock %}
 {% block content %}
 
@@ -115,5 +128,7 @@
 		<h3 class="text-heading -sub">Existing questions:</h3>
 		<!-- Gets filled by JS -->
 		<div id="questions" class="questions"></div>
+
+		<p id="send_data" class="summary-as-link" onclick="create_data_sheet()">Send Answer Data</p>
 
 {%endblock%}
