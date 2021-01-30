@@ -13,7 +13,7 @@
 
 <script>
 	function send_question() {
-		var question = questionMathField.latex();
+		var question = questionMathField.value;
 		var code = '{{code}}';
 		var password = '{{password}}'
 		socket.emit('new_question',question,code,password);
@@ -89,17 +89,16 @@
 		<h2 class="text-heading">Submit new question</h2>
 		<label class="field twopart-field">
 			<div class="twopart-field__left">Question:</div>
-			<span id="question-input" class="field__input twopart-field__right -math"></span>
+			<math-field id="ml" class="field__input twopart-field__right -math" smart-mode="true" smart-superscript="false" virtual-keyboard-mode="manual" virtual-keyboard-theme="apple" style="padding-left: var(--mini-unit)"></math-field>
+			
 		</label>
 		<label class="field">
 			<button onclick="send_question();" class="button -fill">Submit question</button>
 		</label>
 			
 		
-		<!-- MathQuill -->
 		<script>
-			var questionSpan = document.getElementById('question-input');
-			var questionMathField = MQ.MathField(questionSpan, {handlers: {}});
+			var questionMathField = document.getElementById('ml');
 		</script>
 		
 		

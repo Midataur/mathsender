@@ -535,7 +535,11 @@ main {
 	border-left:0px transparent !important
 }
 .twopart-field__right.-math{
-  font-size:100%
+  font-size:100%;
+  --hue: 53 im !important;
+  --caret: var(--c-blue);
+  --primary: var(--c-l-8);
+  padding:0
 }
 
 /* text heading block */

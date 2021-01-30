@@ -15,7 +15,8 @@
 
 <script>
 	function send_answer() {
-		var answer = answerMathField.latex();
+		var answer = answerMathField.getValue("latex-expanded");
+		console.log("studentquestion/send_answer")
 		var code = '{{code}}';
 		var qid = '{{question["id"]}}'
 		var name = '{{name}}'
@@ -84,9 +85,10 @@
 			current_answer.hidden = false;
 			current_answer.textContent = "Your current answer: "+answer['answer']; */
 			//var mathQuillInput = MQ(document.querySelector("#answer-input"))
-			answerMathField.select()
+			/*answerMathField.select()
 			answerMathField.clearSelection()
-			answerMathField.write(answer['answer']['answer'])
+			answerMathField.write(answer['answer']['answer'])*/
+			answerMathField.value = answer['answer']['answer']
 
 			document.getElementById('submit-or-change').textContent = 'Change answer:';
 			//renderMathInElement(current_answer);
@@ -109,24 +111,25 @@
 		<h3 class="text-heading -sub" id="submit-or-change">Submit answer:</h3>
 		{% endif %}
 		
-		<label class="field"><span id="answer-input" class="field__input"></span></label>
 		
-		<!-- MathQuill -->
-		<script>
-			var answerSpan = document.getElementById('answer-input');
-			var answerMathField = MQ.MathField(answerSpan, {handlers: {}});
-		</script>
+		<label class="field"><div id="mf" class="field__input"></div></label>
+		<span id="latex"></span>
+		<!-- MathLive -->
+		<script>const answerMathField = MathLive.makeMathField('mf', {
+			smartMode: true,
+			virtualKeyboardMode: 'manual',
+		});</script>
 
 		{% if answer %}
 		<script>
+		
 			$( document ).ready(function(){
-				answerMathField.focus()
-				answerMathField.select()
-				answerMathField.clearSelection()
-				answerMathField.write('{{answer["answer"]}}'.slice(2).slice(0,-2))
-				tmp='{{answer["answer"]}}'.slice(2).slice(0,-2)
+				answerMathField.setValue('{{answer["answer"]}}') 
+				console.log("studentquestion.html/docready", '{{answer["answer"]}}')
 				markCss(`{{answer["correct"]}}`)
 			})
+			
+			
 			
 		</script>
 		{% endif %}
