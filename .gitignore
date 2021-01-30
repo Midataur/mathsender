@@ -1,2 +1,4 @@
 .vscode
+.nova
 __pycache__
+env
