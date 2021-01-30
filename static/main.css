@@ -714,3 +714,26 @@ main {
   padding-top: calc(2 * var(--mini-unit));
 }
 
+
+
+.ML__keyboard {
+  padding: var(--mini-unit);
+  --hue: 190 !important;
+  --keyboard-background: var(--c-l-3) !important;
+  --keyboard-text: var(--c-l-9) !important;
+  --keyboard-text-active: var(--c-blue--light) !important;
+  --keyboard-background-border: var(--c-l-3) !important;
+  --keycap-background: var(--c-l-5) !important;
+  --keycap-background-active: var(--c-l-4) !important;
+  --keycap-background-border: var(--c-l-4) !important;
+  --keycap-background-border-bottom: var(--c-l-4) !important;
+  --keycap-text: var(--c-l-10) !important;
+  --keycap-text-active: var(--c-l-1) !important;
+  --keycap-secondary-text: var(--c-l-10) !important;
+  --keycap-modifier-background: hsl(var(--hue,212),35%,41%) !important;
+  --keycap-modifier-border: var(--c-l-4) !important;
+  --keycap-modifier-border-bottom: var(--c-l-4) !important;
+  --keyboard-alternate-background: var(--c-l-5) !important;
+  --keyboard-alternate-background-active: var(--c-blue--dark) !important;
+  --keyboard-alternate-text: var(--c-l-10) !important;
+}
