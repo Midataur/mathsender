@@ -13,7 +13,7 @@
 
 <script>
 	function send_question() {
-		var question = questionMathField.value;
+		var question = questionMathField.getValue();
 		var code = '{{code}}';
 		var password = '{{password}}'
 		socket.emit('new_question',question,code,password);
@@ -89,8 +89,7 @@
 		<h2 class="text-heading">Submit new question</h2>
 		<label class="field twopart-field">
 			<div class="twopart-field__left">Question:</div>
-			<math-field id="ml" class="field__input twopart-field__right -math" smart-mode="true" smart-superscript="false" virtual-keyboard-mode="manual" virtual-keyboard-theme="apple" style="padding-left: var(--mini-unit)"></math-field>
-			
+			<div id="mf" class="field__input twopart-field__right -math"></div>			
 		</label>
 		<label class="field">
 			<button onclick="send_question();" class="button -fill">Submit question</button>
@@ -98,7 +97,7 @@
 			
 		
 		<script>
-			var questionMathField = document.getElementById('ml');
+			const questionMathField = MathLive.makeMathField('mf', MLkeyboardOptions);
 		</script>
 		
 		

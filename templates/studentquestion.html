@@ -115,10 +115,7 @@
 		<label class="field"><div id="mf" class="field__input"></div></label>
 		<span id="latex"></span>
 		<!-- MathLive -->
-		<script>const answerMathField = MathLive.makeMathField('mf', {
-			smartMode: true,
-			virtualKeyboardMode: 'manual',
-		});</script>
+		<script>const answerMathField = MathLive.makeMathField('mf', MLkeyboardOptions);</script>
 
 		{% if answer %}
 		<script>
