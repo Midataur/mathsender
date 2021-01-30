@@ -167,7 +167,7 @@
 
 <script>
 	function send_question() {
-		var question = questionMathField.latex();
+		var question = questionMathField.getValue();
 		var code = '{{code}}';
 		var password = '{{password}}'
 		socket.emit('edit_question',question,code,password,'{{question["id"]}}');
@@ -189,7 +189,7 @@
         <div class="change-question-main">
             <label class="field twopart-field">
                 <div class="twopart-field__left">Question:</div>
-                <span id="question-input" class="field__input twopart-field__right -math"></span>
+                <div id="mf" class="field__input twopart-field__right -math"></div>
             </label>
             <label class="field">
                 <button onclick="send_question();" class="button -fill ">Change Question</button>
@@ -202,10 +202,9 @@
        
 			
 		
-		<!-- MathQuill -->
+		<!-- MathLive -->
 		<script>
-			var questionSpan = document.getElementById('question-input');
-			var questionMathField = MQ.MathField(questionSpan, {handlers: {}});
+			const questionMathField = MathLive.makeMathField('mf', MLkeyboardOptions);
             // note: it should fill in the field the same way it does with the student answer page, but idk how you did that, so...
             //questionMathField.write('{{question["text"]}}')
 		    //tmp='{{question["text"]}}'.slice(2).slice(0,-2)
