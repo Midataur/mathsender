@@ -539,7 +539,7 @@ main {
   --hue: 53 im !important;
   --caret: var(--c-blue);
   --primary: var(--c-l-8);
-  padding:0
+  padding:0 var(--mini-unit)
 }
 
 /* text heading block */
